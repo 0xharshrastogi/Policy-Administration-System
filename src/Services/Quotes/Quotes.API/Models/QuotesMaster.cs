@@ -7,21 +7,41 @@ public class QuotesMaster
 
     public int MinBusinessValue { get; set; }
     public int MaxBusinessValue { get; set; }
-    public int BusinessValue { get
-    {return this.BusinessValue;}
-     set{
-        if(value>MinBusinessValue && value<MaxBusinessValue)
-        this.BusinessValue=value;
-    } }
+    public int BusinessValue
+    {
+        get
+        { return this.BusinessValue; }
+        set
+        {
+            if (value > MinBusinessValue && value < MaxBusinessValue)
+            {
+                this.BusinessValue = value;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid value.");
+            }
+        }
+    }
     public int MinPropertyValue { get; set; }
     public int MaxPropertyValue { get; set; }
-    public int PropertyValue { get
-    {return this.PropertyValue;}
-     set{
-        if(value>MinPropertyValue && value<MaxPropertyValue)
-        this.PropertyValue=value;
-    } } 
+    public int PropertyValue
+    {
+        get
+        { return this.PropertyValue; }
+        set
+        {
+            if (value > MinPropertyValue && value < MaxPropertyValue)
+            {
+                this.PropertyValue = value;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid value.");
+            }
+        }
+    }
     public string PropertyType { get; set; }
-    public string quoteValue { get; set; }
+    public string QuoteValue { get; set; }
 
 }
