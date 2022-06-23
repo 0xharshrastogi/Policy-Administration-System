@@ -7,9 +7,9 @@ public class PolicyMaster
 
     public string PropertyType { get; set; }
 
-    public string CustomerType { get; set; }
+    public CustomerType CustomerType { get; set; }
 
-    public TimeSpan Tenure { get; set; }
+    public int Tenure { get; set; }
 
     public decimal BusinessValue { get; set; }
 
@@ -17,5 +17,5 @@ public class PolicyMaster
 
     public string BaseLocation { get; set; }
 
-    public PolicyMasterType Type { get; set; }
+    public string Type { get; set; }
 }
