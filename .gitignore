@@ -455,6 +455,7 @@ $RECYCLE.BIN/
 .idea/ 
 .vscode/*
 .vscode
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
