@@ -1,4 +1,5 @@
 using Authentication.DTO;
+using Authentication.Extensions;
 using Authentication.Models;
 using Authentication.Repo;
 
@@ -12,9 +13,6 @@ namespace Authentication.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private static readonly List<Agent> _agents = new()
-    { };
-
     private readonly IAgentRepo _agentRepo;
 
     private readonly IMapper _mapper;
@@ -37,19 +35,17 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("Login")]
-    public ActionResult Login(AgentLoginDTO agentLogin)
+    public async Task<ActionResult> Login(AgentCredential credential)
     {
         if (!ModelState.IsValid) return BadRequest();
 
-        var agent = _agents.SingleOrDefault(a => a.UserName == agentLogin.UserName);
-        if (agent is null) return NotFound("User Not Found");
+        var agentDetail = await _agentRepo.FindByUserNameAsync(credential.UserName);
 
-        // using var hmac = new HMACSHA256(agent.Salt);
+        if (agentDetail is null)
+            return NotFound("InValid UserName");
 
-        // var isValid = hmac
-        //     .ComputeHash(Encoding.ASCII.GetBytes(agentLogin.Password))
-        //     .SequenceEqual(agent.Password);
+        var isCorrect = agentDetail.Compare(credential);
 
-        return Ok(new { agent });
+        return Ok(new { isCorrect });
     }
 }

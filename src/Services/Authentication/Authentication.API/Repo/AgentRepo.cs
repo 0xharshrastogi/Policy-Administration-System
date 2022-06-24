@@ -1,7 +1,5 @@
-using System.Text;
-using System.Security.Cryptography;
-
 using Authentication.Context;
+using Authentication.Extensions;
 using Authentication.Models;
 
 namespace Authentication.Repo;
@@ -17,18 +15,15 @@ public class AgentRepo : IAgentRepo
 
     public async Task CreateAsync(Agent agent)
     {
-        using var hmac = new HMACSHA512();
-        agent.Salt = Convert.ToBase64String(hmac.Key);
-        agent.Password = Convert.ToBase64String(hmac.ComputeHash(Encoding.ASCII.GetBytes(agent.Password)));
+        agent.Password = Hash.GeneratePassword(agent.Password, out var salt);
+        agent.Salt = salt;
+
         await _context.Agents.AddAsync(agent);
-        Console.WriteLine(agent.Password);
-        Console.WriteLine("\n\n");
-        Console.WriteLine(agent.Salt);
         await _context.SaveChangesAsync();
     }
 
-    public bool IsValid(AuthModel credential)
+    public async Task<Agent?> FindByUserNameAsync(string userName)
     {
-
+        return await _context.Agents.SingleOrDefaultAsync(a => a.UserName == userName);
     }
 }
