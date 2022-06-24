@@ -452,6 +452,7 @@ $RECYCLE.BIN/
 ##
 ## Visual Studio Code
 ##
+.idea/ 
 .vscode/*
 .vscode
 .vscode/*
@@ -460,3 +461,4 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 .vscode/launch.json
+.vscode/
