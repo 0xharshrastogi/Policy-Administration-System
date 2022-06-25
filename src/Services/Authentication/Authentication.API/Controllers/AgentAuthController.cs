@@ -25,50 +25,91 @@ public class AuthController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpPost("Signup")]
-    public async Task<ActionResult> SignUpAsync(AgentCreateDTO agentCreate)
+    private static string CreateJWT(IDictionary<string, string> keyValues)
     {
-        if (!ModelState.IsValid) return BadRequest();
-
-        var agent = _mapper.Map<Agent>(agentCreate);
-
-        if (false)
-            await _agentRepo.CreateAsync(agent);
-
         var expires = DateTime
-            .UtcNow
-            .AddMinutes(1);
+                .UtcNow
+                .AddMinutes(15);
 
-        var token = Jwt.CreateToken(
-            keyValues: new Dictionary<string, string>
-            {
-                [nameof(agent.UserName)] = agent.UserName,
-                [nameof(agent.Name)] = agent.Name,
-                [nameof(agent.Id)] = agent.Id.ToString()
-            },
-            expires
-        );
-
-        Response
-            .Cookies
-            .Append("jwt_token", token, new() { Expires = expires });
-
-        return Created(nameof(SignUpAsync), null);
+        return Jwt.CreateToken(keyValues, expires);
     }
 
-    [HttpGet("Login")]
+    private void InsertTokenToCookie(string token) => Response
+            .Cookies
+            .Append("jwt_token", token, new()
+            {
+                Expires = DateTime
+                .UtcNow
+                .AddMinutes(15)
+            });
+
+    [HttpPost(nameof(Signup))]
+    public async Task<ActionResult> Signup(AgentCreateDTO agentCreate)
+    {
+        try
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var agent = _mapper.Map<Agent>(agentCreate);
+
+            await _agentRepo.CreateAsync(agent);
+
+            var expires = DateTime
+                .UtcNow
+                .AddMinutes(15);
+
+            var token = CreateJWT(new Dictionary<string, string>
+            {
+                [nameof(agent.UserName)] = agent.UserName,
+                [nameof(agent.Id)] = agent.Id.ToString()
+            });
+
+            InsertTokenToCookie(token);
+
+            return Created(nameof(Signup), null);
+        }
+        catch (Exception ex) when (ex.Message == AgentRepo.DUPLICATEUSERNAME)
+        {
+            return Conflict($"Duplicate UserName : {agentCreate.UserName}");
+        }
+    }
+
+    [HttpPost(nameof(Login))]
     public async Task<ActionResult> Login(AgentCredential credential)
     {
         if (!ModelState.IsValid) return BadRequest();
 
-        var agentDetail = await _agentRepo.FindByUserNameAsync(credential.UserName);
+        var agent = await _agentRepo.FindByUserNameAsync(credential.UserName);
 
-        if (agentDetail is null)
-            return NotFound("InValid UserName");
+        if (agent is null) return NotFound("InValid UserName");
 
-        var isCorrect = agentDetail.Compare(credential);
+        var isCorrectCredential = agent.Compare(credential);
 
-        return Ok(new { isCorrect });
+        if (!isCorrectCredential) return Unauthorized("Invalid Credentials");
+
+        var token = CreateJWT(new Dictionary<string, string>
+        {
+            [nameof(agent.UserName)] = agent.UserName,
+            [nameof(agent.Name)] = agent.Name,
+        });
+
+        InsertTokenToCookie(token);
+        return Ok();
+    }
+
+    [HttpGet(nameof(Signout))]
+    public IActionResult Signout()
+    {
+        var isValidToken = Request.Cookies.TryGetValue("jwt_token", out var token)
+            && string.IsNullOrEmpty(token!.Trim());
+
+        if (isValidToken) return BadRequest("Already Signout");
+
+        Response
+            .Cookies
+            .Append("jwt_token", string.Empty, new() { Expires = DateTimeOffset.MinValue });
+
+        return Ok();
     }
 
     [HttpGet("Validate")]
@@ -79,15 +120,18 @@ public class AuthController : ControllerBase
             return Unauthorized();
 
         var jwtSecurityHandler = new JwtSecurityTokenHandler();
-        if (!jwtSecurityHandler.CanReadToken(token)) return BadRequest("Value is not a valid JWT token");
+        if (!jwtSecurityHandler.CanReadToken(token))
+            return BadRequest("Value is not a valid JWT token");
 
         var securityToken = jwtSecurityHandler.ReadJwtToken(token);
 
         if (DateTime.UtcNow > securityToken.ValidTo)
         {
-
+            Response
+                .Cookies
+                .Append("jwt_token", string.Empty, new() { Expires = DateTimeOffset.MinValue });
         }
 
-        return Ok(new { securityToken.Claims, securityToken.ValidTo });
+        return Ok();
     }
 }
