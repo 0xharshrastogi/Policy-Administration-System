@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Consumer.API.Models;
+namespace Consumer.API.DTO;
 
-public class Customer
+public class CustomerDTO
 {
-    [Key]
-    public Guid CustomerID { get; set; }
+    [Required]
     public string CustomerName { get; set; }
+    [Required]
     public DateTime DateOfBirth { get; set; }
+    [Required]
     public string Email { get; set; }
     [MinLength(10), MaxLength(10), Required]
     public string Pan { get; set; }
