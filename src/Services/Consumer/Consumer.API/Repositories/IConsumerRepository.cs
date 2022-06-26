@@ -3,11 +3,25 @@ using Consumer.API.Models;
 namespace Consumer.API.Repository;
 public interface IConsumerRepository
 {
-    Customer GetConsumerByID(Guid id);
-    
+    //Customer 
     Customer CreateConsumer(Customer consumer);
+    Customer GetConsumerByID(Guid? id);
     IEnumerable<Customer> GetAllConsumers();
-    Customer UpdateConsumer();
-    Customer GetConsumerById(Guid id);
-    Customer DeleteConsumer();
+    Customer UpdateConsumer(Customer consumer);
+
+    void DeleteConsumer(Guid id);
+    //business
+    Business GetBusinessByID(Guid? id);
+    Business CreateBusiness(Business business);
+    IEnumerable<Business> GetAllBusiness();
+    Business UpdateBusiness(Guid id ,Business business);
+    void DeleteBusiness(Guid id);
+    //property
+
+    Property GetPropertyByID(Guid? id);
+    IEnumerable<Property> GetAllProperties();
+    Property CreateProperty(Property property);
+    Property UpdateProperty(Guid id,Property property);
+    void DeleteProperty(Guid id);
+
 }
