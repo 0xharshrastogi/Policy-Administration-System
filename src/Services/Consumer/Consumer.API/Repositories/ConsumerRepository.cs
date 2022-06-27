@@ -9,38 +9,110 @@ public class ConsumerRepository : IConsumerRepository
     {
         this.context = _context;
     }
-     public Customer CreateConsumer(Customer consumer)
+
+    public Customer CreateConsumer(Customer consumer)
     {
         this.context.Customers.Add(consumer);
         this.context.SaveChanges();
         return consumer;
-       // throw new NotImplementedException();
     }
 
-    public Customer GetConsumerByID(Guid id)
+    public Customer GetConsumerByID(Guid? id)
     {
-        throw new NotImplementedException();
+        Customer customer = context.Customers.Find(id);
+        return customer;
     }
 
     public IEnumerable<Customer> GetAllConsumers()
     {
-       return context.Customers;
+        return context.Customers;
     }
 
-    public Customer UpdateConsumer()
+    public Customer UpdateConsumer(Customer consumer)
     {
-        throw new NotImplementedException();
+        Customer consumerToBeUpdated = context.Customers.Find(consumer.CustomerID);
+        consumerToBeUpdated.CustomerName = consumer.CustomerName;
+        consumerToBeUpdated.DateOfBirth = consumer.DateOfBirth;
+        consumerToBeUpdated.Email = consumer.Email;
+        consumerToBeUpdated.Pan = consumer.Pan;
+        context.SaveChanges();
+        return consumerToBeUpdated;
     }
-
-    public Customer GetConsumerById(Guid id)
+    public void DeleteConsumer(Guid id)
     {
-        throw new NotImplementedException();
+        var customer = context.Customers.Find(id);
+        context.Customers.Remove(customer);
+        context.SaveChanges();
     }
-
-    public Customer DeleteConsumer()
+    //Business
+    public Business GetBusinessByID(Guid? id)
     {
-        throw new NotImplementedException();
+        return context.Businesses.Find(id);
     }
 
+    public Business CreateBusiness(Business business)
+    {
+        context.Businesses.Add(business);
+        context.SaveChanges();
+        return business;
+    }
+
+    public IEnumerable<Business> GetAllBusiness()
+    {
+        return context.Businesses;
+    }
+
+    public Business UpdateBusiness(Guid id ,Business business)
+    {
+        var businessToBeUpdated = context.Businesses.Find(id);
+        businessToBeUpdated.AnnualTurnover = business.AnnualTurnover;
+        businessToBeUpdated.BusinessTypeID = business.BusinessTypeID;
+        businessToBeUpdated.BusinessValue = business.BusinessValue;
+        context.SaveChanges();
+        return businessToBeUpdated;
+    }
+
+    public void DeleteBusiness(Guid id)
+    {
+        var business = context.Businesses.Find(id);
+        context.Businesses.Remove(business);
+        context.SaveChanges();
+    }
+    //property
+    public Property GetPropertyByID(Guid? id)
+    {
+        return context.Properties.Find(id);
+    }
+
+    public IEnumerable<Property> GetAllProperties()
+    {
+        return context.Properties;
+    }
+
+    public Property CreateProperty(Property property)
+    {
+        context.Properties.Add(property);
+        context.SaveChanges();
+        return property;
+    }
+
+    public Property UpdateProperty(Guid id ,Property property)
+    {
+        var propertyTobeupdated = context.Properties.Find(id);
+        
+        property.PropertyTypeID = property.PropertyTypeID;
+        propertyTobeupdated.Area = property.Area;
+        propertyTobeupdated.BuildingAge = property.BuildingAge;
+        propertyTobeupdated.BuildingStorey = property.BuildingStorey;
+        property.PropertyValue = property.PropertyValue;
+        context.SaveChanges();
+        return propertyTobeupdated;
+        }
    
+
+    public void  DeleteProperty(Guid id)
+    {
+        var propertytobedeleted=context.Properties.Find(id);
+        context.Properties.Remove(propertytobedeleted);
+    }
 }
