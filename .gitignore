@@ -463,3 +463,5 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 .vscode/launch.json
 .vscode/
+.angular
+package-lock.json
