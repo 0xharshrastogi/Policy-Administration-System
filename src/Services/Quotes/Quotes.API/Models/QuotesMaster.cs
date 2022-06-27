@@ -1,14 +1,17 @@
 #nullable disable
 using System.ComponentModel.DataAnnotations;
 namespace Quotes.Models;
-public class QuotesMaster
+public partial class QuotesMaster
 {
+    [Required]
     public Guid Id { get; set; }
     [Key]
+    [Required]
     public int QuotesId { get; set; }
 
     public int MinBusinessValue { get; set; }
     public int MaxBusinessValue { get; set; }
+    [Required]
     public int BusinessValue
     {
         get
@@ -27,6 +30,7 @@ public class QuotesMaster
     }
     public int MinPropertyValue { get; set; }
     public int MaxPropertyValue { get; set; }
+    [Required]
     public int PropertyValue
     {
         get
@@ -43,7 +47,10 @@ public class QuotesMaster
             }
         }
     }
-    public enum PropertyType { Equipment, Machinery, Building }
+    [Required]
+
+    public PropertyType PropertyType { get; set; }
+    [Required]
     public string QuoteValue { get; set; }
 
 }

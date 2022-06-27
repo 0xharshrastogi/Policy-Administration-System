@@ -14,13 +14,12 @@ public class QuotesController : ControllerBase
         {
             return BadRequest();
         }
-        var QuoteValue = 0;
+        double QuoteValue = 0;
 
-        QuoteValue = PropertyValue - (10 - BusinessValue) / 10 * (PropertyValue);
-
+        QuoteValue = PropertyValue-(10-BusinessValue)*(PropertyValue)/10 ;
         //PropertyValue is cost of Property
         //On the scale of 10 we deduct the part of ProprertyValue according to worth of BusinessValue
 
-        return Ok(new { QuoteValue });
+        return Ok( QuoteValue );
     }
 }
