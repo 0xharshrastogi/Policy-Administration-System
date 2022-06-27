@@ -4,6 +4,8 @@ namespace Quotes.Models;
 public class QuotesMaster
 {
     public Guid Id { get; set; }
+    [Key]
+    public int QuotesId { get; set; }
 
     public int MinBusinessValue { get; set; }
     public int MaxBusinessValue { get; set; }
@@ -41,7 +43,7 @@ public class QuotesMaster
             }
         }
     }
-    public string PropertyType { get; set; }
+    public enum PropertyType { Equipment, Machinery, Building }
     public string QuoteValue { get; set; }
 
 }
