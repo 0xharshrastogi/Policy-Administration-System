@@ -7,9 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InputTextComponent } from './input-text/input-text.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { CustomerComponent } from './customer/customer.component';
+import { PolicyComponent } from './policy/policy.component';
 
 @NgModule({
-  declarations: [AppComponent, InputTextComponent, SignupComponent],
+  declarations: [AppComponent, InputTextComponent, SignupComponent, CustomerComponent, PolicyComponent],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
