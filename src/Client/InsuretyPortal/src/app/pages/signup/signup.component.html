@@ -55,9 +55,9 @@
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="!signupForm.valid"
+            [disabled]="!signupForm.valid || isSigningUp"
           >
-            Submit
+            {{ isSigningUp ? "Submitting" : "Submit" }}
           </button>
         </div>
       </form>

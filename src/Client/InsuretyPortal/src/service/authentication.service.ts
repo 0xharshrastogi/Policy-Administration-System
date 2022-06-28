@@ -24,23 +24,19 @@ export class AuthenticationService {
   async signup(credential: SignUpCredential) {
     const uri = 'http://localhost:5090/api/Auth/Agent/Signup';
 
-    try {
-      const response = await fetch(uri, {
-        method: 'POST',
-        body: JSON.stringify(credential),
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          accept: '*/*',
-        },
-      });
+    const response = await fetch(uri, {
+      method: 'POST',
+      body: JSON.stringify(credential),
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
 
-      if (response.status === HttpStatusCode.Created) {
-        const { auth_token: token } = await response.json();
-        localStorage.setItem('token', token);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.status === HttpStatusCode.Created) {
+      const { auth_token: token } = await response.json();
+      localStorage.setItem('token', token);
     }
   }
 
