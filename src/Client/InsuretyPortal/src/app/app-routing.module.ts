@@ -4,6 +4,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { CustomerComponent } from './customer/customer.component';
 import { PolicyComponent } from './policy/policy.component';
 
+
 const routes: Routes = [{ path: 'signup', component: SignupComponent }, { path: 'customer', component: CustomerComponent }, { path: 'policy', component: PolicyComponent }];
 // const routes: Routes = [];
 @NgModule({
