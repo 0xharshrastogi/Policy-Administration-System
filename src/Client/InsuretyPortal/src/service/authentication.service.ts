@@ -44,7 +44,7 @@ export class AuthenticationService {
     }
   }
 
-  async validate() {
+  async validate(): Promise<true | false> {
     const response = await fetch(AuthenticationService.requestPath.VALIDATE, {
       method: 'POST',
       credentials: 'same-origin',
@@ -57,6 +57,6 @@ export class AuthenticationService {
       }),
     });
 
-    // if(response. === HttpStatusCode.Ok) return ""
+    return response.status === HttpStatusCode.Ok ? true : false;
   }
 }
