@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+<div class="topnav">
+  <a class="active" href="home">Home </a>
+  <a href="customer">customer </a>
+  <a href="policy">policy </a>
+</div>
+
+<!--  -->
+>>>>>>> b446bb55bf634a6ec56fd35baa66288662018865
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -48,9 +58,9 @@
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="!signupForm.valid"
+            [disabled]="!signupForm.valid || isSigningUp"
           >
-            Submit
+            {{ isSigningUp ? "Submitting" : "Submit" }}
           </button>
         </div>
       </form>

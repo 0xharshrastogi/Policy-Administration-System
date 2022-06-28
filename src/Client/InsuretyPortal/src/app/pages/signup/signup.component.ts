@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/service/authentication.service';
 
 @Component({
@@ -15,10 +11,13 @@ import { AuthenticationService } from 'src/service/authentication.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
+  isSigningUp: boolean = false;
+
+  public errors: string[] = [];
 
   constructor(
     private authService: AuthenticationService,
-    private formBuilder: FormBuilder
+    private router: Router
   ) {
     this.signupForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -31,26 +30,20 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.formBuilder.group({
-      name: 'Harsh Rastogi',
-      userName: 'harshRastogi',
-      password: '1234',
-      email: 'harsh@example.com',
-    });
-  }
+  ngOnInit(): void {}
 
-  async signup() {
-    await this.authService.signup({
-      name: this.signupForm.get('name')!.value,
-      email: this.signupForm.get('email')!.value,
-      userName: this.signupForm.get('userName')!.value,
-      password: this.signupForm.get('password')!.value,
-    });
-  }
-
-  onSubmit() {
-    if (this.signupForm.valid) this.authService.signup(this.signupForm.value);
-    else console.log('Invalid');
+  async onSubmit() {
+    try {
+      if (this.signupForm.valid) {
+        this.isSigningUp = true;
+        await this.authService.signup(this.signupForm.value);
+        // navigating to customer dashboard;
+        this.router.navigate(['/customer']);
+      }
+    } catch (error) {
+      this.errors.push((<Error>error).message);
+    } finally {
+      this.isSigningUp = false;
+    }
   }
 }
