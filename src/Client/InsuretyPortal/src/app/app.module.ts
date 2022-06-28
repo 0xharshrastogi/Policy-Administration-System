@@ -9,9 +9,10 @@ import { InputTextComponent } from './input-text/input-text.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { CustomerComponent } from './customer/customer.component';
 import { PolicyComponent } from './policy/policy.component';
+import { ListPolicyComponent } from './list-policy/list-policy.component';
 
 @NgModule({
-  declarations: [AppComponent, InputTextComponent, SignupComponent, CustomerComponent, PolicyComponent],
+  declarations: [AppComponent, InputTextComponent, SignupComponent, CustomerComponent, PolicyComponent, ListPolicyComponent],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],

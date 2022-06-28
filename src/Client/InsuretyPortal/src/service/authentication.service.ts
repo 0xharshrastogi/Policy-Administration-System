@@ -35,7 +35,10 @@ export class AuthenticationService {
         },
       });
 
-      if (response.status === HttpStatusCode.Created) return;
+      if (response.status === HttpStatusCode.Created) {
+        const { auth_token: token } = await response.json();
+        localStorage.setItem('token', token);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -43,12 +46,17 @@ export class AuthenticationService {
 
   async validate() {
     const response = await fetch(AuthenticationService.requestPath.VALIDATE, {
-      method: 'GET',
+      method: 'POST',
       credentials: 'same-origin',
       headers: {
-        Cookie: document.cookie,
+        'Content-Type': 'application/json',
+        accept: '*/*',
       },
+      body: JSON.stringify({
+        token: localStorage.getItem('token') ?? '',
+      }),
     });
-    console.log(response);
+
+    // if(response. === HttpStatusCode.Ok) return ""
   }
 }
