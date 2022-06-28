@@ -1,3 +1,42 @@
-<form [formGroup]="signupForm">
-  <app-input-text></app-input-text>
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="signupFG">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <app-input-text mode="dark" placeholder="Enter Name"></app-input-text>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="email">Email</label>
+          <app-input-text
+            mode="dark"
+            type="email"
+            placeholder="johndoe@example.com"
+          >
+          </app-input-text>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="name">Username</label>
+          <app-input-text mode="dark" placeholder="johndoe"></app-input-text>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="password">Password</label>
+          <app-input-text
+            mode="dark"
+            type="password"
+            placeholder="password"
+          ></app-input-text>
+        </div>
+
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary" onclick="">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

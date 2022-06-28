@@ -6,11 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./input-text.component.css'],
 })
 export class InputTextComponent implements OnInit {
-  @Input() mode: 'light' | 'dark';
+  @Input() mode: 'light' | 'dark' = 'dark';
+  @Input() type: 'text' | 'password' | 'email' = 'text';
+  @Input() placeholder: string = '';
 
-  constructor() {
-    this.mode = 'dark';
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }
