@@ -1,0 +1,22 @@
+.app-input-dark {
+  --bg-color: #333;
+  --caret-color: white;
+  --color: #eee;
+  --placeholder-color: #eeee;
+}
+
+.app-input-light {
+  --bg-color: #eee;
+  --caret-color: initial;
+  --color: #333;
+}
+
+.app-input {
+  background-color: var(--bg-color);
+  caret-color: var(--caret-color);
+  color: var(--color);
+}
+
+.app-input:placeholder {
+  color: var(--placeholder-color);
+}
