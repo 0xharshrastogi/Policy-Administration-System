@@ -12,16 +12,43 @@ type SignUpCredential = Credential & { name: string; email: string };
   providedIn: 'root',
 })
 export class AuthenticationService {
-  static authUri = 'http://localhost:5090';
+  static BaseAuthUri = 'http://localhost:5090/api';
+
+  static requestPath = {
+    SIGNUP: `${AuthenticationService.BaseAuthUri}/auth/agent/signup`,
+    VALIDATE: `${AuthenticationService.BaseAuthUri}/auth/agent/validate`,
+  };
 
   constructor() {}
 
-  async login(credential: SignUpCredential) {
-    const response = await fetch(AuthenticationService.authUri, {
-      method: 'POST',
-      body: JSON.stringify(credential),
-    });
+  async signup(credential: SignUpCredential) {
+    const uri = 'http://localhost:5090/api/Auth/Agent/Signup';
 
-    if (response.status === HttpStatusCode.Created) return;
+    try {
+      const response = await fetch(uri, {
+        method: 'POST',
+        body: JSON.stringify(credential),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          accept: '*/*',
+        },
+      });
+
+      if (response.status === HttpStatusCode.Created) return;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async validate() {
+    const response = await fetch(AuthenticationService.requestPath.VALIDATE, {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: {
+        Cookie: document.cookie,
+      },
+    });
+    console.log(response);
   }
 }
