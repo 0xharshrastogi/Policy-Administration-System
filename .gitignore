@@ -465,3 +465,5 @@ $RECYCLE.BIN/
 .vscode/
 .angular
 package-lock.json
+
+dist
