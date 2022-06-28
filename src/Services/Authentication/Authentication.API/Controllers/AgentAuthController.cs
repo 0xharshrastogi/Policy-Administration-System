@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 
+using Authentication.API.DTO;
 using Authentication.DTO;
 using Authentication.Extensions;
 using Authentication.Models;
@@ -9,7 +10,7 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace Authentication.Controllers;
+namespace Authentication.API.Controllers;
 
 [Route("api/[controller]/Agent")]
 [ApiController]
@@ -34,15 +35,6 @@ public class AuthController : ControllerBase
         return Jwt.CreateToken(keyValues, expires);
     }
 
-    private void InsertTokenToCookie(string token) => Response
-            .Cookies
-            .Append("jwt_token", token, new()
-            {
-                Expires = DateTime
-                .UtcNow
-                .AddMinutes(15)
-            });
-
     [HttpPost(nameof(Signup))]
     public async Task<ActionResult> Signup(AgentCreateDTO agentCreate)
     {
@@ -64,9 +56,7 @@ public class AuthController : ControllerBase
                 [nameof(agent.Id)] = agent.Id.ToString()
             });
 
-            InsertTokenToCookie(token);
-
-            return Created(nameof(Signup), null);
+            return Created(nameof(Signup), new { auth_token = token });
         }
         catch (Exception ex) when (ex.Message == AgentRepo.DUPLICATEUSERNAME)
         {
@@ -93,8 +83,7 @@ public class AuthController : ControllerBase
             [nameof(agent.Name)] = agent.Name,
         });
 
-        InsertTokenToCookie(token);
-        return Ok();
+        return Ok(new { auth_token = token });
     }
 
     [HttpGet(nameof(Signout))]
@@ -113,9 +102,9 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("Validate")]
-    public IActionResult Validate()
+    public IActionResult Validate(TokenDTO tokenData)
     {
-        var token = Request.Cookies["jwt_token"];
+        var token = tokenData.Token;
         if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(token))
             return Unauthorized();
 
@@ -125,13 +114,6 @@ public class AuthController : ControllerBase
 
         var securityToken = jwtSecurityHandler.ReadJwtToken(token);
 
-        if (DateTime.UtcNow > securityToken.ValidTo)
-        {
-            Response
-                .Cookies
-                .Append("jwt_token", string.Empty, new() { Expires = DateTimeOffset.MinValue });
-        }
-
-        return Ok();
+        return DateTime.UtcNow > securityToken.ValidTo ? Unauthorized() : Ok();
     }
 }
