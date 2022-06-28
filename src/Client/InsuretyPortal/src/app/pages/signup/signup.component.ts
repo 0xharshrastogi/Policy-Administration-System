@@ -15,6 +15,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
+  public errors: string[] = [];
 
   constructor(
     private authService: AuthenticationService,
@@ -50,7 +51,14 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.signupForm.valid) this.authService.signup(this.signupForm.value);
-    else console.log('Invalid');
+    try {
+      if (this.signupForm.valid) {
+        this.authService.signup(this.signupForm.value);
+      }
+    } catch (error) {
+      // this.errors.push((<Error>error).message);
+    }
+    // if (this.signupForm.valid)
+    // else console.log('Invalid');
   }
 }

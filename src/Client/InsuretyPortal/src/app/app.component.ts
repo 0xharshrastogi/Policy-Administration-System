@@ -18,7 +18,5 @@ export class AppComponent implements OnInit {
     this.authService = authservice;
   }
 
-  ngOnInit(): void {
-    this.authService.validate();
-  }
+  async ngOnInit() {}
 }
