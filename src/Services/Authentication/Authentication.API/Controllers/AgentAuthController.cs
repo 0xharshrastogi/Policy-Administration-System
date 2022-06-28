@@ -101,7 +101,7 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("Validate")]
+    [HttpPost("Validate")]
     public IActionResult Validate(TokenDTO tokenData)
     {
         var token = tokenData.Token;
