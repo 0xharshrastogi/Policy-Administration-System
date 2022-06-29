@@ -17,6 +17,7 @@ export class AuthenticationService {
   static requestPath = {
     SIGNUP: `${AuthenticationService.BaseAuthUri}/auth/agent/signup`,
     VALIDATE: `${AuthenticationService.BaseAuthUri}/auth/agent/validate`,
+    LOGIN: `${AuthenticationService.BaseAuthUri}/auth/agent/login`,
   };
 
   constructor() {}
@@ -38,6 +39,19 @@ export class AuthenticationService {
       const { auth_token: token } = await response.json();
       localStorage.setItem('token', token);
     }
+  }
+
+  async login(credential: Credential): Promise<boolean> {
+    const response = await fetch(AuthenticationService.requestPath.LOGIN, {
+      method: 'POST',
+      body: JSON.stringify(credential),
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+    });
+
+    const { auth_token: token } = await response.json();
+    localStorage.setItem('token', token);
+    return true;
   }
 
   async validate(): Promise<true | false> {
