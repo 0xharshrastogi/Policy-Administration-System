@@ -7,7 +7,7 @@ using PolicyMicroservice.Helper;
 using PolicyMicroservice.Models;
 using PolicyMicroservice.Repo;
 
-namespace PolicyMicroservice.Controllers;
+namespace Policy.Controllers;
 
 [ApiController]
 [Route("api")]
@@ -44,12 +44,17 @@ public class PolicyController : ControllerBase
     }
 
     [HttpGet(nameof(ViewPolicy))]
-    public IActionResult ViewPolicy(Guid policyId)
+    public IActionResult ViewPolicy(Guid? policyId)
     {
         try
         {
-            var policy = _customerPolicyRepo.FindAll().Single(p => p.Id == policyId);
-            return Ok(policy);
+            if (policyId != null)
+            {
+                var policy = _customerPolicyRepo.FindAll().Single(p => p.Id == policyId);
+                return Ok(policy);
+            }
+
+            return Ok(_customerPolicyRepo.FindAll());
         }
         catch (InvalidOperationException)
         {

@@ -1,0 +1,33 @@
+
+
+<div class="container mt-2">
+  <div class="text-right">
+    <button type="button" class="btn btn-success">Add Customer </button>
+  </div>
+  <br>
+
+    <table class="table table-light">
+      <thead >
+        <tr>
+          <th scope="col">Customer ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">DOB</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--  src\Client\InsuretyPortal\src\app\pages\customer-view\customer-view.component.html <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr-->
+        <tr *ngFor="let customer of customers">
+          <td>{{customer.customerID}}</td>
+          <td>{{customer.customerName}}</td>
+          <td>{{customer.dateOfBirth}}</td>
+          <td>{{customer.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

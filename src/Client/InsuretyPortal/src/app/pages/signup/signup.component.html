@@ -1,0 +1,61 @@
+
+<!--  -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="signupForm" (submit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            class="form-control app-input app-input-dark"
+            placeholder="John Doe"
+            name="name"
+            formControlName="name"
+          />
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="email">Email</label>
+
+          <input
+            class="form-control app-input app-input-dark"
+            placeholder="JohnDoe@example.com"
+            name="email"
+            formControlName="email"
+          />
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="name">Username</label>
+          <input
+            class="form-control app-input app-input-dark"
+            placeholder="johndoe2020"
+            name="userName"
+            formControlName="userName"
+          />
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="password">Password</label>
+
+          <input
+            class="form-control app-input app-input-dark"
+            placeholder="password"
+            name="password"
+            formControlName="password"
+          />
+        </div>
+
+        <div class="mt-4">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!signupForm.valid || isSigningUp"
+          >
+            {{ isSigningUp ? "Submitting" : "Submit" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

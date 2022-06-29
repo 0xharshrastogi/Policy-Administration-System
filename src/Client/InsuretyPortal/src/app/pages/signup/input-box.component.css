@@ -1,0 +1,32 @@
+.app-input-dark {
+  --bg-color: rgb(243, 243, 243);
+  --caret-color: white;
+  --color: #eee;
+  --placeholder-color: #eeee;
+}
+
+.app-input-light {
+  --bg-color: #eee;
+  --caret-color: initial;
+  --color: #333;
+}
+
+.app-input {
+  --border-size: 2px;
+  --border-color: #f9fafb1c;
+
+  background-color: var(--bg-color);
+  caret-color: var(--caret-color);
+  color: var(--color);
+  border: var(--border-size) solid var(--border-color);
+}
+
+.app-input:focus {
+  box-shadow: none;
+  --border-color: #f9fafb59;
+  transition: ease 170ms;
+}
+
+.app-input:placeholder {
+  color: var(--placeholder-color);
+}

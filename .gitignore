@@ -463,6 +463,7 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 .vscode/launch.json
 .vscode/
+<<<<<<< HEAD
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
@@ -505,3 +506,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+=======
+.angular
+package-lock.json
+
+dist
+>>>>>>> 308257d905d8d1861f3f8ff07b9302cc4c40a695
