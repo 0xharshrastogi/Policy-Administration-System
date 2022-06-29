@@ -17,8 +17,6 @@ import { CustomerViewComponent } from './pages/customer-view/customer-view.compo
 import { CustomerInputComponent } from './pages/customer-input/customer-input.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +30,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
     ConsumersDisplayComponent,
     CustomerViewComponent,
     CustomerInputComponent,
-    LoginFormComponent
-
+    LoginFormComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

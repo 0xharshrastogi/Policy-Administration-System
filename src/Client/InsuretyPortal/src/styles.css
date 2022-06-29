@@ -1,5 +1,7 @@
 body {
-   background-color: #eee;
-  /*background-color: black;*/
+  background-color: #eee;
   color: #333;
+
+  min-height: 100vh;
+  position: relative;
 }
