@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
 export class AppComponent implements OnInit {
   private readonly authService: AuthenticationService;
 
-  title = 'InsuretyPortal';
+  title = 'Insurity';
 
   /**
    *
@@ -18,5 +18,7 @@ export class AppComponent implements OnInit {
     this.authService = authservice;
   }
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.authService.validate().then(console.dir).catch(console.dir);
+  }
 }
