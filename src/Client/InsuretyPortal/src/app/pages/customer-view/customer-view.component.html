@@ -68,9 +68,9 @@
       </button>
     </div>
   </form>
-  <section class="row">
+  <section class="row " *ngIf="!isLoading">
     <div class="col-6">
-      <app-customer-business></app-customer-business>
+      <app-customer-business customerID="{{customer!.customerID}}"></app-customer-business>
     </div>
     <div class="col-6">
       <app-consumer-business-property></app-consumer-business-property>

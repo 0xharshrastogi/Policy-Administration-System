@@ -47,7 +47,8 @@ public class ConsumerRepository : IConsumerRepository
     //Business
     public Business GetBusinessByID(Guid? id)
     {
-        return context.Businesses.Find(id);
+        Business business=context.Businesses.Find(id);
+        return business;
     }
 
     public Business CreateBusiness(Business business)
@@ -57,7 +58,7 @@ public class ConsumerRepository : IConsumerRepository
         return business;
     }
 
-    public IEnumerable<Business> GetAllBusiness()
+    public IQueryable<Business> GetAllBusiness()
     {
         return context.Businesses;
     }

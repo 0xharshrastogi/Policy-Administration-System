@@ -5,7 +5,7 @@ using Consumer.API.DTO;
 using Consumer.API.Profiles;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 namespace Consumer.API.Controllers;
 
 [ApiController]
@@ -57,28 +57,31 @@ public class ConsumerController : ControllerBase
     [HttpPost("Business")]
     public IActionResult CreateBusiness(BusinessDTO businessDTO)
     {
-       if (!ModelState.IsValid)
+        if (!ModelState.IsValid)
             return BadRequest(ModelState);
         var business = Repository.CreateBusiness(Mapper.Map<Business>(businessDTO));
-        return Created(nameof(CreateBusiness), new { Business = business, message = "new business created for customer "+businessDTO.CustomerID });
+        return Created(nameof(CreateBusiness), new { Business = business, message = "new business created for customer " + businessDTO.CustomerID });
     }
-    
+
     [HttpGet("Business")]
     public IActionResult GetBusiness(Guid? id)
     {
         if (id == null)
         {
-            var business= Repository.GetAllBusiness();
+            var business = Repository.GetAllBusiness();
             return Ok(business);
         }
-        return Ok(Repository.GetBusinessByID(id));
+        Business getbusinessbyid = Repository.GetBusinessByID(id);
+        if (getbusinessbyid == null)
+            return NotFound(new { message = "business not found" });
+        return Ok(getbusinessbyid);
     }
     [HttpPut("Business")]
-    public IActionResult UpdateBusiness(Guid id,BusinessDTO businessDTO)
+    public IActionResult UpdateBusiness(Guid id, BusinessDTO businessDTO)
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        Repository.UpdateBusiness(id,Mapper.Map<Business>(businessDTO));
+        Repository.UpdateBusiness(id, Mapper.Map<Business>(businessDTO));
         return Accepted(nameof(UpdateBusiness));
     }
     [HttpDelete("Business")]
@@ -88,14 +91,24 @@ public class ConsumerController : ControllerBase
         return Ok(nameof(DeleteBusiness) + "  id " + id + "deleted.");
     }
 
+    [HttpGet(nameof(getBusinessByCustomerID))]
+    public IActionResult getBusinessByCustomerID(Guid customerID)
+    {
+        var business = Repository.GetAllBusiness()
+            .Include(b => b.Customer)
+            .SingleOrDefault(b => b.CustomerID == customerID);
+        return business is null?NotFound(new {message="no business found"}): Ok(business);
+
+    }
+
     //Property action methods
-   [HttpPost("Property")]
+    [HttpPost("Property")]
     public IActionResult CreateProperty(PropertyDTO propertyDTO)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         var prop = Repository.CreateProperty(Mapper.Map<Property>(propertyDTO));
-        return Created(nameof(CreateProperty), new { Property=prop, message = "new property created under business "+propertyDTO.BusinessID});
+        return Created(nameof(CreateProperty), new { Property = prop, message = "new property created under business " + propertyDTO.BusinessID });
     }
     [HttpGet("Property")]
     public IActionResult GetProperty(Guid? id)
@@ -112,7 +125,7 @@ public class ConsumerController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        Repository.UpdateProperty(id,Mapper.Map<Property>(propertyDTO));
+        Repository.UpdateProperty(id, Mapper.Map<Property>(propertyDTO));
         return Accepted(nameof(UpdateProperty));
     }
     [HttpDelete("Property")]
