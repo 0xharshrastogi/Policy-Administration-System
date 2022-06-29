@@ -22,7 +22,7 @@
           <td>Thornton</td>
           <td>@fat</td>
         </tr-->
-        <tr *ngFor="let customer of customers">
+        <tr *ngFor="let customer of customers" (click)="onClick( customer.customerID)">
           <td>{{customer.customerID}}</td>
           <td>{{customer.customerName}}</td>
           <td>{{customer.dateOfBirth}}</td>
