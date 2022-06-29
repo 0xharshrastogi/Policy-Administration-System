@@ -17,7 +17,8 @@
 
   background-color: var(--bg-color);
   caret-color: var(--caret-color);
-  color: var(--color);
+  /* color: var(--color); */
+  color: black;
   border: var(--border-size) solid var(--border-color);
 }
 

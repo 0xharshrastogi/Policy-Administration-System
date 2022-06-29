@@ -39,6 +39,7 @@ export class ConsumerService {
     const response = await fetch(uri, {
       method: 'POST',
       credentials: 'same-origin',
+      body: JSON.stringify(customer),
       headers: {
         'Content-Type': 'application/json',
         accept: '*/*',
