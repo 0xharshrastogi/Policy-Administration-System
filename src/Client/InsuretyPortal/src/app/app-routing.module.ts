@@ -9,7 +9,7 @@ import { PolicyComponent } from './policy/policy.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
-  { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
+  { path: 'customer', component: CustomerComponent/*, canActivate: [AuthGuard] */},
   { path: 'policy', component: PolicyComponent },
   { path: 'customer-view/:id', component: CustomerViewComponent },
   { path: 'login', component: LoginFormComponent },

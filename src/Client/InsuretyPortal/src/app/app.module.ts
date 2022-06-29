@@ -16,6 +16,8 @@ import { ListPolicyComponent } from './list-policy/list-policy.component';
 import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 import { CustomerInputComponent } from './pages/customer-input/customer-input.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { CustomerBusinessComponent } from './customer-business/customer-business.component';
+import { ConsumerBusinessPropertyComponent } from './consumer-business-property/consumer-business-property.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
     CustomerViewComponent,
     CustomerInputComponent,
     LoginFormComponent,
+    CustomerBusinessComponent,
+    ConsumerBusinessPropertyComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
