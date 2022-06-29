@@ -97,7 +97,7 @@ public class ConsumerController : ControllerBase
         var business = Repository.GetAllBusiness()
             .Include(b => b.Customer)
             .SingleOrDefault(b => b.CustomerID == customerID);
-        return business is null?NotFound(new {message="no business found"}): Ok(business);
+        return business is null ? NotFound(new { message = "no business found" }) : Ok(business);
 
     }
 
