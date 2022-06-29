@@ -12,6 +12,8 @@ type SignUpCredential = Credential & { name: string; email: string };
   providedIn: 'root',
 })
 export class AuthenticationService {
+  static isSignedIn: boolean = false;
+
   static BaseAuthUri = 'http://localhost:5090/api';
 
   static requestPath = {
@@ -21,6 +23,10 @@ export class AuthenticationService {
   };
 
   constructor() {}
+
+  get isLoggedIn(): boolean {
+    return AuthenticationService.isSignedIn;
+  }
 
   async signup(credential: SignUpCredential) {
     const uri = 'http://localhost:5090/api/Auth/Agent/Signup';
@@ -38,6 +44,7 @@ export class AuthenticationService {
     if (response.status === HttpStatusCode.Created) {
       const { auth_token: token } = await response.json();
       localStorage.setItem('token', token);
+      AuthenticationService.isSignedIn = true;
     }
   }
 
@@ -51,6 +58,7 @@ export class AuthenticationService {
 
     const { auth_token: token } = await response.json();
     localStorage.setItem('token', token);
+    AuthenticationService.isSignedIn = true;
     return true;
   }
 
@@ -67,6 +75,15 @@ export class AuthenticationService {
       }),
     });
 
-    return response.status === HttpStatusCode.Ok ? true : false;
+    const isValidated = response.status === HttpStatusCode.Ok ? true : false;
+
+    if (isValidated) {
+      AuthenticationService.isSignedIn = true;
+    } else {
+      AuthenticationService.isSignedIn = false;
+      localStorage.removeItem('token');
+    }
+
+    return isValidated;
   }
 }

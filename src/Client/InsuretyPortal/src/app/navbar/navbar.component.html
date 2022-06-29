@@ -1,6 +1,48 @@
-<div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a routerLink="/signup">SignUp</a>
-    <a routerLink="/customer">Customer</a>
-    <a routerLink = "/policy/Create">Policy</a>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">{{ title }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="toogleNavbarCollapse()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="navbar-collapse"
+      id="navbarNavAltMarkup"
+      [ngClass]="{ collapse: isNavbarCollapsed }"
+    >
+      <div class="navbar-nav ms-auto">
+        <ng-container *ngIf="isLoggedIn; else notLoggedInTemplate">
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/"
+            >Home</a
+          >
+          <a class="nav-link" routerLinkActive="active" routerLink="/customer">
+            Customer
+          </a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/policy">
+            Policy
+          </a>
+        </ng-container>
+
+        <ng-template #notLoggedInTemplate>
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/login"
+            >Login</a
+          >
+          <a class="nav-link" routerLinkActive="active" routerLink="/signup">
+            Signup
+          </a>
+        </ng-template>
+      </div>
+    </div>
   </div>
+</nav>
