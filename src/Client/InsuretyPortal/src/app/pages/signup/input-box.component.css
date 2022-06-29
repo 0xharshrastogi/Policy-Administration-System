@@ -1,5 +1,5 @@
 .app-input-dark {
-  --bg-color: #333;
+  --bg-color: rgb(243, 243, 243);
   --caret-color: white;
   --color: #eee;
   --placeholder-color: #eeee;
