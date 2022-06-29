@@ -10,11 +10,16 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { PolicyComponent } from './policy/policy.component';
 import { ListPolicyComponent } from './list-policy/list-policy.component';
-import { CustomerInputComponent } from './pages/customer-input/customer-input.component';
-import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 
 @NgModule({
-  declarations: [AppComponent, InputTextComponent, SignupComponent, CustomerComponent, PolicyComponent, ListPolicyComponent, CustomerInputComponent, CustomerViewComponent],
+  declarations: [
+    AppComponent,
+    InputTextComponent,
+    SignupComponent,
+    CustomerComponent,
+    PolicyComponent,
+    ListPolicyComponent,
+  ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
