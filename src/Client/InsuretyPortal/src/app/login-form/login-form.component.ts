@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/service/authentication.service';
@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   loginForm: FormGroup;
   errors: Error[] = [];
 
@@ -40,9 +40,6 @@ export class LoginFormComponent implements OnInit {
     if (!this.loginForm.touched) return false;
     return this.loginForm.invalid;
   }
-
-  ngOnInit(): void {}
-
   async onSubmit() {
     try {
       const { value: credential } = this.loginForm;
