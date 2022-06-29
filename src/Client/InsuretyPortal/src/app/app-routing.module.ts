@@ -1,22 +1,18 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
-import { CustomerComponent } from './customer/customer.component';
+import { CustomerComponent } from './pages/customer/customer.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PolicyComponent } from './policy/policy.component';
+import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 
-<<<<<<< HEAD
-
-const routes: Routes = [{ path: 'signup', component: SignupComponent }, { path: 'customer', component: CustomerComponent }, { path: 'policy/Create', component: PolicyComponent }];
-// const routes: Routes = [];
-=======
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
   { path: 'policy', component: PolicyComponent },
+  {path:'customer-view/:id',component:CustomerViewComponent}
 ];
 
->>>>>>> b446bb55bf634a6ec56fd35baa66288662018865
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
