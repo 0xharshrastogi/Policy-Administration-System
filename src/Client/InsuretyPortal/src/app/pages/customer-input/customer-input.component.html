@@ -1,1 +1,32 @@
-<p>customer-input works!</p>
+<div class="container col-6">
+  <div class="display-6 mt-2">Customer Details</div>
+  <form class="mt-2">
+    <div class="row my-2">
+      <div class="col-4" id="label">Full Name</div>
+      <div class="col">
+        <input type="text" class="form-control" id="customerName" />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Date of Birth</div>
+      <div class="col">
+        <input type="date" class="form-control" id="dateOfBirth" />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Email</div>
+      <div class="col">
+        <input type="email" class="form-control" id="Email" />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Pan Details</div>
+      <div class="col">
+        <input type="string" class="form-control" id="panDetails" />
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary" (click)="addnewcustomer()">Create</button>
+    </div>
+  </form>
+</div>
