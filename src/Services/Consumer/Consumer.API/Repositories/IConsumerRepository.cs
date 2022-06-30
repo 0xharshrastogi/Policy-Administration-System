@@ -14,14 +14,14 @@ public interface IConsumerRepository
     Business GetBusinessByID(Guid? id);
     Business CreateBusiness(Business business);
     IQueryable<Business> GetAllBusiness();
-    Business UpdateBusiness(Guid id ,Business business);
+    Business UpdateBusiness(Guid id, Business business);
     void DeleteBusiness(Guid id);
     //property
 
     Property GetPropertyByID(Guid? id);
-    IEnumerable<Property> GetAllProperties();
+    IQueryable<Property> GetAllProperties();
     Property CreateProperty(Property property);
-    Property UpdateProperty(Guid id,Property property);
+    Property UpdateProperty(Guid id, Property property);
     void DeleteProperty(Guid id);
 
 }
