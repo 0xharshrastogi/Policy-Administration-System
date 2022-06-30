@@ -35,6 +35,7 @@ public class ConsumerRepository : IConsumerRepository
         consumerToBeUpdated.DateOfBirth = consumer.DateOfBirth;
         consumerToBeUpdated.Email = consumer.Email;
         consumerToBeUpdated.Pan = consumer.Pan;
+        consumerToBeUpdated.PhoneNumber = consumer.PhoneNumber;
         context.SaveChanges();
         return consumerToBeUpdated;
     }
@@ -47,7 +48,7 @@ public class ConsumerRepository : IConsumerRepository
     //Business
     public Business GetBusinessByID(Guid? id)
     {
-        Business business=context.Businesses.Find(id);
+        Business business = context.Businesses.Find(id);
         return business;
     }
 
@@ -63,12 +64,13 @@ public class ConsumerRepository : IConsumerRepository
         return context.Businesses;
     }
 
-    public Business UpdateBusiness(Guid id ,Business business)
+    public Business UpdateBusiness(Guid id, Business business)
     {
         var businessToBeUpdated = context.Businesses.Find(id);
         businessToBeUpdated.AnnualTurnover = business.AnnualTurnover;
-        businessToBeUpdated.BusinessTypeID = business.BusinessTypeID;
+        businessToBeUpdated.BusinessType = business.BusinessType;
         businessToBeUpdated.BusinessValue = business.BusinessValue;
+        businessToBeUpdated.BusinessName = business.BusinessName;
         context.SaveChanges();
         return businessToBeUpdated;
     }
@@ -97,10 +99,10 @@ public class ConsumerRepository : IConsumerRepository
         return property;
     }
 
-    public Property UpdateProperty(Guid id ,Property property)
+    public Property UpdateProperty(Guid id, Property property)
     {
         var propertyTobeupdated = context.Properties.Find(id);
-        
+
         property.PropertyTypeID = property.PropertyTypeID;
         propertyTobeupdated.Area = property.Area;
         propertyTobeupdated.BuildingAge = property.BuildingAge;
@@ -108,12 +110,12 @@ public class ConsumerRepository : IConsumerRepository
         property.PropertyValue = property.PropertyValue;
         context.SaveChanges();
         return propertyTobeupdated;
-        }
-   
+    }
 
-    public void  DeleteProperty(Guid id)
+
+    public void DeleteProperty(Guid id)
     {
-        var propertytobedeleted=context.Properties.Find(id);
+        var propertytobedeleted = context.Properties.Find(id);
         context.Properties.Remove(propertytobedeleted);
     }
 }

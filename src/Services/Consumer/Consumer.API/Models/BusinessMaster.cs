@@ -6,7 +6,7 @@ public class BusinessMaster
 {
     [Key]
     public Guid BusinessTypeID { get; set; }
-    public string BusinessName { get; set; }
+    public string BusinessType { get; set; }
     private DateTime modifyDate;
     public DateTime ModifyDate
     {
