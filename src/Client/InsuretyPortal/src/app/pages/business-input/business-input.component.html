@@ -1,12 +1,13 @@
 <!-- "customerID": "3fa85f64-5717-4562-b3fc-2c963f66afa6", -->
-<!-- "businessTypeID": "3fa85f64-5717-4562-b3fc-2c963f66afa6", -->
+<!-- "businessName": "string", -->
+<!-- "businessType": 0, -->
 <!-- "totalEmployees": 0, -->
 <!-- "annualTurnover": 0, -->
-<!-- "businessValue": 0 -->
+<!-- "businessValue": 10 -->
+}
 
 <div class="container col-6 mt-4">
-  <div class="display-6">Business Details</div>
-  <hr />
+  <div class="display-6 mb-3">Business Details</div>
   <form class="mt-2">
     <div class="row my-2">
       <div class="col-4" id="label">Customer ID</div>
@@ -17,17 +18,29 @@
           class="form-control"
           id="customerID"
           [value]="customerID"
+          readonly
         />
       </div>
     </div>
     <div class="row my-2">
-      <div class="col-4" id="label">business Type ID</div>
+      <div class="col-4" id="label">business Type</div>
       <div class="col">
         <input
           type="text"
-          formControlName="businessTypeID"
+          formControlName="businessType"
           class="form-control"
-          id="businessTypeID"
+          id="businessType"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Business Name</div>
+      <div class="col">
+        <input
+          formControlName="businessName"
+          type="text"
+          class="form-control"
+          id="businessName"
         />
       </div>
     </div>

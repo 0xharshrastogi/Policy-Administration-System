@@ -6,7 +6,8 @@ type Business = {
   businessID: string;
   customerID: string;
   customer: null;
-  businessTypeID: string;
+  businessName: string;
+  businessType: string;
   businessMaster: null;
   totalEmployees: number;
   annualTurnover: number;
@@ -20,6 +21,7 @@ type Business = {
   styleUrls: ['./customer-business.component.css'],
 })
 export class CustomerBusinessComponent implements OnInit {
+  @Input() onPropertGet: (id: string) => void;
   @Input() customerID: string = '';
   isLoading: boolean = true;
   _business: Business | null = null;

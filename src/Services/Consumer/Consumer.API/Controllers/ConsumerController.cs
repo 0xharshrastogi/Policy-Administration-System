@@ -170,4 +170,18 @@ public class ConsumerController : ControllerBase
         _repository.DeleteProperty(id);
         return Ok(nameof(DeleteProperty) + " invoked Property with id " + id + "deleted.");
     }
+
+    [HttpGet(nameof(GetPropertyByCustomerID))]
+    public ActionResult GetPropertyByCustomerID(Guid customerID)
+    {
+        var business = _repository.GetAllBusiness()
+           .Include(b => b.Customer)
+           .SingleOrDefault(b => b.CustomerID == customerID);
+        Property property = new Property();
+        if (business != null)
+        {
+            property = _repository.GetAllProperties().SingleOrDefault(p => p.BusinessID == business.BusinessID);
+        }
+        return property is null || business is null ? NotFound() : Ok(property);
+    }
 }
