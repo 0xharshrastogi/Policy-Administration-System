@@ -107,6 +107,14 @@
             </table>
           </div>
 
+          <div
+            class="alert alert-info mt-3"
+            *ngIf="business.found && policiesMaster.length <= 0"
+          >
+            <p>No policies master found your business value</p>
+            <p><a routerLink="/" class="btn btn-primary">Back</a></p>
+          </div>
+
           <div class="d-flex justify-content-end mt-3">
             <button
               class="btn btn-primary"

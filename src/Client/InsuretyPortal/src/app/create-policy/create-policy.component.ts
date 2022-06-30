@@ -80,8 +80,8 @@ export class CreatePolicyComponent implements OnInit {
       this.business.found = true;
       this.business.value = business;
       // !IMPORTANT DELETE NEXT LINE
-      this.onBusinessValue(8);
-      // this.onBusinessValue(business.businessValue);
+      // this.onBusinessValue(8);
+      this.onBusinessValue(business.businessValue);
     } catch (error) {
       if ((<Error>error).message === 'NO_BUSINESS') {
         this.business.value = null;
