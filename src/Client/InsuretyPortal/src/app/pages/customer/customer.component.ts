@@ -21,7 +21,7 @@ export class CustomerComponent implements OnInit {
   constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
-    const uri = 'http://localhost:5114/Consumer';
+    const uri = 'http://localhost:5114/Consumer/Customer';
 
     const result = await fetch(uri, {
       method: 'GET',

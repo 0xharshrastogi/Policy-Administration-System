@@ -2,6 +2,9 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Policy.DTO;
+using Policy.Models;
+
 using PolicyMicroservice.DTO;
 using PolicyMicroservice.Helper;
 using PolicyMicroservice.Models;

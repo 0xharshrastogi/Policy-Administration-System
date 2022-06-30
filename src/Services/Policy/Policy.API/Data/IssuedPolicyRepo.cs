@@ -1,7 +1,8 @@
-using PolicyMicroservice.Context;
-using PolicyMicroservice.Models;
+using Policy.Models;
 
-namespace PolicyMicroservice.Repo;
+using PolicyMicroservice.Repo;
+
+namespace Policy.Data;
 
 public class IssuedPolicyRepo : IIssuedPolicyRepo<IssuedPolicy>
 {

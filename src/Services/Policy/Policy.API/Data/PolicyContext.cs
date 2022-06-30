@@ -1,9 +1,9 @@
 #nullable disable
-using Microsoft.EntityFrameworkCore;
+using Policy.Models;
 
 using PolicyMicroservice.Models;
 
-namespace PolicyMicroservice.Context;
+namespace Policy.Data;
 
 public class PolicyContext : DbContext
 {

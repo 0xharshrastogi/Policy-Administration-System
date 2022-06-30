@@ -1,9 +1,10 @@
 using AutoMapper;
 
-using PolicyMicroservice.DTO;
-using PolicyMicroservice.Models;
+using Policy.Models;
 
-namespace PolicyMicroservice.Profiles;
+using PolicyMicroservice.DTO;
+
+namespace Policy.Profiles;
 
 public class IssuedPolicyProfile : Profile
 {

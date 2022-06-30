@@ -1,7 +1,8 @@
 global using Microsoft.EntityFrameworkCore;
 
-using PolicyMicroservice.Context;
-using PolicyMicroservice.Models;
+using Policy.Data;
+using Policy.Models;
+
 using PolicyMicroservice.Repo;
 
 var builder = WebApplication.CreateBuilder(args);

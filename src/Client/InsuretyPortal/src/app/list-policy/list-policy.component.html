@@ -12,7 +12,7 @@
     <thead>
       <tr>
         <th scope="col">Policy ID</th>
-        <th scope="col">Customer ID</th>
+        <th scope="col">Policy Name</th>
         <th scope="col">Bussiness ID</th>
         <th scope="col">Status</th>
         <th></th>
@@ -21,7 +21,7 @@
     <tbody>
       <tr class="customer-row" *ngFor="let policy of policies">
         <td>{{ policy.id }}</td>
-        <td>{{ policy.customerId }}</td>
+        <td>{{ policy.policyName }}</td>
         <td>{{ policy.businessId }}</td>
         <td>{{ policy.status }}</td>
         <td>
