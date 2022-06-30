@@ -9,6 +9,7 @@ import { CustomerInputComponent } from './pages/customer-input/customer-input.co
 import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { PolicyComponent } from './policy/policy.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
