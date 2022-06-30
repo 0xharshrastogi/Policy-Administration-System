@@ -111,14 +111,15 @@ public class ConsumerController : ControllerBase
         return Created(nameof(CreateProperty), new { Property = prop, message = "new property created under business " + propertyDTO.BusinessID });
     }
     [HttpGet("Property")]
-    public IActionResult GetProperty(Guid? id)
+    public IActionResult GetProperty(Guid? propertyId)
     {
-        if (id == null)
+        if (propertyId == null)
         {
-            var props = Repository.GetAllProperties();
+            var props = Repository.GetAllProperties().Include(p => p.Business);
             return Ok(props);
         }
-        return Ok(Repository.GetPropertyByID(id));
+        var property = Repository.GetPropertyByID(propertyId);
+        return property is null ? NotFound() : Ok(property);
     }
     [HttpPut("Property")]
     public IActionResult UpdateProperty(Guid id, PropertyDTO propertyDTO)
