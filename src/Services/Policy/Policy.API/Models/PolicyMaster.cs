@@ -1,5 +1,9 @@
 #nullable disable
-namespace PolicyMicroservice.Models;
+using System.Text.Json.Serialization;
+
+using PolicyMicroservice.Models;
+
+namespace Policy.Models;
 
 public class PolicyMaster
 {
@@ -9,13 +13,16 @@ public class PolicyMaster
 
     public CustomerType CustomerType { get; set; }
 
+    public int AssuredSum { get; set; }
+
     public int Tenure { get; set; }
 
-    public decimal BusinessValue { get; set; }
+    public int BusinessValue { get; set; }
 
-    public decimal PropertyValue { get; set; }
+    public int PropertyValue { get; set; }
 
     public string BaseLocation { get; set; }
 
-    public string Type { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public PolicyType Type { get; set; }
 }

@@ -27,7 +27,11 @@ builder
 
 builder
     .Services
-    .AddDbContext<PolicyContext>(option => option.UseInMemoryDatabase(builder.Configuration["DatabaseName"]));
+    .AddDbContext<PolicyContext>(option =>
+    {
+        var connectionString = builder.Configuration.GetConnectionString("PolicyDB");
+        option.UseSqlServer(connectionString);
+    });
 
 builder
     .Services
@@ -36,6 +40,10 @@ builder
 builder
     .Services
     .AddScoped<IIssuedPolicyRepo<IssuedPolicy>, IssuedPolicyRepo>();
+
+builder
+    .Services
+    .AddScoped<IPolicyMasterRepo, PolicyMasterRepo>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

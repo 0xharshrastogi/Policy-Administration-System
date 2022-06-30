@@ -1,8 +1,6 @@
 #nullable disable
 using Policy.Models;
 
-using PolicyMicroservice.Models;
-
 namespace Policy.Data;
 
 public class PolicyContext : DbContext
