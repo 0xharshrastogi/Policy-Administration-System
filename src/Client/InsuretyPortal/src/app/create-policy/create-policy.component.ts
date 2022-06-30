@@ -66,7 +66,10 @@ export class CreatePolicyComponent implements OnInit {
       const isBusinessNotFound =
         'message' in business && business.message === 'no business found';
 
-      if (isBusinessNotFound) throw new Error('NO_BUSINESS');
+      if (isBusinessNotFound) {
+        this.selectedCustomerId = consumerId;
+        throw new Error('NO_BUSINESS');
+      }
 
       this.business.found = true;
       this.business.value = business;
@@ -84,5 +87,9 @@ export class CreatePolicyComponent implements OnInit {
   private async assignCustomerId() {
     const consumers = await this.consumerService.fetchConsumers();
     this.consumers = consumers;
+  }
+
+  getBusinessCreateUrl() {
+    return `/customer-view/${this.selectedCustomerId}/Addbusiness`;
   }
 }
