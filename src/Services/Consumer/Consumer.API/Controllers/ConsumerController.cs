@@ -20,6 +20,10 @@ public class ConsumerController : ControllerBase
         this.Repository = repository;
     }
 
+    public ConsumerController()
+    {
+    }
+
     // Consumer Action methods
     [HttpPost("Customer")]
     public IActionResult Create(CustomerDTO customerDTO)
