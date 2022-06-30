@@ -13,4 +13,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker image build --rm -t theharshrastogi/pasauthservice -f src/Services/Authentication/Authentication.API/Dockerfile
+        run: docker build -t auth_service src/Services/Authentication/Authentication.API/
