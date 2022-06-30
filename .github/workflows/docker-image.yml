@@ -2,17 +2,15 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file src/Services/Policy/Policy.API/Dockerfile --tag policyservice:$(date +%s)
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker image build -f src/Services/Authentication/Authentication.API/Dockerfile --rm -t  theharshrastogi/pas-auth::$(date +%s)
