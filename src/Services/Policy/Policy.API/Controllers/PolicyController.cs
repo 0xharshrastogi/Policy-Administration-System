@@ -20,13 +20,16 @@ public class PolicyController : ControllerBase
 
     private readonly IIssuedPolicyRepo<IssuedPolicy> _issuedPolicyRepo;
 
+    private readonly IPolicyMasterRepo _policyMasterRepo;
+
     private readonly IMapper _mapper;
 
-    public PolicyController(IPolicyRepo<CustomerPolicy> repo, IMapper mapper, IIssuedPolicyRepo<IssuedPolicy> issuedPolicyRepo)
+    public PolicyController(IPolicyRepo<CustomerPolicy> repo, IMapper mapper, IIssuedPolicyRepo<IssuedPolicy> issuedPolicyRepo, IPolicyMasterRepo policyMasterRepo)
     {
         _customerPolicyRepo = repo;
         _mapper = mapper;
         _issuedPolicyRepo = issuedPolicyRepo;
+        _policyMasterRepo = policyMasterRepo;
     }
 
     [HttpPost(nameof(CreatePolicy))]
@@ -102,5 +105,12 @@ public class PolicyController : ControllerBase
                 Message = "Policy Not Found"
             });
         }
+    }
+
+    [HttpGet(nameof(GetPoliciesByBusinessValue))]
+    public IActionResult GetPoliciesByBusinessValue(int businessValue)
+    {
+        var policyMasters = _policyMasterRepo.FindByBusinessValue(businessValue);
+        return Ok(policyMasters);
     }
 }
