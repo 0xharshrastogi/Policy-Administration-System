@@ -27,6 +27,7 @@ export class CreatePolicyComponent implements OnInit {
     found: false,
     value: null,
     isLoading: false,
+    isFetchedAtLeastOnce: false,
   };
   policyCreateForm: FormGroup;
 
@@ -72,11 +73,11 @@ export class CreatePolicyComponent implements OnInit {
     }
 
     console.log(this.business);
+    console.log(this.policyCreateForm);
   }
 
   private async assignCustomerId() {
     const consumers = await this.consumerService.fetchConsumers();
     this.consumers = consumers;
-    console.log(consumers);
   }
 }
