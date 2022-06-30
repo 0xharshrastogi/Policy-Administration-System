@@ -8,6 +8,8 @@ const PATH = {
   VIEW_POLICY_BY_ID: (id: string) => `${BaseUri}/api/ViewPolicy?policyId=${id}`,
   VIEW_POLICY_ALL: `${BaseUri}/api/ViewPolicy`,
   ISSUE_POLICY: (id: string) => `${BaseUri}/api/IssuePolicy/${id}`,
+  POLICY_MASTER_BY_B_VAL: (id: string) =>
+    `${BaseUri}/api/GetPoliciesByBusinessValue?businessValue=${id}`,
 };
 
 type HttpAction = 'GET' | 'PUT' | 'POST' | 'DELETE';
@@ -41,5 +43,13 @@ export class PolicyService {
    */
   async fetchPolicy(id?: string): Promise<Policy[] | (Policy | null)> {
     return id ? this._fetchById(id) : this._fetchAll();
+  }
+
+  async getPolicyMastersByBusinessValue(businessId: string) {
+    const response = await fetch(PATH.POLICY_MASTER_BY_B_VAL(businessId), {
+      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+    });
+
+    return response.json();
   }
 }
