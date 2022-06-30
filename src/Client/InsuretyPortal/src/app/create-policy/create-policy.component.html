@@ -72,12 +72,12 @@
             </div>
           </div>
 
-          <div
-            *ngIf="
-              policyCreateForm.touched && !business.isLoading && !business.found
-            "
-          >
-            Not Found
+          <div *ngIf="business._isFetchedAtLeastOnce && !business.found">
+            <p>Dear, Consumer</p>
+            <p>You don't have any business to create business</p>
+            <a
+              routerLink="`/customer-view/b76a0c4e-4a97-47a8-072f-08da5a668def/Addbusiness`"
+            ></a>
           </div>
 
           <div class="d-flex justify-content-end mt-3">

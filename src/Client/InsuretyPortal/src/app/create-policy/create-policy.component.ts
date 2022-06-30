@@ -13,6 +13,9 @@ type BusinessState = {
   found: boolean;
   value: any | null;
   isLoading: boolean;
+  _isFetchedAtLeastOnce: boolean;
+
+  HasFetchedOnce(): void;
 };
 
 @Component({
@@ -27,7 +30,11 @@ export class CreatePolicyComponent implements OnInit {
     found: false,
     value: null,
     isLoading: false,
-    isFetchedAtLeastOnce: false,
+    _isFetchedAtLeastOnce: false,
+
+    HasFetchedOnce() {
+      this._isFetchedAtLeastOnce = true;
+    },
   };
   policyCreateForm: FormGroup;
 
@@ -70,10 +77,8 @@ export class CreatePolicyComponent implements OnInit {
       }
     } finally {
       this.business.isLoading = false;
+      this.business.HasFetchedOnce();
     }
-
-    console.log(this.business);
-    console.log(this.policyCreateForm);
   }
 
   private async assignCustomerId() {
