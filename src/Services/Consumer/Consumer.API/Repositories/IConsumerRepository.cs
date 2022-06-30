@@ -13,7 +13,7 @@ public interface IConsumerRepository
     //business
     Business GetBusinessByID(Guid? id);
     Business CreateBusiness(Business business);
-    IEnumerable<Business> GetAllBusiness();
+    IQueryable<Business> GetAllBusiness();
     Business UpdateBusiness(Guid id ,Business business);
     void DeleteBusiness(Guid id);
     //property

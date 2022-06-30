@@ -1,34 +1,79 @@
 <div class="container">
-  <form>
+  <div *ngIf="isLoading">Loading</div>
+  <div class="display-6 mt-2">
+    Customer Details
+  </div>
+  <form *ngIf="!isLoading" class="mt-2">
     <div class="row my-2">
       <div class="col-4" id="label">Customer ID</div>
       <div class="col">
-        <input type="text" class="form-control" id="customerID" value="3f57cc4e-bcd2-4faf-77b7-08da568a60f1" readonly>
+        <input
+          type="text"
+          class="form-control"
+          id="customerID"
+          value="{{ customer!.customerID }}"
+          readonly
+        />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-4" id="label">Full Name</div>
       <div class="col">
-        <input type="text" class="form-control" id="customerName" value="Anjali Sinha">
+        <input
+          type="text"
+          class="form-control"
+          id="customerName"
+          value="{{ customer!.customerName }}"
+        />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-4" id="label">Date of Birth</div>
       <div class="col">
-        <input type="date" class="form-control" id="dateOfBirth" value="">
+        <input
+          type="date"
+          class="form-control"
+          id="dateOfBirth"
+          value="{{toDate()}}"
+
+        />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-4" id="label">Email</div>
       <div class="col">
-        <input type="email" class="form-control" id="Email" value="Anjali@gmail.com">
+        <input
+          type="email"
+          class="form-control"
+          id="Email"
+          value="{{ customer!.email}}"
+
+        />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-4" id="label">Pan Details</div>
       <div class="col">
-        <input type="string" class="form-control" id="panDetails" value="12231231131">
+        <input
+          type="string"
+          class="form-control"
+          id="panDetails"
+          value="{{customer!.pan}}"
+        />
       </div>
     </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary">
+        Update
+      </button>
+    </div>
   </form>
+  <section class="row " *ngIf="!isLoading">
+    <div class="col-6">
+      <app-customer-business customerID="{{customer!.customerID}}"></app-customer-business>
+    </div>
+    <div class="col-6">
+      <app-consumer-business-property></app-consumer-business-property>
+    </div>
+  </section>
 </div>
