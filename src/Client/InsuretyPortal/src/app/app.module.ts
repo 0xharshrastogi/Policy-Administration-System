@@ -19,6 +19,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { CustomerBusinessComponent } from './customer-business/customer-business.component';
 import { ConsumerBusinessPropertyComponent } from './consumer-business-property/consumer-business-property.component';
 import { BusinessInputComponent } from './pages/business-input/business-input.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BusinessInputComponent } from './pages/business-input/business-input.co
     CustomerBusinessComponent,
     ConsumerBusinessPropertyComponent,
     BusinessInputComponent,
+    SpinnerComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
