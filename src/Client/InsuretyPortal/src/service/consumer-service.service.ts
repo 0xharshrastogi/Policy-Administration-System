@@ -19,7 +19,23 @@ export class ConsumerService {
     FETCH_CONSUMER_BUSINESS_BY_ID: `${ConsumerService.BaseAuthUri}/Consumer/getBusinessByCustomerID`,
     ADD_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
     FETCH_CONSUMER_BUSINESS_ALL: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
+    GET_PROPERTIES_BY_CUSTOMER_ID: `${ConsumerService.BaseAuthUri}/Consumer/GetPropertyByCustomerID`,
   };
+
+  async fetchPropertyBycustomerrID(customerID: string) {
+    const uri =
+      ConsumerService.requestPath.GET_PROPERTIES_BY_CUSTOMER_ID +
+      `?customerID=${customerID}`;
+    const response = await fetch(uri, {
+      method: `GET`,
+      credentials: `same-origin`,
+      headers: {
+        'content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
+    return response.json();
+  }
 
   async fetchConsumerBusinessByID(customerID: string) {
     const uri =

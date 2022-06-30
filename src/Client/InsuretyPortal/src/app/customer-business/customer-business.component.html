@@ -1,6 +1,6 @@
 <div class="row customer-business p-2">
-  <div class="display-6">Business Details</div>
-  <div class="container p-6" *ngIf="_business?.message != null">
+  <h1>Business Details</h1>
+  <div class="container p-4" *ngIf="_business?.message != null">
     Hi consumer, <br />
     your Business is not added,Kindly add one.<br />
     <button class="btn btn-success mt-2" (click)="gotobusinessform(customerID)">
