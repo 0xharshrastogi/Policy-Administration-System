@@ -15,9 +15,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '6.0.100-preview.4.21255.9'
-          include-prerelease: true
+          dotnet-version: 6.0.x
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build src/Services/Authentication/Authentication.API/
+        run: dotnet build -c Release src/Services/Authentication/Authentication.API/
