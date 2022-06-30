@@ -7,6 +7,7 @@ import { CustomerComponent } from './pages/customer/customer.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PolicyComponent } from './policy/policy.component';
 import { CustomerInputComponent } from './pages/customer-input/customer-input.component';
+import { BusinessInputComponent } from './pages/business-input/business-input.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginFormComponent },
   { path: 'customerinput', component: CustomerInputComponent },
+  { path: 'customer-view/:id/Addbusiness', component: BusinessInputComponent },
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConsumerService } from 'src/service/consumer-service.service';
 
 type Business = {
@@ -24,9 +25,11 @@ export class CustomerBusinessComponent implements OnInit {
   _business: Business | null = null;
 
   private readonly _cservice: ConsumerService;
+  private readonly _router: Router;
 
-  constructor(cservice: ConsumerService) {
+  constructor(cservice: ConsumerService, router: Router) {
     this._cservice = cservice;
+    this._router = router;
   }
 
   /*  get businessjsonvalue() {
@@ -40,5 +43,9 @@ export class CustomerBusinessComponent implements OnInit {
     this._business = business;
     console.log(this._business?.message);
     this.isLoading = false;
+  }
+
+  gotobusinessform(customerID: string) {
+    this._router.navigate([`customer-view/${customerID}/Addbusiness`]);
   }
 }

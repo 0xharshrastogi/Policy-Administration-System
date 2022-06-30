@@ -18,6 +18,7 @@ import { CustomerInputComponent } from './pages/customer-input/customer-input.co
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CustomerBusinessComponent } from './customer-business/customer-business.component';
 import { ConsumerBusinessPropertyComponent } from './consumer-business-property/consumer-business-property.component';
+import { BusinessInputComponent } from './pages/business-input/business-input.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ConsumerBusinessPropertyComponent } from './consumer-business-property/
     LoginFormComponent,
     CustomerBusinessComponent,
     ConsumerBusinessPropertyComponent,
+    BusinessInputComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
