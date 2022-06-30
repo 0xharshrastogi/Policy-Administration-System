@@ -10,6 +10,7 @@ import { ConsumerService } from 'src/service/consumer-service.service';
 })
 export class CustomerInputComponent implements OnInit {
   createCustomerForm: FormGroup;
+
   constructor(private _cuservice: ConsumerService, private _router: Router) {
     this.createCustomerForm = new FormGroup({
       customerName: new FormControl(''),
@@ -19,8 +20,10 @@ export class CustomerInputComponent implements OnInit {
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
       pan: new FormControl('', Validators.required),
+      phoneNumber: new FormControl('', Validators.required),
     });
   }
+
   get isSubmitDisabled(): boolean {
     if (!this.createCustomerForm.touched) return false;
     return this.createCustomerForm.invalid;

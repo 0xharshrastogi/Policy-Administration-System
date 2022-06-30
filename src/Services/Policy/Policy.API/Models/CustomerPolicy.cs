@@ -2,12 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace PolicyMicroservice.Models;
+using PolicyMicroservice.Models;
+
+namespace Policy.Models;
 
 public class CustomerPolicy
 {
     [Key]
     public Guid Id { get; set; }
+
+    public string PolicyName { get; set; }
 
     public Guid CustomerId { get; set; }
 

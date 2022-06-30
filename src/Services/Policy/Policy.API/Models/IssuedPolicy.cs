@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace PolicyMicroservice.Models;
+using PolicyMicroservice.Models;
+
+namespace Policy.Models;
 
 public class IssuedPolicy
 {

@@ -15,10 +15,12 @@ type SignUpCredential = Credential & { name: string; email: string };
 })
 export class ConsumerService {
   static BaseAuthUri = 'http://localhost:5114';
+
   static requestPath = {
     FETCH_CONSUMER_BUSINESS: `${ConsumerService.BaseAuthUri}/Consumer/getBusinessByCustomerID`,
-    ADD_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer`,
+    ADD_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
   };
+
   async fetchConsumerBusiness(customerID: string) {
     const uri =
       ConsumerService.requestPath.FETCH_CONSUMER_BUSINESS +
@@ -34,6 +36,7 @@ export class ConsumerService {
     console.log(response);
     return response.json();
   }
+
   async addcustomer(customer: Customer) {
     const uri = ConsumerService.requestPath.ADD_CUSTOMER;
     const response = await fetch(uri, {

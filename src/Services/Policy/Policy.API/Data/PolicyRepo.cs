@@ -1,8 +1,10 @@
-using PolicyMicroservice.Context;
+using Policy.Models;
+
 using PolicyMicroservice.Helper;
 using PolicyMicroservice.Models;
+using PolicyMicroservice.Repo;
 
-namespace PolicyMicroservice.Repo;
+namespace Policy.Data;
 
 public class PolicyRepo : IPolicyRepo<CustomerPolicy>
 {
@@ -20,10 +22,7 @@ public class PolicyRepo : IPolicyRepo<CustomerPolicy>
         return policy;
     }
 
-    public IQueryable<CustomerPolicy> FindAll()
-    {
-        return _context.CustomerPolicies;
-    }
+    public IQueryable<CustomerPolicy> FindAll() => _context.CustomerPolicies;
 
     /// <summary>
     /// Asyncronously update the status of policy with passed policy id with new status
