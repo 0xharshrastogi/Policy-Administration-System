@@ -69,7 +69,9 @@
       ></app-customer-business>
     </div>
     <div class="col-6">
-      <app-consumer-business-property></app-consumer-business-property>
+      <app-consumer-business-property
+        customerID="{{ customer!.customerID }}"
+      ></app-consumer-business-property>
     </div>
   </section>
 </div>

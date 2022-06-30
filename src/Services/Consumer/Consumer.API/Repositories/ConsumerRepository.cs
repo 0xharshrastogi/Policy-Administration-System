@@ -1,122 +1,128 @@
 using Consumer.API.Models;
 using Consumer.API.Data;
+using Microsoft.EntityFrameworkCore;
+using Consumer.API.Repositories;
 
 namespace Consumer.API.Repository;
 public class ConsumerRepository : IConsumerRepository
 {
-    public ConsumerDbContext context { get; }
-    public ConsumerRepository(ConsumerDbContext _context)
+    private readonly ConsumerDbContext _context;
+
+    public ConsumerRepository(ConsumerDbContext context)
     {
-        this.context = _context;
+        _context = context;
     }
 
     public Customer CreateConsumer(Customer consumer)
     {
-        this.context.Customers.Add(consumer);
-        this.context.SaveChanges();
+        _context.Customers.Add(consumer);
+        _context.SaveChanges();
         return consumer;
     }
 
     public Customer GetConsumerByID(Guid? id)
     {
-        Customer customer = context.Customers.Find(id);
-        return customer;
+        return _context.Customers.Find(id);
     }
 
     public IEnumerable<Customer> GetAllConsumers()
     {
-        return context.Customers;
+        return _context.Customers;
     }
 
     public Customer UpdateConsumer(Customer consumer)
     {
-        Customer consumerToBeUpdated = context.Customers.Find(consumer.CustomerID);
+        Customer consumerToBeUpdated = _context.Customers.Find(consumer.CustomerID);
+
         consumerToBeUpdated.CustomerName = consumer.CustomerName;
         consumerToBeUpdated.DateOfBirth = consumer.DateOfBirth;
         consumerToBeUpdated.Email = consumer.Email;
         consumerToBeUpdated.Pan = consumer.Pan;
         consumerToBeUpdated.PhoneNumber = consumer.PhoneNumber;
-        context.SaveChanges();
+
+        _context.SaveChanges();
+
         return consumerToBeUpdated;
     }
-    public void DeleteConsumer(Guid id)
+
+    public void DeleteConsumer(Guid consumerId)
     {
-        var customer = context.Customers.Find(id);
-        context.Customers.Remove(customer);
-        context.SaveChanges();
+        var customer = _context.Customers.Find(consumerId);
+        _context.Customers.Remove(customer);
+        _context.SaveChanges();
     }
+
     //Business
     public Business GetBusinessByID(Guid? id)
     {
-        Business business = context.Businesses.Find(id);
-        return business;
+        return _context.Businesses.Find(id);
     }
 
     public Business CreateBusiness(Business business)
     {
-        context.Businesses.Add(business);
-        context.SaveChanges();
+        _context.Businesses.Add(business);
+        _context.SaveChanges();
         return business;
     }
 
     public IQueryable<Business> GetAllBusiness()
     {
-        return context.Businesses;
+        return _context.Businesses;
     }
 
     public Business UpdateBusiness(Guid id, Business business)
     {
-        var businessToBeUpdated = context.Businesses.Find(id);
+        var businessToBeUpdated = _context.Businesses.Find(id);
         businessToBeUpdated.AnnualTurnover = business.AnnualTurnover;
         businessToBeUpdated.BusinessType = business.BusinessType;
         businessToBeUpdated.BusinessValue = business.BusinessValue;
         businessToBeUpdated.BusinessName = business.BusinessName;
-        context.SaveChanges();
+        _context.SaveChanges();
         return businessToBeUpdated;
     }
 
     public void DeleteBusiness(Guid id)
     {
-        var business = context.Businesses.Find(id);
-        context.Businesses.Remove(business);
-        context.SaveChanges();
-    }
-    //property
-    public Property GetPropertyByID(Guid? id)
-    {
-        return context.Properties.Find(id);
+        var business = _context.Businesses.Find(id);
+        _context.Businesses.Remove(business);
+        _context.SaveChanges();
     }
 
-    public IEnumerable<Property> GetAllProperties()
+    public Property GetPropertyByID(Guid propertyId)
     {
-        return context.Properties;
+        return _context.Properties.Include(p => p.Business)
+            .SingleOrDefault(c => c.PropertyID == propertyId);
+    }
+
+    public IQueryable<Property> GetAllProperties()
+    {
+        return _context.Properties;
     }
 
     public Property CreateProperty(Property property)
     {
-        context.Properties.Add(property);
-        context.SaveChanges();
+        _context.Properties.Add(property);
+        _context.SaveChanges();
         return property;
     }
 
     public Property UpdateProperty(Guid id, Property property)
     {
-        var propertyTobeupdated = context.Properties.Find(id);
+        var propertyTobeupdated = _context.Properties.Find(id);
 
         propertyTobeupdated.Address = property.Address;
         propertyTobeupdated.PropertyType = property.PropertyType;
-        propertyTobeupdated.Area = property.Area;
-        propertyTobeupdated.Age = property.Age;
+        propertyTobeupdated.AreaInSqFt = property.AreaInSqFt;
+        propertyTobeupdated.BuildingAge = property.BuildingAge;
         propertyTobeupdated.BuildingStorey = property.BuildingStorey;
         property.PropertyValue = property.PropertyValue;
-        context.SaveChanges();
+        _context.SaveChanges();
         return propertyTobeupdated;
     }
 
-
     public void DeleteProperty(Guid id)
     {
-        var propertytobedeleted = context.Properties.Find(id);
-        context.Properties.Remove(propertytobedeleted);
+        var propertytobedeleted = _context.Properties.Find(id);
+        _context.Properties.Remove(propertytobedeleted);
     }
 }

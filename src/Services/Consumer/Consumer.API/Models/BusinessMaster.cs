@@ -6,12 +6,10 @@ public class BusinessMaster
 {
     [Key]
     public Guid BusinessTypeID { get; set; }
+
     public string BusinessType { get; set; }
-    private DateTime modifyDate;
-    public DateTime ModifyDate
-    {
-        get { return modifyDate; }
-        set { modifyDate = DateTime.Now; }
-    }
+
+    public DateTime ModifyDate { get; set; }
+
     public string ModifiedBy { get; set; }
 }

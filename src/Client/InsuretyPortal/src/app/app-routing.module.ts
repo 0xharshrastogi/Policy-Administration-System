@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { CreatePolicyComponent } from './create-policy/create-policy.component';
 import { ListPolicyComponent } from './list-policy/list-policy.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { BusinessInputComponent } from './pages/business-input/business-input.component';
@@ -20,6 +21,10 @@ const routes: Routes = [
     path: 'policy',
     component: ListPolicyComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'policy/create',
+    component: CreatePolicyComponent,
   },
   {
     path: 'customer-view/:id',

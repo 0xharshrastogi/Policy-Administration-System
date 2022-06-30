@@ -5,27 +5,24 @@ namespace Quotes.API.Controllers;
 [Route("[controller]")]
 public class QuotesController : ControllerBase
 {
-
-
     [HttpGet(Name = "GetQuotes")]
-    public IActionResult Get(int BusinessValue, int PropertyValue, int PropertyType)
+    public IActionResult Get(int businessValue, int propertyValue, int propertyType)
     {
-        if (BusinessValue < 0 || PropertyValue < 0 || BusinessValue > 10)
+        if (businessValue < 0 || propertyValue < 0 || businessValue > 10)
         {
             return BadRequest();
         }
-        double QuoteValue = 0;
 
-        QuoteValue = PropertyValue - (10 - BusinessValue) * (PropertyValue) / 10;
-        if (PropertyType.Equals("Equipment"))
-            QuoteValue += (PropertyValue * 2) / 100;
-        else if (PropertyType.Equals("Machinery"))
-            QuoteValue += (PropertyValue * 5) / 100;
-        else if (PropertyType.Equals("Building"))
-            QuoteValue += (PropertyValue) / 10;
+        double quoteValue = propertyValue - ((10 - businessValue) * propertyValue / 10);
+        if (propertyType.Equals("Equipment"))
+            quoteValue += propertyValue * 2 / 100;
+        else if (propertyType.Equals("Machinery"))
+            quoteValue += propertyValue * 5 / 100;
+        else if (propertyType.Equals("Building"))
+            quoteValue += propertyValue / 10;
         //PropertyValue is cost of Property
         //On the scale of 10 we deduct the part of ProprertyValue according to worth of BusinessValue
 
-        return Ok(QuoteValue);
+        return Ok(quoteValue);
     }
 }

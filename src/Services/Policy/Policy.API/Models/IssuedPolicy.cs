@@ -20,7 +20,7 @@ public class IssuedPolicy
     /// </summary>
     public DateTime EffectiveDate { get; set; }
 
-    public decimal CoveredSum { get; set; }
+    public int CoveredSum { get; set; }
 
     /// <summary>
     /// Duration of policy in Number Of Days
