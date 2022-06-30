@@ -1,6 +1,16 @@
+global using Microsoft.EntityFrameworkCore;
+
+using Quotes.API.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder
+    .Services
+    .AddDbContext<QuotesContext>(option => option.UseSqlServer(builder
+        .Configuration
+        .GetConnectionString("QuotesDB")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

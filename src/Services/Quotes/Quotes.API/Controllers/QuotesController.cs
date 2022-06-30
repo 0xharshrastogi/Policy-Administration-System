@@ -1,28 +1,35 @@
 using Microsoft.AspNetCore.Mvc;
+
+using Quotes.API.Data;
+
 namespace Quotes.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class QuotesController : ControllerBase
 {
-    [HttpGet(Name = "GetQuotes")]
-    public IActionResult Get(int businessValue, int propertyValue, int propertyType)
+    private readonly QuotesContext _context;
+
+    public QuotesController(QuotesContext context)
     {
-        if (businessValue < 0 || propertyValue < 0 || businessValue > 10)
+        _context = context;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetQuotesAsync(int businessValue, int propertyValue, string propertyType)
+    {
+        var quotes = _context
+            .QuotesMaster
+            .Where(q => businessValue >= q.MinBusinessValue
+                && businessValue <= q.MaxBusinessValue
+                && propertyValue >= q.MinPropertyValue
+                && propertyValue <= q.MaxPropertyValue
+                && q.PropertyType == propertyType);
+
+        return await quotes.AnyAsync() ? Ok(quotes) : NotFound(new
         {
-            return BadRequest();
-        }
-
-        double quoteValue = propertyValue - ((10 - businessValue) * propertyValue / 10);
-        if (propertyType.Equals("Equipment"))
-            quoteValue += propertyValue * 2 / 100;
-        else if (propertyType.Equals("Machinery"))
-            quoteValue += propertyValue * 5 / 100;
-        else if (propertyType.Equals("Building"))
-            quoteValue += propertyValue / 10;
-        //PropertyValue is cost of Property
-        //On the scale of 10 we deduct the part of ProprertyValue according to worth of BusinessValue
-
-        return Ok(quoteValue);
+            name = "No Matched Found",
+            message = "No Quotes, Contact Insurance Provider"
+        });
     }
 }
