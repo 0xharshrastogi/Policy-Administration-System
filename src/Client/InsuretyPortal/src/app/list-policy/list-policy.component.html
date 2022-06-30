@@ -1,21 +1,32 @@
-<div *ngIf="!isLoaded">Loading</div>
+<div *ngIf="!isLoaded">
+  <app-spinner></app-spinner>
+</div>
 
-<div *ngIf="isLoaded" class="container">
-  <table class="table table-dark">
+<div class="container mt-4">
+  <div class="d-flex justify-content-end">
+    <a type="button" class="btn btn-primary">Create Policy</a>
+  </div>
+  <!-- <br /> -->
+
+  <table class="table table-light mt-4">
     <thead>
       <tr>
-        <th>Consumer ID</th>
-        <th>Business ID</th>
-        <th>Status</th>
+        <th scope="col">Policy ID</th>
+        <th scope="col">Customer ID</th>
+        <th scope="col">Bussiness ID</th>
+        <th scope="col">Status</th>
+        <th></th>
       </tr>
     </thead>
-    <!-- table body -->
-
     <tbody>
-      <tr *ngFor="let policy of policies">
+      <tr class="customer-row" *ngFor="let policy of policies">
+        <td>{{ policy.id }}</td>
         <td>{{ policy.customerId }}</td>
         <td>{{ policy.businessId }}</td>
         <td>{{ policy.status }}</td>
+        <td>
+          <button class="btn btn-success">Issue</button>
+        </td>
       </tr>
     </tbody>
   </table>
