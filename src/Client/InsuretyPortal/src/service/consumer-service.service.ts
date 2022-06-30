@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Consumer } from 'src/@types/Customer';
 import { HttpStatusCode } from 'src/utils/HttpStatusCode';
 
 type Customer = {
@@ -17,13 +18,14 @@ export class ConsumerService {
   static BaseAuthUri = 'http://localhost:5114';
 
   static requestPath = {
-    FETCH_CONSUMER_BUSINESS: `${ConsumerService.BaseAuthUri}/Consumer/getBusinessByCustomerID`,
+    FETCH_CONSUMER_BUSINESS_BY_ID: `${ConsumerService.BaseAuthUri}/Consumer/getBusinessByCustomerID`,
     ADD_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
+    FETCH_CONSUMER_BUSINESS_ALL: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
   };
 
-  async fetchConsumerBusiness(customerID: string) {
+  async fetchConsumerBusinessByID(customerID: string) {
     const uri =
-      ConsumerService.requestPath.FETCH_CONSUMER_BUSINESS +
+      ConsumerService.requestPath.FETCH_CONSUMER_BUSINESS_BY_ID +
       `?customerID=${customerID}`;
     const response = await fetch(uri, {
       method: 'GET',
@@ -33,7 +35,6 @@ export class ConsumerService {
         accept: '*/*',
       },
     });
-    console.log(response);
     return response.json();
   }
 
@@ -51,5 +52,16 @@ export class ConsumerService {
     if (response.status === HttpStatusCode.Created)
       console.log(`${response.status} created`);
     else console.log(`${response.status} not created`);
+  }
+
+  async fetchConsumers(): Promise<Consumer[]> {
+    const response = await fetch(
+      ConsumerService.requestPath.FETCH_CONSUMER_BUSINESS_ALL,
+      {
+        headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      }
+    );
+
+    return response.json();
   }
 }

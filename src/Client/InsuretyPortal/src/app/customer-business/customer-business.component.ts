@@ -37,7 +37,7 @@ export class CustomerBusinessComponent implements OnInit {
   }*/
 
   async ngOnInit(): Promise<void> {
-    const business = await this._cservice.fetchConsumerBusiness(
+    const business = await this._cservice.fetchConsumerBusinessByID(
       this.customerID
     );
     this._business = business;
