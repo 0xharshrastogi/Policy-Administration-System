@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConsumerService } from 'src/service/consumer-service.service';
 
 type Business = {
@@ -10,6 +11,7 @@ type Business = {
   totalEmployees: number;
   annualTurnover: number;
   businessValue: number;
+  message: string;
 };
 
 @Component({
@@ -20,23 +22,30 @@ type Business = {
 export class CustomerBusinessComponent implements OnInit {
   @Input() customerID: string = '';
   isLoading: boolean = true;
-  business: Business | null = null;
+  _business: Business | null = null;
 
   private readonly _cservice: ConsumerService;
+  private readonly _router: Router;
 
-  constructor(cservice: ConsumerService) {
+  constructor(cservice: ConsumerService, router: Router) {
     this._cservice = cservice;
+    this._router = router;
   }
 
-  get businessjsonvalue() {
+  /*  get businessjsonvalue() {
     return JSON.stringify(this.business);
-  }
+  }*/
 
   async ngOnInit(): Promise<void> {
     const business = await this._cservice.fetchConsumerBusiness(
       this.customerID
     );
-    this.business = business;
+    this._business = business;
+    console.log(this._business?.message);
     this.isLoading = false;
+  }
+
+  gotobusinessform(customerID: string) {
+    this._router.navigate([`customer-view/${customerID}/Addbusiness`]);
   }
 }

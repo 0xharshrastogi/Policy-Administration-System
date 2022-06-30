@@ -1,0 +1,14 @@
+.table .customer-row
+{
+  cursor: pointer;
+
+
+}
+.customer-row:hover
+{
+  background-color: #ddd;
+}
+.customer-row td
+{
+  background: none;
+}

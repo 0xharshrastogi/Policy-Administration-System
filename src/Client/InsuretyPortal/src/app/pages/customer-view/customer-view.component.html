@@ -1,8 +1,6 @@
 <div class="container">
   <div *ngIf="isLoading">Loading</div>
-  <div class="display-6 mt-2">
-    Customer Details
-  </div>
+  <div class="display-6 mt-2">Customer Details</div>
   <form *ngIf="!isLoading" class="mt-2">
     <div class="row my-2">
       <div class="col-4" id="label">Customer ID</div>
@@ -34,8 +32,7 @@
           type="date"
           class="form-control"
           id="dateOfBirth"
-          value="{{toDate()}}"
-
+          value="{{ toDate() }}"
         />
       </div>
     </div>
@@ -46,8 +43,7 @@
           type="email"
           class="form-control"
           id="Email"
-          value="{{ customer!.email}}"
-
+          value="{{ customer!.email }}"
         />
       </div>
     </div>
@@ -58,19 +54,19 @@
           type="string"
           class="form-control"
           id="panDetails"
-          value="{{customer!.pan}}"
+          value="{{ customer!.pan }}"
         />
       </div>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="btn btn-primary">
-        Update
-      </button>
+      <button class="btn btn-primary">Update</button>
     </div>
   </form>
-  <section class="row " *ngIf="!isLoading">
+  <section class="row" *ngIf="!isLoading">
     <div class="col-6">
-      <app-customer-business customerID="{{customer!.customerID}}"></app-customer-business>
+      <app-customer-business
+        customerID="{{ customer!.customerID }}"
+      ></app-customer-business>
     </div>
     <div class="col-6">
       <app-consumer-business-property></app-consumer-business-property>

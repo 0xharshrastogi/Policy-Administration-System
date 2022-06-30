@@ -1,4 +1,6 @@
 .customer-business
 {
-  background-color: antiquewhite;
+  background-color: rgb(233, 231, 229);
+  border: 2px solid rgb(233, 231, 229);
+  border-radius: 5px;
 }

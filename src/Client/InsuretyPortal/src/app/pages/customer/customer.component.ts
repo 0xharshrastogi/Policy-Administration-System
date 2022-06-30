@@ -18,9 +18,7 @@ export class CustomerComponent implements OnInit {
   customers: customer[] = [];
   isLoaded: boolean = false;
 
-  constructor(private router : Router) {
-
-  }
+  constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     const uri = 'http://localhost:5114/Consumer';
@@ -39,8 +37,10 @@ export class CustomerComponent implements OnInit {
     console.log(this.customers);
   }
 
-  onClick(id :string)
-  {
-    this.router.navigate([`/customer-view/${id}`])
+  onClick(id: string) {
+    this.router.navigate([`/customer-view/${id}`]);
+  }
+  onaddcustomer() {
+    this.router.navigate([`/customerinput`]);
   }
 }
