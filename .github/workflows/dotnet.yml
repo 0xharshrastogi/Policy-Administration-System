@@ -20,4 +20,4 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build --project src/Services/Authentication/Authentication.API/
+        run: dotnet build src/Services/Authentication/Authentication.API/
