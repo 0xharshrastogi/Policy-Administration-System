@@ -44,7 +44,7 @@ export class LoginFormComponent {
     try {
       const { value: credential } = this.loginForm;
       await this._auth.login(credential);
-      this._router.navigate(['/customer']);
+      this._router.navigate(['/policy']);
     } catch (error) {
       this.errors.push(<Error>error);
     }
