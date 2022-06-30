@@ -10,6 +10,6 @@ public class Customer
     public string CustomerName { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string Email { get; set; }
-    [MinLength(10), MaxLength(10), Required]
+    public long PhoneNumber { get; set; }
     public string Pan { get; set; }
 }
