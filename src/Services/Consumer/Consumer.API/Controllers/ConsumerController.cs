@@ -21,7 +21,7 @@ public class ConsumerController : ControllerBase
     }
 
     // Consumer Action methods
-    [HttpPost]
+    [HttpPost("Customer")]
     public IActionResult Create(CustomerDTO customerDTO)
     {
         if (!ModelState.IsValid)
@@ -29,7 +29,7 @@ public class ConsumerController : ControllerBase
         var cons = Repository.CreateConsumer(Mapper.Map<Customer>(customerDTO));
         return Created(nameof(Create), new { Customer = cons, message = "new consumer created" });
     }
-    [HttpGet]
+    [HttpGet("Customer")]
     public IActionResult Get(Guid? id)
     {
         if (id == null)
@@ -39,7 +39,7 @@ public class ConsumerController : ControllerBase
         }
         return Ok(Repository.GetConsumerByID(id));
     }
-    [HttpPut]
+    [HttpPut("Customer")]
     public IActionResult Update(Customer cons)
     {
         if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ public class ConsumerController : ControllerBase
         Repository.UpdateConsumer(cons);
         return Accepted(nameof(Update));
     }
-    [HttpDelete]
+    [HttpDelete("Customer")]
     public IActionResult Delete(Guid id)
     {
         Repository.DeleteConsumer(id);
