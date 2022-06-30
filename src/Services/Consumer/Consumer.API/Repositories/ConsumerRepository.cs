@@ -103,9 +103,10 @@ public class ConsumerRepository : IConsumerRepository
     {
         var propertyTobeupdated = context.Properties.Find(id);
 
-        property.PropertyTypeID = property.PropertyTypeID;
+        propertyTobeupdated.Address = property.Address;
+        propertyTobeupdated.PropertyType = property.PropertyType;
         propertyTobeupdated.Area = property.Area;
-        propertyTobeupdated.BuildingAge = property.BuildingAge;
+        propertyTobeupdated.Age = property.Age;
         propertyTobeupdated.BuildingStorey = property.BuildingStorey;
         property.PropertyValue = property.PropertyValue;
         context.SaveChanges();

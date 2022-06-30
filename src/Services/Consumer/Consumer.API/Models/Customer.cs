@@ -10,6 +10,6 @@ public class Customer
     public string CustomerName { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string Email { get; set; }
-    public long PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
     public string Pan { get; set; }
 }
