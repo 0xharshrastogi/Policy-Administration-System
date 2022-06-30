@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Consumer } from 'src/@types/Customer';
+import { PolicyMaster } from 'src/@types/Policy';
 import { ConsumerService } from 'src/service/consumer-service.service';
+import { PolicyService } from 'src/service/policy-service.service';
 
 interface ChangeEvent extends Event {
   target: EventTarget & {
@@ -36,12 +38,16 @@ export class CreatePolicyComponent implements OnInit {
       this._isFetchedAtLeastOnce = true;
     },
   };
+  policiesMaster = <PolicyMaster[]>[];
+  selectedPolicyMaster: PolicyMaster | null;
   policyCreateForm: FormGroup;
 
   private readonly consumerService: ConsumerService;
+  private readonly policyService: PolicyService;
 
-  constructor(cService: ConsumerService) {
+  constructor(cService: ConsumerService, pService: PolicyService) {
     this.consumerService = cService;
+    this.policyService = pService;
 
     this.policyCreateForm = new FormGroup({
       customerId: new FormControl('', Validators.required),
@@ -73,6 +79,9 @@ export class CreatePolicyComponent implements OnInit {
 
       this.business.found = true;
       this.business.value = business;
+      // !IMPORTANT DELETE NEXT LINE
+      this.onBusinessValue(8);
+      // this.onBusinessValue(business.businessValue);
     } catch (error) {
       if ((<Error>error).message === 'NO_BUSINESS') {
         this.business.value = null;
@@ -81,7 +90,22 @@ export class CreatePolicyComponent implements OnInit {
     } finally {
       this.business.isLoading = false;
       this.business.HasFetchedOnce();
+      this.policiesMaster = [];
     }
+  }
+
+  async onBusinessValue(value: number) {
+    const policyMasters =
+      await this.policyService.getPolicyMastersByBusinessValue(
+        value.toString()
+      );
+    console.log(policyMasters);
+    this.policiesMaster = policyMasters;
+  }
+
+  onSelectPolicyMaster(value: PolicyMaster) {
+    this.selectedPolicyMaster = value;
+    console.log(this.selectedPolicyMaster);
   }
 
   private async assignCustomerId() {

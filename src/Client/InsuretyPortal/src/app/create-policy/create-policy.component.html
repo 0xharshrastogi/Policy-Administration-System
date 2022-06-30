@@ -3,20 +3,10 @@
     <div class="row">
       <div class="col">
         <form
-          class="form card col-sm-6 mx-auto p-4"
+          class="form card col-md-10 mx-auto p-4"
           [formGroup]="policyCreateForm"
         >
           <h5 class="card-title text-center">Create Policy</h5>
-          <!-- <div class="mt-3">
-            <label for="name" class="form-label">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="LIC Jevan Bima Yojna"
-              class="form-control"
-            />
-          </div> -->
 
           <div class="mt-3">
             <label for="name" class="form-label">Customer</label>
@@ -38,11 +28,14 @@
           </div>
 
           <!-- If consumer has any business -->
-          <div *ngIf="!business.isLoading && business.found">
-            <div class="mt-3">
+          <div
+            class="border rounded p-2 mt-3"
+            *ngIf="!business.isLoading && business.found"
+          >
+            <div class="">
               <h5>Business Details</h5>
 
-              <div class="border rounded p-2">
+              <div class="border rounded p-1">
                 <p>
                   <strong>Business ID</strong>:
                   {{ business.value.businessID }}
@@ -68,12 +61,50 @@
             </div>
           </div>
 
-          <div *ngIf="business._isFetchedAtLeastOnce && !business.found">
+          <!-- Alert Box If Business Not Found -->
+          <div
+            class="alert alert-info mt-3"
+            *ngIf="business._isFetchedAtLeastOnce && !business.found"
+          >
             <p class="mb-0"><strong>Dear, Consumer</strong></p>
             <p>You don't have any business to create business</p>
             <a class="btn btn-primary" [routerLink]="getBusinessCreateUrl()">
               Create Business
             </a>
+          </div>
+
+          <!-- When policies master are found is  -->
+
+          <div
+            *ngIf="policiesMaster.length > 0"
+            class="mt-3 border rounded p-2"
+          >
+            <h5>Policies</h5>
+            <p class="small">
+              <strong>Note:</strong> Click to obtain qoutes value
+            </p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Assured Sum</th>
+                  <th>Base Location</th>
+                  <th>Tenure</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="let policyMaster of policiesMaster"
+                  (click)="onSelectPolicyMaster(policyMaster)"
+                >
+                  <td>{{ policyMaster.assuredSum }}</td>
+                  <td>{{ policyMaster.baseLocation }}</td>
+                  <td>{{ policyMaster.tenure }}</td>
+                  <td>{{ policyMaster.type }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <div class="d-flex justify-content-end mt-3">
