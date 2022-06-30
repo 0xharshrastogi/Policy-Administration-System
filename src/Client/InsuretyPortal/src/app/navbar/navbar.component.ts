@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
 export class NavbarComponent {
   @Input() title: string;
 
-  isNavbarCollapsed: boolean = false;
+  isNavbarCollapsed: boolean = true;
 
   private readonly _auth: AuthenticationService;
 

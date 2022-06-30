@@ -1,0 +1,20 @@
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form form {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 0 0 8px 4px #00000026;
+  background-color: white;
+}
+
+@media (min-width: 600px) {
+  .login-form form {
+    /* min-width: 35rem; */
+  }
+}
