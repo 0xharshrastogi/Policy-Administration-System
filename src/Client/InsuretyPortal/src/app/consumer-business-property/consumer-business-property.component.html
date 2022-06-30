@@ -1,2 +1,72 @@
-<p>consumer-business-property works!</p>
-{{ customerID }}
+<div class="row p-2 propertyView">
+  <h1>Property Details</h1>
+
+  <div class="container p-6" *ngIf="property!.propertyID == null">
+    Hi consumer, <br />
+    your Property is not added,Kindly add one.<br />
+    <button class="btn btn-success mt-2">Add Property</button>
+  </div>
+  <div class="container" *ngIf="property!.propertyID != null">
+    <form>
+      <div class="row my-2">
+        <div class="col-4" id="label">Property ID</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="propertyID"
+            value="{{ property!.propertyID }}"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-4" id="label">Property Type</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="propertyType"
+            value="{{ property!.propertyType }}"
+          />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-4" id="label">Address</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="Address"
+            value="{{ property!.address }}"
+          />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-4" id="label">Property Area</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="propertyArea"
+            value="{{ property!.areaInSqFt }}"
+          />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-4" id="label">Building Storey</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="buildingStorey"
+            value="{{ property!.buildingStorey }}"
+          />
+        </div>
+      </div>
+      <div class="dflex justify-content-end">
+        <button class="btn btn-success">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
