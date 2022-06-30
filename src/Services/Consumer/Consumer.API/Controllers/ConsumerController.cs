@@ -177,7 +177,11 @@ public class ConsumerController : ControllerBase
         var business = _repository.GetAllBusiness()
            .Include(b => b.Customer)
            .SingleOrDefault(b => b.CustomerID == customerID);
-        var property = _repository.GetAllProperties().SingleOrDefault(p => p.BusinessID == business.BusinessID);
-        return Ok(property);
+        Property property = new Property();
+        if (business != null)
+        {
+            property = _repository.GetAllProperties().SingleOrDefault(p => p.BusinessID == business.BusinessID);
+        }
+        return property is null || business is null ? NotFound() : Ok(property);
     }
 }

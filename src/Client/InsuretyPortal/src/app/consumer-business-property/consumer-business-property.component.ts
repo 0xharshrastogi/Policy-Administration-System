@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./consumer-business-property.component.css'],
 })
 export class ConsumerBusinessPropertyComponent implements OnInit {
+  @Input() customerID: string;
   constructor() {}
 
   ngOnInit(): void {}
