@@ -1,5 +1,6 @@
 using Consumer.API.Models;
 using Consumer.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Consumer.API.Repository;
 public class ConsumerRepository : IConsumerRepository
@@ -82,12 +83,14 @@ public class ConsumerRepository : IConsumerRepository
         context.SaveChanges();
     }
     //property
-    public Property GetPropertyByID(Guid? id)
+    public Property? GetPropertyByID(Guid? id)
     {
-        return context.Properties.Find(id);
+        var property = context.Properties.Include(p => p.Business).SingleOrDefault(c => c.PropertyID == id);
+        return property;
+
     }
 
-    public IEnumerable<Property> GetAllProperties()
+    public IQueryable<Property> GetAllProperties()
     {
         return context.Properties;
     }
