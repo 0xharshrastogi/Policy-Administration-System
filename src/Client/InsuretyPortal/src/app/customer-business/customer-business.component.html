@@ -1,8 +1,11 @@
 <div class="row customer-business p-2">
+  <div class="display-6">Business Details</div>
   <div class="container p-6" *ngIf="_business?.message != null">
-    Business is not added
-    <a (click)="gotobusinessform(customerID)">Add Business</a>
-    {{ customerID }}
+    Hi consumer, <br />
+    your Business is not added,Kindly add one.<br />
+    <button class="btn btn-success mt-2" (click)="gotobusinessform(customerID)">
+      Add Business
+    </button>
   </div>
   <div class="container" *ngIf="_business?.message == null">
     <form>
@@ -19,14 +22,24 @@
         </div>
       </div>
       <div class="row my-2">
-        <div class="col-4" id="label">Business type ID</div>
+        <div class="col-4" id="label">Business Type</div>
         <div class="col">
           <input
             type="text"
             class="form-control"
             id="businessTypeID"
-            value="{{ _business!.businessTypeID }}"
-            readonly
+            value="{{ _business!.businessType }}"
+          />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-4" id="label">Business Name</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="businessName"
+            value="{{ _business!.businessName }}"
           />
         </div>
       </div>
