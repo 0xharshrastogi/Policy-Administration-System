@@ -82,13 +82,8 @@ public class PolicyController : ControllerBase
             var mappedIssuedPolicy = _mapper.Map<IssuedPolicy>(issuePolicyCreate);
             mappedIssuedPolicy.PolicyId = id;
 
-            var updatePolicyTask = _customerPolicyRepo.UpdateStatusAsync(id, PolicyStatus.Issued);
-            var issuePolicyCreateTask = _issuedPolicyRepo.CreateAsync(mappedIssuedPolicy);
-
-            await Task.WhenAll(updatePolicyTask, issuePolicyCreateTask);
-
-            var policy = updatePolicyTask.Result;
-            var issuePolicy = issuePolicyCreateTask.Result;
+            var policy = await _customerPolicyRepo.UpdateStatusAsync(id, PolicyStatus.Issued);
+            var issuePolicy = await _issuedPolicyRepo.CreateAsync(mappedIssuedPolicy);
 
             return Ok(new
             {

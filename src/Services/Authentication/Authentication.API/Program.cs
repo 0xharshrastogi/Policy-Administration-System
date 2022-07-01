@@ -3,7 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 using Authentication.Context;
 using Authentication.Repo;
 
-// const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
+// const string aNGULAR_CORS_POLICY =w "Dev_Angular_App";
 
 var builder = WebApplication.CreateBuilder(args);
 

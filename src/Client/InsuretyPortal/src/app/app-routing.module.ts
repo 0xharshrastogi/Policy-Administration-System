@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { CreatePolicyComponent } from './create-policy/create-policy.component';
 import { HomeComponent } from './home/home.component';
+import { IssuePolicyFormComponent } from './issue-policy-form/issue-policy-form.component';
 import { ListPolicyComponent } from './list-policy/list-policy.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { BusinessInputComponent } from './pages/business-input/business-input.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'policy/create',
     component: CreatePolicyComponent,
+  },
+  {
+    path: 'policy/issue/:policyId',
+    component: IssuePolicyFormComponent,
   },
   {
     path: 'customer-view/:id',

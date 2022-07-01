@@ -1,0 +1,11 @@
+.policy-master-row {
+  cursor: pointer;
+}
+
+.policy-master-row td {
+  background: none;
+}
+
+.policy-master-row:hover {
+  background-color: #eee;
+}
