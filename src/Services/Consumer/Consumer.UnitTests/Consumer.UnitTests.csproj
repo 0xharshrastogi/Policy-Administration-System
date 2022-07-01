@@ -16,4 +16,13 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Consumer.API\Consumer.API.csproj" />
+  </ItemGroup>
+
+
 </Project>
