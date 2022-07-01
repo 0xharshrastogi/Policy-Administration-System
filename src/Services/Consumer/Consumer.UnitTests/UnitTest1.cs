@@ -96,6 +96,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
+    [Test]
     public void Create_ValidObjectPassed_ReturnsCreatedResponse()
     {
         try
@@ -117,6 +118,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
+    [Test]
     public void Create_InvalidObjectPassed_ReturnsCreatedResponse()
     {
         try
@@ -139,7 +141,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
-
+    [Test]
     public void Update_WhenCalled_ReturnsOkResult()
     {
         try
@@ -185,8 +187,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
-
-
+    [Test]
     public void Delete_WhenCalled_ReturnsOkResult()
     {
         try
@@ -216,7 +217,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
-
+    [Test]
     public void CreateBusiness_ValidObjectPassed_ReturnsCreatedResponse()
     {
         try
@@ -239,6 +240,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
+    [Test]
     public void CreateBusiness_InvalidObjectPassed_ReturnsCreatedResponse()
     {
         try
@@ -261,7 +263,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
-
+    [Test]
     public void UpdateBusiness_ValidObjectPassed_ReturnsCreatedResponse()
     {
         try
@@ -284,6 +286,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
+    [Test]
     public void UpdateBusiness_InvalidObjectPassed_ReturnsCreatedResponse()
     {
         try
@@ -307,8 +310,7 @@ public class Test
             Console.WriteLine(e.Message);
         }
     }
-
-
+    [Test]
     public void DeleteBusiness_WhenCalled_ReturnsOkResult()
     {
         try
