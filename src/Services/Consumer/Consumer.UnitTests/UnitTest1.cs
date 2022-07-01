@@ -15,10 +15,11 @@ public class UnitTests
     [Fact]
     public void getCustomerShouldReturn200StatusCode()
     {
+        IMapper mapper;
         // Given
         var _service = new Mock<IConsumerRepository>();
         _service.Setup(s => s.GetAllConsumers()).Returns(ConsumerMockData.GetCustomers());
-        var _consumerController = new ConsumerController(_service.Object, IMapper mapper);
+        var _consumerController = new ConsumerController(_service.Object);
         // When
 
         // Then

@@ -181,7 +181,7 @@ public class ConsumerController : ControllerBase
         Property property = new Property();
         if (business != null)
         {
-            property = _repository.GetAllProperties().SingleOrDefault(p => p.BusinessID == business.BusinessID);
+            property = _repository.GetAllProperties().FirstOrDefault(p => p.BusinessID == business.BusinessID);
         }
         return property is null || business is null ? NotFound() : Ok(property);
     }

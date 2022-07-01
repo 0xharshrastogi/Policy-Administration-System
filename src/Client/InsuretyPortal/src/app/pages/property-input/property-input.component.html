@@ -1,0 +1,96 @@
+<!-- {  "businessID": "3fa85f64-5717-4562-b3fc-2c963f66afa6", -->
+<!-- "propertyType": 0, -->
+<!-- "address": "string", -->
+<!-- "area": 0, -->
+<!-- "buildingStorey": 0, -->
+<!-- "age": 0, -->
+<!-- "propertyValue": 0 -->
+<!-- } -->
+<div class="container col-6 mt-4">
+  <div class="display-6 mb-3">Property Details</div>
+  <form class="mt-2">
+    <div class="row my-2">
+      <div class="col-4" id="label">Business ID</div>
+      <div class="col">
+        <input
+          formControlName="BusinessID"
+          type="text"
+          class="form-control"
+          id="businessID"
+          [value]="BusinessID"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Property Type</div>
+      <div class="col">
+        <input
+          type="text"
+          formControlName="propertyType"
+          class="form-control"
+          id="propertyType"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Address</div>
+      <div class="col">
+        <input
+          type="text"
+          formControlName="propertyAddress"
+          class="form-control"
+          id="propertyAddress"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Area SqFt</div>
+      <div class="col">
+        <input
+          type="text"
+          formControlName="propertyArea"
+          class="form-control"
+          id="propertyArea"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Building Storey</div>
+      <div class="col">
+        <input
+          type="text"
+          formControlName="propertybuildingStorey"
+          class="form-control"
+          id="propertybuildingStorey"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Age</div>
+      <div class="col">
+        <input
+          formControlName="propertyAge"
+          type="text"
+          class="form-control"
+          id="propertyAge"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-4" id="label">Property Value</div>
+      <div class="col">
+        <input
+          formControlName="propertyValue"
+          type="text"
+          class="form-control"
+          id="propertyValue"
+        />
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </form>
+</div>

@@ -20,6 +20,8 @@ export class ConsumerService {
   static requestPath = {
     FETCH_CONSUMER_BUSINESS_BY_ID: `${ConsumerService.BaseAuthUri}/Consumer/getBusinessByCustomerID`,
     ADD_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
+    ADD_BUSINESS: `${ConsumerService.BaseAuthUri}/Consumer/Business`,
+    ADD_PROPERTY: `${ConsumerService.BaseAuthUri}/Consumer/Property`,
     FETCH_CONSUMER_BUSINESS_ALL: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
     GET_PROPERTIES_BY_CUSTOMER_ID: `${ConsumerService.BaseAuthUri}/Consumer/GetPropertyByCustomerID`,
   };

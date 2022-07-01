@@ -21,6 +21,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { PolicyDisplayComponent } from './policy-display/policy-display.component';
 import { PolicyComponent } from './policy/policy.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { PropertyInputComponent } from './pages/property-input/property-input.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     BusinessInputComponent,
     SpinnerComponent,
     CreatePolicyComponent,
+    PropertyInputComponent,
+    HomeComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
