@@ -30,6 +30,10 @@ export class QuotesService {
       }
     );
 
+    if (response.status == 404) {
+      throw new Error('NO_QUOTE_FOUND');
+    }
+
     return response.json();
   }
 }
