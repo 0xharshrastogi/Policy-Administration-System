@@ -20,10 +20,7 @@ public class ConsumerController : ControllerBase
         _repository = repository;
     }
 
-    public ConsumerController()
-    {
-    }
-
+   
     /// <summary>
     /// Consumer Action methods
     /// </summary>
