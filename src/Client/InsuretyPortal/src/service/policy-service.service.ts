@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Policy } from 'src/@types/Policy';
+import { IssuePolicyCreate, Policy } from 'src/@types/Policy';
 
 const BaseUri = 'http://localhost:5189';
 
@@ -7,9 +7,9 @@ const PATH = {
   CREATE_POLICY: `${BaseUri}/api/CreatePolicy`,
   VIEW_POLICY_BY_ID: (id: string) => `${BaseUri}/api/ViewPolicy?policyId=${id}`,
   VIEW_POLICY_ALL: `${BaseUri}/api/ViewPolicy`,
-  ISSUE_POLICY: (id: string) => `${BaseUri}/api/IssuePolicy/${id}`,
   POLICY_MASTER_BY_B_VAL: (id: string) =>
     `${BaseUri}/api/GetPoliciesByBusinessValue?businessValue=${id}`,
+  ISSUE_POLICY: (id: string | number) => `${BaseUri}/api/IssuePolicy/${id}`,
 };
 
 type HttpAction = 'GET' | 'PUT' | 'POST' | 'DELETE';
@@ -57,6 +57,16 @@ export class PolicyService {
     const response = await fetch(PATH.CREATE_POLICY, {
       method: 'POST',
       body: JSON.stringify(policy),
+      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+    });
+
+    return response.json();
+  }
+
+  async issuePolicy(id: string, issueData: IssuePolicyCreate) {
+    const response = await fetch(PATH.ISSUE_POLICY(id), {
+      method: 'PUT',
+      body: JSON.stringify(issueData),
       headers: { 'Content-Type': 'application/json', accept: '*/*' },
     });
 

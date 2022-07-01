@@ -23,6 +23,14 @@ export type PolicyMaster = {
   type: string;
 };
 
+export type IssuePolicyCreate = {
+  policyId: string;
+  paymentStatus: string;
+  effectiveDate: string;
+  coveredSum: number;
+  duration: number;
+};
+
 export enum PaymentStatus {
   Pending = 0,
 

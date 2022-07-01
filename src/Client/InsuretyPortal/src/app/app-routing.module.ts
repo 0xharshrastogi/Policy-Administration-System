@@ -28,7 +28,7 @@ const routes: Routes = [
     component: CreatePolicyComponent,
   },
   {
-    path: 'policy/issue',
+    path: 'policy/issue/:policyId',
     component: IssuePolicyFormComponent,
   },
   {

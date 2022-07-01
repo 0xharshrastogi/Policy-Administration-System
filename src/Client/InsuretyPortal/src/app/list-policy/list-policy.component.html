@@ -23,7 +23,11 @@
         <td>{{ policy.businessId }}</td>
         <td>{{ policy.status }}</td>
         <td>
-          <a *ngIf="policy.status == 'Initiated'" routerLink="issue">Issue</a>
+          <a
+            *ngIf="policy.status == 'Initiated'"
+            [routerLink]="'issue/' + policy.id"
+            >Issue</a
+          >
         </td>
       </tr>
     </tbody>
