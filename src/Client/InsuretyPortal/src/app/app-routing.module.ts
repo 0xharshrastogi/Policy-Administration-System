@@ -9,9 +9,10 @@ import { BusinessInputComponent } from './pages/business-input/business-input.co
 import { CustomerInputComponent } from './pages/customer-input/customer-input.component';
 import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 import { CustomerComponent } from './pages/customer/customer.component';
-import { PropertyInputComponent } from './pages/property-input/property-input.component';
+// import { PropertyInputComponent } from './pages/property-input/property-input.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PolicyComponent } from './policy/policy.component';
+import { PropertyInputComponent } from './pages/property-input/property-input.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
