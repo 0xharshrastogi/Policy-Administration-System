@@ -52,4 +52,14 @@ export class PolicyService {
 
     return response.json();
   }
+
+  async createPolicy(policy: Policy) {
+    const response = await fetch(PATH.CREATE_POLICY, {
+      method: 'POST',
+      body: JSON.stringify(policy),
+      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+    });
+
+    return response.json();
+  }
 }

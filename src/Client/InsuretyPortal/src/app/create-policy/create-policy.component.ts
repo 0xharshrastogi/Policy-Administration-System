@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Consumer } from 'src/@types/Customer';
+import { Business, BusinessProperty, Consumer } from 'src/@types/Customer';
 import { PolicyMaster } from 'src/@types/Policy';
+import { Quotes } from 'src/@types/Quotes';
 import { ConsumerService } from 'src/service/consumer-service.service';
 import { PolicyService } from 'src/service/policy-service.service';
+import { QuotesService } from 'src/service/quotes.service';
 
 interface ChangeEvent extends Event {
   target: EventTarget & {
@@ -27,6 +29,7 @@ type BusinessState = {
 })
 export class CreatePolicyComponent implements OnInit {
   consumers: Consumer[];
+  property: BusinessProperty;
   selectedCustomerId: string;
   business: BusinessState = {
     found: false,
@@ -41,17 +44,28 @@ export class CreatePolicyComponent implements OnInit {
   policiesMaster = <PolicyMaster[]>[];
   selectedPolicyMaster: PolicyMaster | null;
   policyCreateForm: FormGroup;
+  quotes: Quotes[] | null;
+
+  canCreatePolicy = false;
 
   private readonly consumerService: ConsumerService;
   private readonly policyService: PolicyService;
+  private readonly quoteService: QuotesService;
 
-  constructor(cService: ConsumerService, pService: PolicyService) {
+  constructor(
+    cService: ConsumerService,
+    pService: PolicyService,
+    qService: QuotesService
+  ) {
     this.consumerService = cService;
     this.policyService = pService;
+    this.quoteService = qService;
 
     this.policyCreateForm = new FormGroup({
+      policyName: new FormControl('', Validators.required),
       customerId: new FormControl('', Validators.required),
       businessId: new FormControl('', Validators.required),
+      agentId: new FormControl('', Validators.required),
     });
   }
 
@@ -59,18 +73,43 @@ export class CreatePolicyComponent implements OnInit {
     this.assignCustomerId();
   }
 
+  async fetchQuotes(
+    businessValue: number,
+    propertyValue: number,
+    propertyType: string
+  ) {
+    try {
+      const quotes = await this.quoteService.fetchQuotes(
+        businessValue.toString(),
+        propertyValue.toString(),
+        propertyType
+      );
+      this.quotes = quotes;
+    } catch (error) {
+      if ((<Error>error).message === 'NO_QUOTE_FOUND') {
+        this.quotes = null;
+      }
+    }
+  }
+
   async onCustomerIdChange(e: Event) {
+    this.canCreatePolicy = false;
     const consumerId = (<ChangeEvent>e).target.value;
 
     try {
       this.business.isLoading = true;
 
-      const business = await this.consumerService.fetchConsumerBusinessByID(
-        consumerId
-      );
+      const property: BusinessProperty & { business: Business } =
+        await this.consumerService.fetchPropertyBycustomerrID(consumerId);
+
+      const { business } = property;
+      this.property = property;
+
+      // this.fetchQuotes(business, property);
 
       const isBusinessNotFound =
-        'message' in business && business.message === 'no business found';
+        'message' in business &&
+        (<any>business).message === 'no business found';
 
       if (isBusinessNotFound) {
         this.selectedCustomerId = consumerId;
@@ -80,8 +119,8 @@ export class CreatePolicyComponent implements OnInit {
       this.business.found = true;
       this.business.value = business;
       // !IMPORTANT DELETE NEXT LINE
-      this.onBusinessValue(8);
-      // this.onBusinessValue(business.businessValue);
+      // this.onBusinessValue(8);
+      this.onBusinessValue(business.businessValue);
     } catch (error) {
       if ((<Error>error).message === 'NO_BUSINESS') {
         this.business.value = null;
@@ -99,13 +138,22 @@ export class CreatePolicyComponent implements OnInit {
       await this.policyService.getPolicyMastersByBusinessValue(
         value.toString()
       );
-    console.log(policyMasters);
     this.policiesMaster = policyMasters;
   }
 
   onSelectPolicyMaster(value: PolicyMaster) {
     this.selectedPolicyMaster = value;
-    console.log(this.selectedPolicyMaster);
+
+    this.fetchQuotes(
+      value.businessValue,
+      value.propertyValue,
+      value.propertyType
+    );
+  }
+
+  onQuoteSelect(quote: Quotes) {
+    console.log(quote);
+    this.canCreatePolicy = true;
   }
 
   private async assignCustomerId() {
@@ -115,5 +163,21 @@ export class CreatePolicyComponent implements OnInit {
 
   getBusinessCreateUrl() {
     return `/customer-view/${this.selectedCustomerId}/Addbusiness`;
+  }
+
+  onSubmit() {
+    this.policyCreateForm.controls['businessId'].setValue(
+      this.property.businessID
+    );
+
+    this.policyCreateForm.controls['agentId'].setValue(
+      '687ccaa4-4e7b-4b8a-b93e-e3c96f9d9bf1'
+    );
+
+    this.policyCreateForm.controls['policyName'].setValue(
+      `Policy-${new Date().getTime()}`
+    );
+
+    this.policyService.createPolicy(this.policyCreateForm.value);
   }
 }

@@ -9,8 +9,6 @@ type Customer = {
   pan: string;
 };
 
-type SignUpCredential = Credential & { name: string; email: string };
-
 @Injectable({
   providedIn: 'root',
 })
