@@ -3,7 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 using Authentication.Context;
 using Authentication.Repo;
 
-const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
+// const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,15 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder
-    .Services
-    .AddCors(o => o.AddPolicy(
-        aNGULAR_CORS_POLICY,
-        policy => policy
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod())
-    );
+// builder
+//     .Services
+//     .AddCors(o => o.AddPolicy(
+//         aNGULAR_CORS_POLICY,
+//         policy => policy
+//             .WithOrigins("http://localhost:4200")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod())
+//     );
 
 builder.Services.AddDbContext<AuthContext>(option =>
 {
@@ -42,7 +42,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(aNGULAR_CORS_POLICY);
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseAuthorization();
 
