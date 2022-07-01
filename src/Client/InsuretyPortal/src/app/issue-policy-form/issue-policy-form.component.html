@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <div class="container mx-auto">
+    <form class="form card mt-4 p-4 border rounded">
+      <h5 class="text-center">Issue Policy Form</h5>
+      <div class="mt-3">
+        <label for="transactionId" class="form-label">Payment Status</label>
+        <select
+          name="customerId"
+          aria-label="Default select example"
+          class="form-select"
+        >
+          <option selected>Open To Select Customer</option>
+          <option *ngFor="let status of paymentStatus" value="{{ status }}">
+            {{ status }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-3">
+        <label for="coveredSum" class="form-label">Covered Sum</label>
+        <input
+          class="form-control"
+          type="number"
+          min="0"
+          name="coveredSum"
+          id="coveredSum"
+          placeholder="$500000"
+        />
+      </div>
+
+      <div class="mt-3">
+        <label for="durationInDays" class="form-label">Covered Sum</label>
+        <input
+          class="form-control"
+          type="date"
+          min="{{ minimumdate }}"
+          name="durationInDays"
+          id="durationInDays"
+          placeholder="Current Date"
+        />
+      </div>
+    </form>
+  </div>
+</div>
