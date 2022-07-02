@@ -31,8 +31,30 @@ builder
     .Services
     .AddDbContext<PolicyContext>(option =>
     {
-        var connectionString = builder.Configuration.GetConnectionString("PolicyDB");
-        option.UseSqlServer(connectionString);
+        string? userName = null;
+
+        if (builder.Environment.IsProduction())
+        {
+            option.UseInMemoryDatabase("PolicyDB");
+            return;
+        }
+
+        if (OperatingSystem.IsLinux())
+        {
+            userName = Environment.GetEnvironmentVariable("USERNAME")
+            ?? throw new Exception("env variable USERNAME not found");
+        }
+        else if (OperatingSystem.IsWindows())
+        {
+            userName = Environment.GetEnvironmentVariable("COMPUTERNAME")
+             ?? throw new Exception("env variable USERNAME not found");
+        }
+
+        if (userName is null) throw new Exception("userName is null");
+
+        option.UseSqlServer(builder
+            .Configuration
+            .GetConnectionString($"{userName}PolicyDB"));
     });
 
 builder

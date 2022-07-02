@@ -14,28 +14,33 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// builder
-//     .Services
-//     .AddCors(o => o.AddPolicy(
-//         aNGULAR_CORS_POLICY,
-//         policy => policy
-//             .WithOrigins("http://localhost:4200")
-//             .AllowAnyHeader()
-//             .AllowAnyMethod())
-//     );
-
 builder.Services.AddDbContext<AuthContext>(option =>
-{
-    if (builder.Environment.IsDevelopment())
     {
-        var connection = builder.Configuration.GetConnectionString("AuthDB");
-        option.UseSqlServer(connection);
-    }
-    else
-    {
-        option.UseInMemoryDatabase("AuthDB");
-    }
-});
+        string? userName = null;
+
+        if (builder.Environment.IsProduction())
+        {
+            option.UseInMemoryDatabase("AuthDB");
+            return;
+        }
+
+        if (OperatingSystem.IsLinux())
+        {
+            userName = Environment.GetEnvironmentVariable("USERNAME")
+            ?? throw new Exception("env variable USERNAME not found");
+        }
+        else if (OperatingSystem.IsWindows())
+        {
+            userName = Environment.GetEnvironmentVariable("COMPUTERNAME")
+             ?? throw new Exception("env variable USERNAME not found");
+        }
+
+        if (userName is null) throw new Exception("userName is null");
+
+        option.UseSqlServer(builder
+            .Configuration
+            .GetConnectionString($"{userName}AuthDB"));
+    });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -9,9 +9,33 @@ const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
 // Add services to the container.
 builder
     .Services
-    .AddDbContext<ConsumerDbContext>(options => options.UseSqlServer(builder
-        .Configuration
-        .GetConnectionString("Connect")));
+    .AddDbContext<ConsumerDbContext>(option =>
+    {
+        string userName = null;
+
+        if (builder.Environment.IsProduction())
+        {
+            option.UseInMemoryDatabase("ConsumerDB");
+            return;
+        }
+
+        if (OperatingSystem.IsLinux())
+        {
+            userName = Environment.GetEnvironmentVariable("USERNAME")
+            ?? throw new Exception("env variable USERNAME not found");
+        }
+        else if (OperatingSystem.IsWindows())
+        {
+            userName = Environment.GetEnvironmentVariable("COMPUTERNAME")
+             ?? throw new Exception("env variable USERNAME not found");
+        }
+
+        if (userName is null) throw new Exception("userName is null");
+
+        option.UseSqlServer(builder
+            .Configuration
+            .GetConnectionString($"{userName}ConsumerDB"));
+    });
 
 builder
     .Services
