@@ -67,4 +67,4 @@ const client = new HttpClient();
 client.DefaultHeaders.append('Content-Type', 'application/json');
 client.DefaultHeaders.append('authorization', localStorage.getItem('token')!);
 
-client.get('http://localhost:5189/api/ViewPolicy');
+// client.get('http://localhost:5189/api/ViewPolicy');

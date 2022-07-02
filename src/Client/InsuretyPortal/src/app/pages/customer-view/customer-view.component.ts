@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 type Customer = {
   customerID: string;
@@ -21,7 +22,7 @@ export class CustomerViewComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const customerId = this.router.snapshot.paramMap.get('id');
     console.log(customerId);
-    const uri = `http://localhost:5114/Consumer/Customer?id=${customerId}`;
+    const uri = `${environment.serviceUri.consumer}/Consumer/Customer?id=${customerId}`;
     this.isLoading = true;
     const result = await fetch(uri, {
       method: 'GET',
