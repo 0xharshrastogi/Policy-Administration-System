@@ -8,10 +8,13 @@ on:
     branches:
       - main
   workflow_dispatch:
+  
+  env: 
+    DOTNET_PROJECT_PATH: 'src/Services/Consumer/Consumer.API'
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -23,16 +26,16 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build ${{env.DOTNET_PROJECT_PATH}}/Consumer.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_PROJECT_PATH}}/build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{env.DOTNET_PROJECT_PATH}}/build
 
   deploy:
     runs-on: windows-latest
