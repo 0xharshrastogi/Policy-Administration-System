@@ -1,12 +1,15 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Policy_Consumer_Azure_Deploy
+name: Consumer Azure Deploy
 
 on:
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/main_policy_consumer_deploy_azure.yml"
+      - "src/Services/Consumer/Consumer.API/**"
   workflow_dispatch:
 
 env:

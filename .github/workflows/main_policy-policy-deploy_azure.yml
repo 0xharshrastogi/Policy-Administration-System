@@ -1,14 +1,14 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Policy Service Azure Service
+name: Policy Azure Deploy
 
 on:
   push:
     branches:
       - main
     paths:
-      - ".github/**"
+      - ".github/workflows/main_policy-policy-deploy_azure.yml"
       - "src/Services/Policy/Policy.API/**"
   workflow_dispatch:
 

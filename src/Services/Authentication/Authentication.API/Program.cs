@@ -21,10 +21,16 @@ builder.Services.AddDbContext<AuthContext>(option =>
         if (builder.Environment.IsProduction())
         {
             var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_PolicyAdmin");
+
             if (connectionString is null)
+            {
                 option.UseInMemoryDatabase("AuthDB");
+            }
             else
+            {
+                Console.WriteLine($"Connection String {connectionString}");
                 option.UseSqlServer(connectionString);
+            }
             return;
         }
 
@@ -41,9 +47,7 @@ builder.Services.AddDbContext<AuthContext>(option =>
 
         if (userName is null) throw new Exception("userName is null");
 
-        option.UseSqlServer(builder
-            .Configuration
-            .GetConnectionString($"{userName}AuthDB"));
+        option.UseSqlServer(builder.Configuration.GetConnectionString($"{userName}AuthDB"));
     });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
