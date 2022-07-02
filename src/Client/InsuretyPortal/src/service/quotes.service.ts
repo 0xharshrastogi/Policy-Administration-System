@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-const BaseUri = 'http://localhost:5032';
+const BaseUri = environment.serviceUri.quotes;
 
 const PATH = {
   GET_QUOTES: (

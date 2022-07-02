@@ -3,7 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 using Authentication.Context;
 using Authentication.Repo;
 
-// const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
+// const string aNGULAR_CORS_POLICY =w "Dev_Angular_App";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,21 +14,37 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// builder
-//     .Services
-//     .AddCors(o => o.AddPolicy(
-//         aNGULAR_CORS_POLICY,
-//         policy => policy
-//             .WithOrigins("http://localhost:4200")
-//             .AllowAnyHeader()
-//             .AllowAnyMethod())
-//     );
-
 builder.Services.AddDbContext<AuthContext>(option =>
-{
-    var connection = builder.Configuration.GetConnectionString("AuthDB");
-    option.UseSqlServer(connection);
-});
+    {
+        string? userName = null;
+
+        if (builder.Environment.IsProduction())
+        {
+            var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_PolicyAdmin");
+            if (connectionString is null)
+                option.UseInMemoryDatabase("AuthDB");
+            else
+                option.UseSqlServer(connectionString);
+            return;
+        }
+
+        if (OperatingSystem.IsLinux())
+        {
+            userName = Environment.GetEnvironmentVariable("USERNAME")
+            ?? throw new Exception("env variable USERNAME not found");
+        }
+        else if (OperatingSystem.IsWindows())
+        {
+            userName = Environment.GetEnvironmentVariable("COMPUTERNAME")
+             ?? throw new Exception("env variable USERNAME not found");
+        }
+
+        if (userName is null) throw new Exception("userName is null");
+
+        option.UseSqlServer(builder
+            .Configuration
+            .GetConnectionString($"{userName}AuthDB"));
+    });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

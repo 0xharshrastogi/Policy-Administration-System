@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { HttpStatusCode } from 'src/utils/HttpStatusCode';
 
 type Credential = {
@@ -14,12 +15,12 @@ type SignUpCredential = Credential & { name: string; email: string };
 export class AuthenticationService {
   static isSignedIn: boolean = false;
 
-  static BaseAuthUri = 'http://localhost:5090/api';
+  static BaseAuthUri = environment.serviceUri.auth;
 
   static requestPath = {
-    SIGNUP: `${AuthenticationService.BaseAuthUri}/auth/agent/signup`,
-    VALIDATE: `${AuthenticationService.BaseAuthUri}/auth/agent/validate`,
-    LOGIN: `${AuthenticationService.BaseAuthUri}/auth/agent/login`,
+    SIGNUP: `${AuthenticationService.BaseAuthUri}/api/auth/agent/signup`,
+    VALIDATE: `${AuthenticationService.BaseAuthUri}/api/auth/agent/validate`,
+    LOGIN: `${AuthenticationService.BaseAuthUri}/api/auth/agent/login`,
   };
 
   constructor() {}

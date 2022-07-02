@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Consumer.API.Models;
 
-public class Agent
+public class ConsumersAgent
 {
     [Key]
     public Guid AgentID { get; set; }

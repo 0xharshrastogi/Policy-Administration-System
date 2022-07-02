@@ -8,7 +8,7 @@ export type Policy = {
   customerId: string;
   businessId: string;
   agentId: string;
-  status: PolicyStatus;
+  status: string;
 };
 
 export type PolicyMaster = {
@@ -23,12 +23,24 @@ export type PolicyMaster = {
   type: string;
 };
 
-// "id": "1460d501-599d-4b59-baf9-57cbb1e9c696",
-//     "propertyType": "Building",
-//     "customerType": 0,
-//     "assuredSum": 200000,
-//     "tenure": 3,
-//     "businessValue": 8,
-//     "propertyValue": 5,
-//     "baseLocation": "Chennai",
-//     "type": "Replacement"
+export type IssuePolicyCreate = {
+  policyId: string;
+  paymentStatus: string;
+  effectiveDate: string;
+  coveredSum: number;
+  duration: number;
+};
+
+export enum PaymentStatus {
+  Pending = 0,
+
+  Complete = 1,
+
+  Refunded = 2,
+
+  Failed = 3,
+
+  Abandoned = 4,
+
+  Cancelled = 5,
+}

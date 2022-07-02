@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Business, BusinessProperty, Consumer } from 'src/@types/Customer';
 import { PolicyMaster } from 'src/@types/Policy';
 import { Quotes } from 'src/@types/Quotes';
@@ -45,22 +46,16 @@ export class CreatePolicyComponent implements OnInit {
   selectedPolicyMaster: PolicyMaster | null;
   policyCreateForm: FormGroup;
   quotes: Quotes[] | null;
+  isQuoteSelected: false;
 
   canCreatePolicy = false;
 
-  private readonly consumerService: ConsumerService;
-  private readonly policyService: PolicyService;
-  private readonly quoteService: QuotesService;
-
   constructor(
-    cService: ConsumerService,
-    pService: PolicyService,
-    qService: QuotesService
+    private readonly consumerService: ConsumerService,
+    private readonly policyService: PolicyService,
+    private readonly quoteService: QuotesService,
+    private readonly router: Router
   ) {
-    this.consumerService = cService;
-    this.policyService = pService;
-    this.quoteService = qService;
-
     this.policyCreateForm = new FormGroup({
       policyName: new FormControl('', Validators.required),
       customerId: new FormControl('', Validators.required),
@@ -102,24 +97,21 @@ export class CreatePolicyComponent implements OnInit {
       const property: BusinessProperty & { business: Business } =
         await this.consumerService.fetchPropertyBycustomerrID(consumerId);
 
-      const { business } = property;
-      this.property = property;
-
-      // this.fetchQuotes(business, property);
-
       const isBusinessNotFound =
-        'message' in business &&
-        (<any>business).message === 'no business found';
+        'status' in property && (<any>property).title === 'Not Found';
 
       if (isBusinessNotFound) {
+        console.log('118');
         this.selectedCustomerId = consumerId;
         throw new Error('NO_BUSINESS');
       }
 
+      const { business } = property;
+
+      this.property = property;
       this.business.found = true;
       this.business.value = business;
-      // !IMPORTANT DELETE NEXT LINE
-      // this.onBusinessValue(8);
+
       this.onBusinessValue(business.businessValue);
     } catch (error) {
       if ((<Error>error).message === 'NO_BUSINESS') {
@@ -152,7 +144,6 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   onQuoteSelect(quote: Quotes) {
-    console.log(quote);
     this.canCreatePolicy = true;
   }
 
@@ -165,7 +156,7 @@ export class CreatePolicyComponent implements OnInit {
     return `/customer-view/${this.selectedCustomerId}/Addbusiness`;
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.policyCreateForm.controls['businessId'].setValue(
       this.property.businessID
     );
@@ -178,6 +169,15 @@ export class CreatePolicyComponent implements OnInit {
       `Policy-${new Date().getTime()}`
     );
 
-    this.policyService.createPolicy(this.policyCreateForm.value);
+    type CreatePolicyResponse = {
+      description: string;
+      policyStatus: string;
+    };
+
+    const response: CreatePolicyResponse =
+      await this.policyService.createPolicy(this.policyCreateForm.value);
+
+    await this.router.navigate(['/']);
+    alert(response.description);
   }
 }

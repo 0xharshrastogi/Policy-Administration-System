@@ -20,6 +20,7 @@ type Property = {
 })
 export class ConsumerBusinessPropertyComponent implements OnInit {
   @Input() customerID: string;
+  @Input() businessID: string;
   property: Property | null = null;
 
   private readonly consumerservice: ConsumerService;
@@ -35,5 +36,8 @@ export class ConsumerBusinessPropertyComponent implements OnInit {
       this.customerID
     );
     console.log(this.property);
+  }
+  gotoPropertyInput(businessID: string) {
+    this.router.navigate([`customer-view/${businessID}/AddProperty`]);
   }
 }

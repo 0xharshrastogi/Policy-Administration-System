@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Policy } from 'src/@types/Policy';
+import { IssuePolicyCreate, Policy } from 'src/@types/Policy';
+import { environment } from 'src/environments/environment';
 
-const BaseUri = 'http://localhost:5189';
+const BaseUri = environment.serviceUri.policy;
 
 const PATH = {
   CREATE_POLICY: `${BaseUri}/api/CreatePolicy`,
   VIEW_POLICY_BY_ID: (id: string) => `${BaseUri}/api/ViewPolicy?policyId=${id}`,
   VIEW_POLICY_ALL: `${BaseUri}/api/ViewPolicy`,
-  ISSUE_POLICY: (id: string) => `${BaseUri}/api/IssuePolicy/${id}`,
   POLICY_MASTER_BY_B_VAL: (id: string) =>
     `${BaseUri}/api/GetPoliciesByBusinessValue?businessValue=${id}`,
+  ISSUE_POLICY: (id: string | number) => `${BaseUri}/api/IssuePolicy/${id}`,
 };
 
 type HttpAction = 'GET' | 'PUT' | 'POST' | 'DELETE';
@@ -20,9 +21,17 @@ type HttpAction = 'GET' | 'PUT' | 'POST' | 'DELETE';
 export class PolicyService {
   constructor() {}
 
+  get bearer(): string | null {
+    return localStorage.getItem('token');
+  }
+
   private async _fetchAll(): Promise<Policy[]> {
     const response = await fetch(PATH.VIEW_POLICY_ALL, {
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return <Promise<Policy[]>>response.json();
@@ -30,7 +39,11 @@ export class PolicyService {
 
   private async _fetchById(id: string): Promise<Policy | null> {
     const response = await fetch(PATH.VIEW_POLICY_BY_ID(id), {
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();
@@ -47,7 +60,11 @@ export class PolicyService {
 
   async getPolicyMastersByBusinessValue(businessId: string) {
     const response = await fetch(PATH.POLICY_MASTER_BY_B_VAL(businessId), {
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();
@@ -57,7 +74,25 @@ export class PolicyService {
     const response = await fetch(PATH.CREATE_POLICY, {
       method: 'POST',
       body: JSON.stringify(policy),
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
+    });
+
+    return response.json();
+  }
+
+  async issuePolicy(id: string, issueData: IssuePolicyCreate) {
+    const response = await fetch(PATH.ISSUE_POLICY(id), {
+      method: 'PUT',
+      body: JSON.stringify(issueData),
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();

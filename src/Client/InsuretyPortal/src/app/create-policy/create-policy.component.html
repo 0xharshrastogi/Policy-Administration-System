@@ -96,6 +96,7 @@
 
               <tbody>
                 <tr
+                  class="policy-master-row"
                   *ngFor="let policyMaster of policiesMaster"
                   (click)="onSelectPolicyMaster(policyMaster)"
                 >
@@ -135,10 +136,7 @@
             </div>
           </div>
 
-          <div
-            class="alert alert-info mt-3"
-            *ngIf="policiesMaster.length > 0 && quotes == null"
-          >
+          <div class="alert alert-info mt-3" *ngIf="isQuoteSelected">
             <p>No quotes found for your selected policy</p>
             <p><a routerLink="/" class="btn btn-primary">Back</a></p>
           </div>
