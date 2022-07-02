@@ -21,8 +21,13 @@ export class PolicyService {
   constructor() {}
 
   private async _fetchAll(): Promise<Policy[]> {
+    const bearer = localStorage.getItem('token');
     const response = await fetch(PATH.VIEW_POLICY_ALL, {
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: bearer ? `Bearer ${bearer}` : '',
+      },
     });
 
     return <Promise<Policy[]>>response.json();

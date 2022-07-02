@@ -1,5 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
 
+using System.Net;
+
 using Policy.Data;
 using Policy.Models;
 
@@ -53,8 +55,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(options => options.DocumentTitle = builder.Configuration["ApplicationName"]
-);
+    app.UseSwaggerUI(options => options.DocumentTitle = builder.Configuration["ApplicationName"]);
 }
 
 app.UseCors(aNGULAR_CORS_POLICY);
@@ -62,5 +63,40 @@ app.UseCors(aNGULAR_CORS_POLICY);
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Use(async (context, next) =>
+{
+    using var client = new HttpClient();
+    const int pORT = 5090;
+    try
+    {
+        var bearer = context.Request.Headers.Authorization;
+        Console.WriteLine($"Bearer {bearer}");
+        if (bearer.Count == 0)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            await context.Response.CompleteAsync();
+            return;
+        }
+
+        var token = bearer[0].Split(" ")[1];
+        Console.WriteLine(token);
+        client.BaseAddress = new Uri($"http://localhost:{pORT}");
+        var result = await client.PostAsJsonAsync("/api/Auth/Agent/Validate", new { token });
+
+        await next(context);
+    }
+    catch (HttpRequestException ex)
+    {
+        Console.WriteLine(ex.Message);
+        Console.WriteLine("Catch");
+        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+        await context.Response.CompleteAsync();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+});
 
 app.Run();

@@ -26,8 +26,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AuthContext>(option =>
 {
-    var connection = builder.Configuration.GetConnectionString("AuthDB");
-    option.UseSqlServer(connection);
+    if (builder.Environment.IsDevelopment())
+    {
+        var connection = builder.Configuration.GetConnectionString("AuthDB");
+        option.UseSqlServer(connection);
+    }
+    else
+    {
+        option.UseInMemoryDatabase("AuthDB");
+    }
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
