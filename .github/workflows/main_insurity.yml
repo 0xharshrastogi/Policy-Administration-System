@@ -31,7 +31,7 @@ jobs:
         run: |
           npm install
           npm run build
-         working-directory: ${{ env.NODE_PROJECT_PATH }}
+        working-directory: ${{ env.NODE_PROJECT_PATH }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
