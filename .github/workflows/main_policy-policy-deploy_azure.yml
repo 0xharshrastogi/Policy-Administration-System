@@ -1,17 +1,19 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - policyauthservice
+name: Policy Azure Deploy
 
 on:
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/main_policy-policy-deploy_azure.yml"
+      - "src/Services/Policy/Policy.API/**"
   workflow_dispatch:
-  
-env: 
-  DOTNET_PROJECT_PATH: 'src/Services/Authentication/Authentication.API'
-  
+
+env:
+  DOTNET_PROJECT_PATH: "src/Services/Policy/Policy.API"
 
 jobs:
   build:
@@ -23,38 +25,38 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: "6.0.x"
 
       - name: Build with dotnet
-        run: dotnet build ${{env.DOTNET_PROJECT_PATH}}/Authentication.API.csproj --configuration Release
+        run: dotnet build ${{ env.DOTNET_PROJECT_PATH }} --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_PROJECT_PATH}}/build
+        run: dotnet publish ${{ env.DOTNET_PROJECT_PATH }} -c Release -o build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: .net-app
-          path: ${{env.DOTNET_PROJECT_PATH}}/build
+          name: .net-app-policy
+          path: build
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: .net-app
+          name: .net-app-policy
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'policyauthservice'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9743D8F83C5D48B8B0FF4BABAFD70124 }}
+          app-name: "policy-policy-service"
+          slot-name: "Production"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E75D7C7C5E2C48B09458619285934956 }}
           package: .

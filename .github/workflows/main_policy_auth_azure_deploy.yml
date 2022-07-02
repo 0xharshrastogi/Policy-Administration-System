@@ -1,19 +1,19 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Consumer Azure Deploy
+name: Auth Azure Deploy
 
 on:
   push:
     branches:
       - main
     paths:
-      - ".github/workflows/main_policy_consumer_deploy_azure.yml"
-      - "src/Services/Consumer/Consumer.API/**"
+      - ".github/workflows/main_policy_auth_azure_deploy.yml"
+      - "src/Services/Authentication/Authentication.API**"
   workflow_dispatch:
 
 env:
-  DOTNET_PROJECT_PATH: "src/Services/Consumer/Consumer.API"
+  DOTNET_PROJECT_PATH: "src/Services/Authentication/Authentication.API"
 
 jobs:
   build:
@@ -28,16 +28,16 @@ jobs:
           dotnet-version: "6.0.x"
 
       - name: Build with dotnet
-        run: dotnet build ${{env.DOTNET_PROJECT_PATH}}/Consumer.API.csproj --configuration Release
+        run: dotnet build ${{env.DOTNET_PROJECT_PATH}}/Authentication.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ${{env.DOTNET_PROJECT_PATH}} -c Release -o build
+        run: dotnet publish -c Release -o ${{env.DOTNET_PROJECT_PATH}}/build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: .net-app-Consumer
-          path: build
+          name: .net-app
+          path: ${{env.DOTNET_PROJECT_PATH}}/build
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,13 +50,13 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: .net-app-Consumer
+          name: .net-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "policyconsumer"
+          app-name: "policyauthservice"
           slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8D4203C6B65C4EE9891C589518E6201C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9743D8F83C5D48B8B0FF4BABAFD70124 }}
           package: .

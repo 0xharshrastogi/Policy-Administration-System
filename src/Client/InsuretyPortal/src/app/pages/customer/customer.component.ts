@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 type customer = {
   customerID: string;
   customerName: string;
@@ -21,7 +22,7 @@ export class CustomerComponent implements OnInit {
   constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
-    const uri = 'http://localhost:5114/Consumer/Customer';
+    const uri = `${environment.serviceUri.consumer}/Consumer/Customer`;
 
     const result = await fetch(uri, {
       method: 'GET',
