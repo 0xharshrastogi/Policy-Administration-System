@@ -96,11 +96,10 @@ app.MapControllers();
 app.Use(async (context, next) =>
 {
     using var client = new HttpClient();
-    const int pORT = 5090;
     try
     {
         var bearer = context.Request.Headers.Authorization;
-        Console.WriteLine($"Bearer {bearer}");
+
         if (bearer.Count == 0)
         {
             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -109,8 +108,16 @@ app.Use(async (context, next) =>
         }
 
         var token = bearer[0].Split(" ")[1];
-        Console.WriteLine(token);
-        client.BaseAddress = new Uri($"http://localhost:{pORT}");
+        Console.WriteLine($"Bearer: {token}");
+        string? baseUri = null;
+        if (app.Environment.IsDevelopment())
+            baseUri = app.Configuration["Service:AuthLocal"];
+        else if (app.Environment.IsProduction())
+            baseUri = app.Configuration["Service:AuthProduction"];
+
+        app.Logger.Log(LogLevel.Information, "Authentication Service Uri: {baseUri}", baseUri);
+
+        client.BaseAddress = new Uri(baseUri!);
         var result = await client.PostAsJsonAsync("/api/Auth/Agent/Validate", new { token });
 
         await next(context);
