@@ -2,8 +2,6 @@ global using Microsoft.EntityFrameworkCore;
 
 using Quotes.API.Data;
 
-const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder
@@ -14,7 +12,11 @@ builder
 
         if (builder.Environment.IsProduction())
         {
-            option.UseInMemoryDatabase("QuotesDB");
+            var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_PolicyAdmin");
+            if (connectionString is null)
+                option.UseInMemoryDatabase("QuotesDB");
+            else
+                option.UseSqlServer(connectionString);
             return;
         }
 
@@ -41,16 +43,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder
-    .Services
-    .AddCors(o => o.AddPolicy(
-        aNGULAR_CORS_POLICY,
-        policy => policy
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod())
-    );
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -60,7 +52,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(aNGULAR_CORS_POLICY);
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseAuthorization();
 
