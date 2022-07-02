@@ -8,6 +8,23 @@ type Customer = {
   email: string;
   pan: string;
 };
+type Business = {
+  customerID: string;
+  businessName: string;
+  businessType: number;
+  totalEmployees: number;
+  annualTurnover: number;
+  businessValue: number;
+};
+type Property = {
+  businessID: string;
+  propertyType: string;
+  address: string;
+  area: string;
+  buildingStorey: number;
+  age: number;
+  propertyValue: number;
+};
 
 @Injectable({
   providedIn: 'root',
@@ -68,6 +85,39 @@ export class ConsumerService {
     if (response.status === HttpStatusCode.Created)
       console.log(`${response.status} created`);
     else console.log(`${response.status} not created`);
+  }
+  async addBusiness(business: Business) {
+    const uri = ConsumerService.requestPath.ADD_BUSINESS;
+    const response = await fetch(uri, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: JSON.stringify(business),
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
+    console.log('in consumerservice: ' + response);
+    var addStatus = false;
+    addStatus = response.status === HttpStatusCode.Created ? true : false;
+    return addStatus;
+  }
+  async addProperty(property: Property) {
+    console.log('addproperty method invoked');
+    const uri = ConsumerService.requestPath.ADD_PROPERTY;
+    const response = await fetch(uri, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: JSON.stringify(property),
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
+    var addStatus = false;
+    addStatus = response.status === HttpStatusCode.Created ? true : false;
+
+    return addStatus;
   }
 
   async fetchConsumers(): Promise<Consumer[]> {

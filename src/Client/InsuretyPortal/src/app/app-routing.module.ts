@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'customerinput', component: CustomerInputComponent },
   { path: 'customer-view/:id/Addbusiness', component: BusinessInputComponent },
   {
-    path: 'customer-view/:businessID/AddProperty',
+    path: 'customer-view/:id/AddProperty',
     component: PropertyInputComponent,
   },
   {
