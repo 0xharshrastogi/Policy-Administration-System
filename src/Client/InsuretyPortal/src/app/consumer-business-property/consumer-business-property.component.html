@@ -1,10 +1,14 @@
-<div class="row p-2 propertyView">
+<div class="row propertyView">
   <h1>Property Details</h1>
-
-  <div class="container p-6" *ngIf="property!.propertyID == null">
+  <div class="container p-4" *ngIf="property!.propertyID == null">
     Hi consumer, <br />
     your Property is not added,Kindly add one.<br />
-    <button class="btn btn-success mt-2">Add Property</button>
+    <button
+      class="btn btn-success mt-2"
+      (click)="gotoPropertyInput(businessID)"
+    >
+      Add Property
+    </button>
   </div>
   <div class="container" *ngIf="property!.propertyID != null">
     <form>
@@ -64,8 +68,19 @@
           />
         </div>
       </div>
-      <div class="dflex justify-content-end">
-        <button class="btn btn-success">Update</button>
+      <div class="row my-2">
+        <div class="col-4" id="label">Property Value</div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            id="propertyValue"
+            value="{{ property!.propertyValue }}"
+          />
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary">Update</button>
       </div>
     </form>
   </div>
