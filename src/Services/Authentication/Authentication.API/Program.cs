@@ -20,7 +20,11 @@ builder.Services.AddDbContext<AuthContext>(option =>
 
         if (builder.Environment.IsProduction())
         {
-            option.UseInMemoryDatabase("AuthDB");
+            var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_PolicyAdmin");
+            if (connectionString is null)
+                option.UseInMemoryDatabase("AuthDB");
+            else
+                option.UseSqlServer(connectionString);
             return;
         }
 

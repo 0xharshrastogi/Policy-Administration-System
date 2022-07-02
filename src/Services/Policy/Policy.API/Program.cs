@@ -9,7 +9,7 @@ using PolicyMicroservice.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
+// const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -17,15 +17,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder
-    .Services
-    .AddCors(o => o.AddPolicy(
-        aNGULAR_CORS_POLICY,
-        policy => policy
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod())
-    );
+// builder
+//     .Services
+//     .AddCors(o => o.AddPolicy(
+//         aNGULAR_CORS_POLICY,
+//         policy => policy
+//             .WithOrigins("http://localhost:4200")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod())
+//     );
 
 builder
     .Services
@@ -35,7 +35,11 @@ builder
 
         if (builder.Environment.IsProduction())
         {
-            option.UseInMemoryDatabase("PolicyDB");
+            var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_PolicyAdmin");
+            if (connectionString is null)
+                option.UseInMemoryDatabase("PolicyDB");
+            else
+                option.UseSqlServer(connectionString);
             return;
         }
 
@@ -80,7 +84,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options => options.DocumentTitle = builder.Configuration["ApplicationName"]);
 }
 
-app.UseCors(aNGULAR_CORS_POLICY);
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseAuthorization();
 

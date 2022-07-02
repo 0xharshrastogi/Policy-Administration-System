@@ -4,9 +4,7 @@ using Consumer.API.Repository;
 using Consumer.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-const string aNGULAR_CORS_POLICY = "Dev_Angular_App";
 
-// Add services to the container.
 builder
     .Services
     .AddDbContext<ConsumerDbContext>(option =>
@@ -15,7 +13,11 @@ builder
 
         if (builder.Environment.IsProduction())
         {
-            option.UseInMemoryDatabase("ConsumerDB");
+            var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_PolicyAdmin");
+            if (connectionString is null)
+                option.UseInMemoryDatabase("ConsumerDB");
+            else
+                option.UseSqlServer(connectionString);
             return;
         }
 
@@ -58,15 +60,15 @@ builder
     .Services
     .AddSwaggerGen();
 
-builder
-    .Services
-    .AddCors(o => o.AddPolicy(
-        aNGULAR_CORS_POLICY,
-        policy => policy
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod())
-    );
+// builder
+//     .Services
+//     .AddCors(o => o.AddPolicy(
+//         aNGULAR_CORS_POLICY,
+//         policy => policy
+//             .WithOrigins("http://localhost:4200")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod())
+//     );
 
 var app = builder.Build();
 
@@ -77,7 +79,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options => options.DocumentTitle = builder.Configuration["ApplicationName"]);
 }
 
-app.UseCors(aNGULAR_CORS_POLICY);
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 app.UseAuthorization();
 
 app.MapControllers();
