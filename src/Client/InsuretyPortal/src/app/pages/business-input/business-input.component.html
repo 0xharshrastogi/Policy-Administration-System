@@ -8,7 +8,11 @@
 
 <div class="container col-6 mt-4">
   <div class="display-6 mb-3">Business Details</div>
-  <form class="mt-2">
+  <form
+    class="mt-2"
+    [formGroup]="createBusinessForm"
+    (ngSubmit)="addnewbusiness()"
+  >
     <div class="row my-2">
       <div class="col-4" id="label">Customer ID</div>
       <div class="col">
@@ -17,7 +21,7 @@
           type="text"
           class="form-control"
           id="customerID"
-          [value]="customerID"
+          value="{{ customerID }}"
           readonly
         />
       </div>
@@ -26,7 +30,9 @@
       <div class="col-4" id="label">business Type</div>
       <div class="col">
         <input
-          type="text"
+          type="number"
+          min="1"
+          max="3"
           formControlName="businessType"
           class="form-control"
           id="businessType"
@@ -49,18 +55,20 @@
       <div class="col">
         <input
           formControlName="totalEmployees"
-          type="text"
+          type="number"
+          min="10"
           class="form-control"
           id="totalEmployees"
         />
       </div>
     </div>
     <div class="row my-2">
-      <div class="col-4" id="label">Annual Turnover</div>
+      <div class="col-4" id="label">Annual Turnover in INR</div>
       <div class="col">
         <input
           formControlName="annualTurnover"
-          type="text"
+          type="number"
+          min="1000"
           class="form-control"
           id="annualTurnover"
         />
@@ -71,7 +79,9 @@
       <div class="col">
         <input
           formControlName="businessValue"
-          type="text"
+          type="number"
+          min="1"
+          max="10"
           class="form-control"
           id="businessValue"
         />
