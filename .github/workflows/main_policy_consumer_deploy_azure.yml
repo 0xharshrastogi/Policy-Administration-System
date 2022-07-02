@@ -14,7 +14,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -28,16 +28,16 @@ jobs:
         run: dotnet build ${{env.DOTNET_PROJECT_PATH}}/Consumer.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_PROJECT_PATH}}/build
+        run: dotnet publish ${{env.DOTNET_PROJECT_PATH}} -c Release -o build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app-Consumer
-          path: ${{env.DOTNET_PROJECT_PATH}}/build
+          path: build
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     environment:
       name: "Production"
