@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Consumer } from 'src/@types/Customer';
+import { environment } from 'src/environments/environment';
 import { HttpStatusCode } from 'src/utils/HttpStatusCode';
 
 type Customer = {
@@ -13,7 +14,7 @@ type Customer = {
   providedIn: 'root',
 })
 export class ConsumerService {
-  static BaseAuthUri = 'http://localhost:5114';
+  static BaseAuthUri = environment.serviceUri.consumer;
 
   static requestPath = {
     FETCH_CONSUMER_BUSINESS_BY_ID: `${ConsumerService.BaseAuthUri}/Consumer/getBusinessByCustomerID`,

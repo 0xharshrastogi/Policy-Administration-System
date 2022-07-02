@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IssuePolicyCreate, Policy } from 'src/@types/Policy';
+import { environment } from 'src/environments/environment';
 
-const BaseUri = 'http://localhost:5189';
+const BaseUri = environment.serviceUri.policy;
 
 const PATH = {
   CREATE_POLICY: `${BaseUri}/api/CreatePolicy`,
@@ -20,13 +21,16 @@ type HttpAction = 'GET' | 'PUT' | 'POST' | 'DELETE';
 export class PolicyService {
   constructor() {}
 
+  get bearer(): string | null {
+    return localStorage.getItem('token');
+  }
+
   private async _fetchAll(): Promise<Policy[]> {
-    const bearer = localStorage.getItem('token');
     const response = await fetch(PATH.VIEW_POLICY_ALL, {
       headers: {
         'Content-Type': 'application/json',
         accept: '*/*',
-        authorization: bearer ? `Bearer ${bearer}` : '',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
       },
     });
 
@@ -35,7 +39,11 @@ export class PolicyService {
 
   private async _fetchById(id: string): Promise<Policy | null> {
     const response = await fetch(PATH.VIEW_POLICY_BY_ID(id), {
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();
@@ -52,7 +60,11 @@ export class PolicyService {
 
   async getPolicyMastersByBusinessValue(businessId: string) {
     const response = await fetch(PATH.POLICY_MASTER_BY_B_VAL(businessId), {
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();
@@ -62,7 +74,11 @@ export class PolicyService {
     const response = await fetch(PATH.CREATE_POLICY, {
       method: 'POST',
       body: JSON.stringify(policy),
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();
@@ -72,7 +88,11 @@ export class PolicyService {
     const response = await fetch(PATH.ISSUE_POLICY(id), {
       method: 'PUT',
       body: JSON.stringify(issueData),
-      headers: { 'Content-Type': 'application/json', accept: '*/*' },
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+        authorization: this.bearer ? `Bearer ${this.bearer}` : '',
+      },
     });
 
     return response.json();
