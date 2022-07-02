@@ -32,12 +32,12 @@ jobs:
           npm install
           npm run build
          working-directory: ${{ env.NODE_PROJECT_PATH }}
-         
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app-insurity
-          path: .
+          path: ${{ env.NODE_PROJECT_PATH }}/dist/insurety-portal
 
   deploy:
     runs-on: ubuntu-latest
