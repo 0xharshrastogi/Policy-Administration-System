@@ -9,8 +9,8 @@ on:
       - main
   workflow_dispatch:
   
-  env: 
-    DOTNET_PROJECT_PATH: 'src/Services/Consumer/Consumer.API'
+env: 
+  DOTNET_PROJECT_PATH: 'src/Services/Consumer/Consumer.API'
 
 jobs:
   build:
