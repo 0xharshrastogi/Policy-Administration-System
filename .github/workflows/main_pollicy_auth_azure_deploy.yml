@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
   
 env: 
-  DOTNET_ROOT: 'src/Services/Authentication/Authentication.API'
+  DOTNET_PROJECT_PATH: 'src/Services/Authentication/Authentication.API'
   
 
 jobs:
@@ -26,10 +26,10 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Build with dotnet
-        run: dotnet build ${{env.DOTNET_ROOT}}/Authentication.API.csproj --configuration Release
+        run: dotnet build ${{env.DOTNET_PROJECT_PATH}}/Authentication.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/build
+        run: dotnet publish -c Release -o ${{env.DOTNET_PROJECT_PATH}}/build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
