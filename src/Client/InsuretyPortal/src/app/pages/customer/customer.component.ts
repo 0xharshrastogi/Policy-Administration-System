@@ -4,10 +4,25 @@ import { environment } from 'src/environments/environment';
 type customer = {
   customerID: string;
   customerName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   email: string;
   pan: string;
 };
+
+const Month = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 
 @Component({
   selector: 'app-customer',
@@ -43,5 +58,10 @@ export class CustomerComponent implements OnInit {
 
   onaddcustomer() {
     this.router.navigate([`/customerinput`]);
+  }
+
+  convertToHumanReadable(datestr: string) {
+    const date = new Date(datestr);
+    return `${Month[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`;
   }
 }

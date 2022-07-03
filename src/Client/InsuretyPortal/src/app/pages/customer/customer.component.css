@@ -1,9 +1,14 @@
 .table .customer-row {
+  background-color: white;
   cursor: pointer;
 }
-.customer-row:hover {
-  background-color: #ddd;
+
+.table .customer-row:hover {
+  /* background-color: black; */
+  background-color: #eee;
+  transition: all 270ms ease;
 }
+
 .customer-row td {
   background: none;
 }

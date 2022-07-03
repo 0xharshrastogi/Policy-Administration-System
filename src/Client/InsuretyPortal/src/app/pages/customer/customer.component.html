@@ -6,26 +6,30 @@
   </div>
   <br />
 
-  <table class="table table-light">
-    <thead>
-      <tr>
-        <th scope="col">Customer ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">DOB</th>
-        <th scope="col">Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        class="customer-row"
-        *ngFor="let customer of customers.reverse()"
-        (click)="onClick(customer.customerID)"
-      >
-        <td>{{ customer.customerID }}</td>
-        <td>{{ customer.customerName }}</td>
-        <td>{{ customer.dateOfBirth }}</td>
-        <td>{{ customer.email }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <section class="my-3 rounded row mx-2 mx-sm-0" style="overflow: hidden">
+    <table class="table table-light" style="margin: 0">
+      <thead>
+        <tr>
+          <th class="d-none d-sm-table-cell" scope="col">Customer ID</th>
+          <th scope="col">Consumer Name</th>
+          <th class="d-none d-sm-table-cell" scope="col">Date Of Birth</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="customer-row"
+          *ngFor="let customer of customers.reverse()"
+          (click)="onClick(customer.customerID)"
+        >
+          <td class="d-none d-sm-table-cell">{{ customer.customerID }}</td>
+          <td>{{ customer.customerName }}</td>
+          <td class="d-none d-sm-table-cell">
+            {{ convertToHumanReadable(customer.dateOfBirth) }}
+          </td>
+          <td>{{ customer.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </div>
