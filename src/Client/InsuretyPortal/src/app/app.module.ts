@@ -25,6 +25,7 @@ import { PropertyInputComponent } from './pages/property-input/property-input.co
 import { HomeComponent } from './home/home.component';
 import { IssuePolicyFormComponent } from './issue-policy-form/issue-policy-form.component';
 import { ButtonComponent } from './button/button.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ButtonComponent } from './button/button.component';
     HomeComponent,
     IssuePolicyFormComponent,
     ButtonComponent,
+    FooterComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

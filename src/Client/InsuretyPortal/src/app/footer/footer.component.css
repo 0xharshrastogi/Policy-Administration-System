@@ -1,0 +1,13 @@
+.footer {
+  font-family: "Roboto";
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 0.1rem;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background-color: #fff7;
+  backdrop-filter: blur(4px);
+  color: rgb(255 243 243);
+}
