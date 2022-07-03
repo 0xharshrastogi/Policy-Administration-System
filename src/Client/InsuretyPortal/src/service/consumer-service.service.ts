@@ -157,9 +157,9 @@ export class ConsumerService {
         accept: '*/*',
       },
     });
-    if (response.status === HttpStatusCode.Created)
-      console.log(`${response.status} created`);
-    else console.log(`${response.status} not created`);
+    if (response.status === HttpStatusCode.Accepted)
+      console.log(`${response.status} updated`);
+    else console.log(`${response.status} not updated`);
   }
   async updateBusiness(business: Businessupdatetype) {
     const uri = ConsumerService.requestPath.UPDATE_BUSINESS;
