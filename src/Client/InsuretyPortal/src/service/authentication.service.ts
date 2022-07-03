@@ -63,6 +63,11 @@ export class AuthenticationService {
     return true;
   }
 
+  async signout() {
+    localStorage.removeItem('token');
+    AuthenticationService.isSignedIn = false;
+  }
+
   async validate(): Promise<true | false> {
     const response = await fetch(AuthenticationService.requestPath.VALIDATE, {
       method: 'POST',

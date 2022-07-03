@@ -1,35 +1,37 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-end">
-    <a routerLink="/policy/create" type="button" class="btn btn-primary"
+    <a routerLink="/policy/create" type="button" class="btn btn-light"
       >Create Policy</a
     >
   </div>
   <!-- <br /> -->
 
-  <table class="table table-light mt-4 rounded">
-    <thead>
-      <tr>
-        <th scope="col">Policy ID</th>
-        <th scope="col">Policy Name</th>
-        <th scope="col">Bussiness ID</th>
-        <th scope="col">Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="customer-row" *ngFor="let policy of policies">
-        <td>{{ policy.id }}</td>
-        <td>{{ policy.policyName }}</td>
-        <td>{{ policy.businessId }}</td>
-        <td>{{ policy.status }}</td>
-        <td>
-          <a
-            *ngIf="policy.status == 'Initiated'"
-            [routerLink]="'issue/' + policy.id"
-            >Issue</a
-          >
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <section class="table-wrapper my-4">
+    <table class="table table-light">
+      <thead>
+        <tr>
+          <th class="d-none d-sm-table-cell" scope="col">Policy ID</th>
+          <th scope="col">Policy Name</th>
+          <th class="d-none d-sm-table-cell" scope="col">Bussiness ID</th>
+          <th scope="col">Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="customer-row" *ngFor="let policy of policies">
+          <td class="d-none d-sm-table-cell">{{ policy.id }}</td>
+          <td>{{ policy.policyName }}</td>
+          <td class="d-none d-sm-table-cell">{{ policy.businessId }}</td>
+          <td>{{ policy.status }}</td>
+          <td>
+            <a
+              *ngIf="policy.status == 'Initiated'"
+              [routerLink]="'issue/' + policy.id"
+              >Issue</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </div>

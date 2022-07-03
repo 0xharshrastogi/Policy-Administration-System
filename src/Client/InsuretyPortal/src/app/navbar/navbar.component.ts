@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/service/authentication.service';
 
 @Component({
@@ -11,11 +12,10 @@ export class NavbarComponent {
 
   isNavbarCollapsed: boolean = true;
 
-  private readonly _auth: AuthenticationService;
-
-  constructor(auth: AuthenticationService) {
-    this._auth = auth;
-  }
+  constructor(
+    private readonly _auth: AuthenticationService,
+    private readonly _router: Router
+  ) {}
 
   get isLoggedIn(): boolean {
     return this._auth.isLoggedIn;
@@ -23,5 +23,10 @@ export class NavbarComponent {
 
   toogleNavbarCollapse() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+
+  async signout() {
+    await this._auth.signout();
+    this._router.navigate(['/login']);
   }
 }

@@ -1,7 +1,10 @@
-body {
-  background-color: #eee;
-  color: #333;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
+body {
+  background-color: #f8f9fa;
+  background: linear-gradient(45deg, rgb(132, 10, 189), rgb(15, 18, 207));
+  color: #333;
+  font-family: "Roboto";
   min-height: 100vh;
   position: relative;
 }

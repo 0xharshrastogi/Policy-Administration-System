@@ -26,6 +26,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    console.log(_route, _state);
     return new Promise(async (resolve, _) => {
       const isLogin = await this.authService.validate();
       if (!isLogin) {

@@ -1,6 +1,14 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav
+  class="navbar navbar-expand-sm navbar-light bg-light"
+  style="z-index: 1000"
+>
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">{{ title }}</a>
+    <a
+      class="navbar-brand"
+      style="font-family: 'Poppins'; font-size: 1.3rem; letter-spacing: 0.1rem"
+      routerLink="/"
+      >{{ title }}</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -17,17 +25,19 @@
         <ng-container *ngIf="isLoggedIn; else notLoggedInTemplate">
           <a
             class="nav-link"
-            routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
             routerLink="/"
-            >Home</a
           >
+            Policy
+          </a>
           <a class="nav-link" routerLinkActive="active" routerLink="/customer">
             Customer
           </a>
-          <a class="nav-link" routerLinkActive="active" routerLink="/policy">
-            Policy
-          </a>
+
+          <button class="btn btn-dark btn-sm ms-3" (click)="signout()">
+            Signout
+          </button>
         </ng-container>
 
         <ng-template #notLoggedInTemplate>

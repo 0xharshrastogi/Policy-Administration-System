@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
 export class LoginFormComponent {
   loginForm: FormGroup;
   errors: Error[] = [];
+  loading = false;
 
   private readonly _auth: AuthenticationService;
   private readonly _router: Router;
@@ -40,10 +41,13 @@ export class LoginFormComponent {
     if (!this.loginForm.touched) return false;
     return this.loginForm.invalid;
   }
+
   async onSubmit() {
     try {
       const { value: credential } = this.loginForm;
+      this.loading = true;
       await this._auth.login(credential);
+      this.loading = false;
       this._router.navigate(['/policy']);
     } catch (error) {
       this.errors.push(<Error>error);
