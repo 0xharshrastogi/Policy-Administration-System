@@ -1,6 +1,6 @@
 <div class="row propertyView">
   <h1>Property Details</h1>
-  <div class="container p-4" *ngIf="property!.propertyID == null">
+  <div class="container p-4" *ngIf="_property!.propertyID == null">
     Hi consumer, <br />
     your Property is not added,Kindly add one.<br />
     <button
@@ -10,8 +10,8 @@
       Add Property
     </button>
   </div>
-  <div class="container" *ngIf="property!.propertyID != null">
-    <form>
+  <div class="container" *ngIf="_property!.propertyID != null">
+    <form [formGroup]="updatePropertyForm" (ngSubmit)="updateProperty()">
       <div class="row my-2">
         <div class="col-4" id="label">Property ID</div>
         <div class="col">
@@ -19,7 +19,7 @@
             type="text"
             class="form-control"
             id="propertyID"
-            value="{{ property!.propertyID }}"
+            placeholder="{{ _property!.propertyID }}"
             readonly
           />
         </div>
@@ -30,8 +30,9 @@
           <input
             type="text"
             class="form-control"
+            formControlName="propertyType"
             id="propertyType"
-            value="{{ property!.propertyType }}"
+            placeholder="{{ _property!.propertyType }}"
           />
         </div>
       </div>
@@ -41,8 +42,9 @@
           <input
             type="text"
             class="form-control"
+            formControlName="Address"
             id="Address"
-            value="{{ property!.address }}"
+            placeholder="{{ _property!.address }}"
           />
         </div>
       </div>
@@ -50,10 +52,11 @@
         <div class="col-4" id="label">Property Area</div>
         <div class="col">
           <input
-            type="text"
+            type="number"
             class="form-control"
             id="propertyArea"
-            value="{{ property!.areaInSqFt }}"
+            formControlName="propertyArea"
+            placeholder="{{ _property!.areaInSqFt }}"
           />
         </div>
       </div>
@@ -61,10 +64,11 @@
         <div class="col-4" id="label">Building Storey</div>
         <div class="col">
           <input
-            type="text"
+            type="number"
             class="form-control"
             id="buildingStorey"
-            value="{{ property!.buildingStorey }}"
+            formControlName="buildingStorey"
+            placeholder="{{ _property!.buildingStorey }}"
           />
         </div>
       </div>
@@ -75,7 +79,8 @@
             type="text"
             class="form-control"
             id="propertyValue"
-            value="{{ property!.propertyValue }}"
+            formControlName="propertyValue"
+            placeholder="{{ _property!.propertyValue }}"
           />
         </div>
       </div>

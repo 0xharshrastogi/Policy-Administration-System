@@ -2,6 +2,7 @@ using Consumer.API.Models;
 using Consumer.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Consumer.API.Repositories;
+using Consumer.API.DTO;
 
 namespace Consumer.API.Repository;
 public class ConsumerRepository : IConsumerRepository
@@ -28,21 +29,25 @@ public class ConsumerRepository : IConsumerRepository
     public IEnumerable<Customer> GetAllConsumers()
     {
         return _context.Customers;
+
     }
 
     public Customer UpdateConsumer(Customer consumer)
     {
         Customer consumerToBeUpdated = _context.Customers.Find(consumer.CustomerID);
+        if (consumerToBeUpdated != null)
+        {
+            consumerToBeUpdated.CustomerName = consumer.CustomerName;
+            consumerToBeUpdated.DateOfBirth = consumer.DateOfBirth;
+            consumerToBeUpdated.Email = consumer.Email;
+            consumerToBeUpdated.Pan = consumer.Pan;
+            consumerToBeUpdated.PhoneNumber = consumer.PhoneNumber;
 
-        consumerToBeUpdated.CustomerName = consumer.CustomerName;
-        consumerToBeUpdated.DateOfBirth = consumer.DateOfBirth;
-        consumerToBeUpdated.Email = consumer.Email;
-        consumerToBeUpdated.Pan = consumer.Pan;
-        consumerToBeUpdated.PhoneNumber = consumer.PhoneNumber;
+            _context.SaveChanges();
 
-        _context.SaveChanges();
-
-        return consumerToBeUpdated;
+            return consumerToBeUpdated;
+        }
+        return null;
     }
 
     public void DeleteConsumer(Guid consumerId)
@@ -70,15 +75,20 @@ public class ConsumerRepository : IConsumerRepository
         return _context.Businesses;
     }
 
-    public Business UpdateBusiness(Guid id, Business business)
+    public Business UpdateBusiness(UpdateBusinessDTO business)
     {
-        var businessToBeUpdated = _context.Businesses.Find(id);
-        businessToBeUpdated.AnnualTurnover = business.AnnualTurnover;
-        businessToBeUpdated.BusinessType = business.BusinessType;
-        businessToBeUpdated.BusinessValue = business.BusinessValue;
-        businessToBeUpdated.BusinessName = business.BusinessName;
-        _context.SaveChanges();
-        return businessToBeUpdated;
+        var businessToBeUpdated = _context.Businesses.Find(business.BusinessID);
+        if (businessToBeUpdated != null)
+        {
+            businessToBeUpdated.AnnualTurnover = business.AnnualTurnover;
+            businessToBeUpdated.BusinessType = business.BusinessType;
+            businessToBeUpdated.BusinessValue = business.BusinessValue;
+            businessToBeUpdated.BusinessName = business.BusinessName;
+
+            _context.SaveChanges();
+            return businessToBeUpdated;
+        }
+        return null;
     }
 
     public void DeleteBusiness(Guid id)
@@ -106,9 +116,9 @@ public class ConsumerRepository : IConsumerRepository
         return property;
     }
 
-    public Property UpdateProperty(Guid id, Property property)
+    public Property UpdateProperty(UpdatePropertyDTO property)
     {
-        var propertyTobeupdated = _context.Properties.Find(id);
+        var propertyTobeupdated = _context.Properties.Find(property.PropertyID);
 
         propertyTobeupdated.Address = property.Address;
         propertyTobeupdated.PropertyType = property.PropertyType;

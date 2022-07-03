@@ -24,7 +24,7 @@
         </tr-->
       <tr
         class="customer-row"
-        *ngFor="let customer of customers"
+        *ngFor="let customer of customers.reverse()"
         (click)="onClick(customer.customerID)"
       >
         <td>{{ customer.customerID }}</td>

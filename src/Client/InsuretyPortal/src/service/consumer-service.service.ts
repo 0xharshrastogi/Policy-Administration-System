@@ -17,6 +17,14 @@ type Business = {
   annualTurnover: number;
   businessValue: number;
 };
+type Businessupdatetype = {
+  BusinessID: string;
+  businessName: string;
+  businessType: number;
+  totalEmployees: number;
+  annualTurnover: number;
+  businessValue: number;
+};
 type Property = {
   businessID: string;
   propertyType: string;
@@ -38,6 +46,12 @@ export class ConsumerService {
     ADD_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
     ADD_BUSINESS: `${ConsumerService.BaseAuthUri}/Consumer/Business`,
     ADD_PROPERTY: `${ConsumerService.BaseAuthUri}/Consumer/Property`,
+    UPDATE_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
+    UPDATE_BUSINESS: `${ConsumerService.BaseAuthUri}/Consumer/Business`,
+    UPDATE_Property: `${ConsumerService.BaseAuthUri}/Consumer/Property`,
+    DELETE_CUSTOMER: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
+    DELETE_BUSINESS: `${ConsumerService.BaseAuthUri}/Consumer/Business`,
+    DELETE_Property: `${ConsumerService.BaseAuthUri}/Consumer/Property`,
     FETCH_CONSUMER_BUSINESS_ALL: `${ConsumerService.BaseAuthUri}/Consumer/Customer`,
     GET_PROPERTIES_BY_CUSTOMER_ID: `${ConsumerService.BaseAuthUri}/Consumer/GetPropertyByCustomerID`,
   };
@@ -83,6 +97,7 @@ export class ConsumerService {
         accept: '*/*',
       },
     });
+    console.log(`${response}`);
     if (response.status === HttpStatusCode.Created)
       console.log(`${response.status} created`);
     else console.log(`${response.status} not created`);
@@ -98,7 +113,6 @@ export class ConsumerService {
         accept: '*/*',
       },
     });
-    console.log('in consumerservice: ' + response);
     var addStatus = false;
     addStatus = response.status === HttpStatusCode.Created ? true : false;
     return addStatus;
@@ -130,5 +144,51 @@ export class ConsumerService {
     );
 
     return response.json();
+  }
+
+  async updatecustomer(customer: Customer) {
+    const uri = ConsumerService.requestPath.UPDATE_CUSTOMER;
+    const response = await fetch(uri, {
+      method: 'PUT',
+      credentials: 'same-origin',
+      body: JSON.stringify(customer),
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
+    if (response.status === HttpStatusCode.Created)
+      console.log(`${response.status} created`);
+    else console.log(`${response.status} not created`);
+  }
+  async updateBusiness(business: Businessupdatetype) {
+    const uri = ConsumerService.requestPath.UPDATE_BUSINESS;
+    const response = await fetch(uri, {
+      method: 'PUT',
+      credentials: 'same-origin',
+      body: JSON.stringify(business),
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
+    if (response.status === HttpStatusCode.Created)
+      console.log(`${response.status} created`);
+    else console.log(`${response.status} not created`);
+  }
+  async updateProperty(property: Property) {
+    const uri = ConsumerService.requestPath.UPDATE_Property;
+    const response = await fetch(uri, {
+      method: 'PUT',
+      credentials: 'same-origin',
+      body: JSON.stringify(property),
+      headers: {
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      },
+    });
+    if (response.status === HttpStatusCode.Created)
+      console.log(`${response.status} created`);
+    else console.log(`${response.status} not created`);
   }
 }

@@ -56,16 +56,17 @@ public class ConsumerController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest();
 
-        _repository.UpdateConsumer(cons);
-
-        return Accepted(nameof(Update));
+        var updatestatus = _repository.UpdateConsumer(cons);
+        if (updatestatus != null)
+            return Accepted(nameof(Update), new { message = "Consumer details updated" });
+        return NotFound(new { message = "Consumer not found" });
     }
 
     [HttpDelete("Customer")]
     public IActionResult Delete(Guid id)
     {
         _repository.DeleteConsumer(id);
-        return Ok(nameof(Delete) + " invoked and consumer with id " + id + "deleted.");
+        return Ok(nameof(Delete) + "consumer with id " + id + "deleted.");
     }
 
     [HttpPost("Business")]
@@ -98,21 +99,23 @@ public class ConsumerController : ControllerBase
     }
 
     [HttpPut("Business")]
-    public IActionResult UpdateBusiness(Guid id, BusinessDTO businessDTO)
+    public IActionResult UpdateBusiness(UpdateBusinessDTO businessDTO)
     {
         if (!ModelState.IsValid)
             return BadRequest();
 
-        _repository.UpdateBusiness(id, _mapper.Map<Business>(businessDTO));
+        var business = _repository.UpdateBusiness(businessDTO);
+        if (business == null)
+            return NotFound(new { message = "no business found" });
 
-        return Accepted(nameof(UpdateBusiness));
+        return Accepted(nameof(UpdateBusiness), new { message = "business updated" });
     }
 
     [HttpDelete("Business")]
     public IActionResult DeleteBusiness(Guid id)
     {
         _repository.DeleteBusiness(id);
-        return Ok(nameof(DeleteBusiness) + "  id " + id + "deleted.");
+        return Ok(nameof(DeleteBusiness) + "  business with id " + id + "deleted.");
     }
 
     [HttpGet(nameof(GetBusinessByCustomerID))]
@@ -156,20 +159,24 @@ public class ConsumerController : ControllerBase
     }
 
     [HttpPut("Property")]
-    public IActionResult UpdateProperty(Guid id, PropertyDTO propertyDTO)
+    public IActionResult UpdateProperty(UpdatePropertyDTO propertyDTO)
     {
         if (!ModelState.IsValid) return BadRequest();
 
-        _repository.UpdateProperty(id, _mapper.Map<Property>(propertyDTO));
+        var property = _repository.UpdateProperty(propertyDTO);
+        if (property == null)
+        {
+            return NotFound(new { message = "property not found" });
+        }
 
-        return Accepted(nameof(UpdateProperty));
+        return Accepted(new { message = "property Updated" });
     }
 
     [HttpDelete("Property")]
     public IActionResult DeleteProperty(Guid id)
     {
         _repository.DeleteProperty(id);
-        return Ok(nameof(DeleteProperty) + " invoked Property with id " + id + "deleted.");
+        return Ok(nameof(DeleteProperty) + " Property with id " + id + "deleted.");
     }
 
     [HttpGet(nameof(GetPropertyByCustomerID))]
