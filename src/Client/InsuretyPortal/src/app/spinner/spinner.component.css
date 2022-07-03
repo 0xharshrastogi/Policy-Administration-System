@@ -1,63 +1,24 @@
-div.facespinner {
-  width: 5rem;
-  height: 5rem;
-  border: 2px solid #666;
-  border-radius: 2.2rem;
-  display: flex;
-  justify-content: center;
-}
-div.facespinner__eye {
-  width: 2.5rem;
-  position: relative;
-  transform: translate(-50%, 20%);
-  animation: facespinner 3s infinite cubic-bezier(0.76, 0, 0.24, 1) both;
-}
-div.facespinner__eye:before,
-div.facespinner__eye:after {
-  content: "";
-  left: 0;
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 0.8rem;
-  position: absolute;
-  background-color: #555;
-  animation: facespinnereye 1.5s 1s infinite;
-}
-div.facespinner__eye:after {
-  left: inherit;
-  right: 0;
-}
-@keyframes facespinner {
-  0% {
-    transform: translate(-50%, 20%);
-  }
-  30% {
-    transform: translate(0%, 30%);
-  }
-  60% {
-    transform: translate(50%, 20%);
-  }
-  80% {
-    transform: translate(0%, 30%);
-  }
-}
-@keyframes facespinnereye {
-  0% {
-    transform: scaleY(1);
-  }
-  80% {
-    transform: scaleY(1);
-  }
-  85% {
-    transform: scaleY(0);
-  }
-  90% {
-    transform: scaleY(1);
-  }
-  95% {
-    transform: scaleY(0);
-  }
+#loading {
+  --wheelColor: white;
+  --rotatingColor: #ddd;
+  --size: 20px;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border: 3px solid var(--wheelColor);
+  border-radius: 50%;
+  border-top-color: var(--rotatingColor);
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
 }
 
-.facespinner span {
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }

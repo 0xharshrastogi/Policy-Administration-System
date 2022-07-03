@@ -24,6 +24,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { PropertyInputComponent } from './pages/property-input/property-input.component';
 import { HomeComponent } from './home/home.component';
 import { IssuePolicyFormComponent } from './issue-policy-form/issue-policy-form.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { IssuePolicyFormComponent } from './issue-policy-form/issue-policy-form.
     PropertyInputComponent,
     HomeComponent,
     IssuePolicyFormComponent,
+    ButtonComponent,
   ],
   imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

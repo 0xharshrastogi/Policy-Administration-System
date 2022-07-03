@@ -6,9 +6,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./spinner.component.css'],
 })
 export class SpinnerComponent implements OnInit {
-  @Input() message: string = 'hiiii';
+  message: string = 'hiiii';
+  @Input() wheelColor?: string = '';
+  @Input() innerColor?: string = '';
 
-  constructor() {}
+  constructor() {
+    console.log(this);
+  }
 
   ngOnInit(): void {}
 }

@@ -11,4 +11,15 @@
   border: none;
   box-shadow: 0 0 8px 4px #00000026;
   background-color: white;
+  animation: fade 550ms ease-in-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

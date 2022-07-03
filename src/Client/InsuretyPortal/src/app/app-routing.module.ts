@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { CreatePolicyComponent } from './create-policy/create-policy.component';
-import { HomeComponent } from './home/home.component';
 import { IssuePolicyFormComponent } from './issue-policy-form/issue-policy-form.component';
 import { ListPolicyComponent } from './list-policy/list-policy.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -11,9 +10,8 @@ import { CustomerInputComponent } from './pages/customer-input/customer-input.co
 import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 // import { PropertyInputComponent } from './pages/property-input/property-input.component';
-import { SignupComponent } from './pages/signup/signup.component';
-import { PolicyComponent } from './policy/policy.component';
 import { PropertyInputComponent } from './pages/property-input/property-input.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -49,7 +47,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent,
+    component: LoginFormComponent,
   },
 ];
 
