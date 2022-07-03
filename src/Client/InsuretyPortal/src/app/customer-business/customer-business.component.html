@@ -1,5 +1,5 @@
-<div class="row customer-business p-2">
-  <div class="col">
+<div class="row mt-4 customer-business p-2" style="background-color: white">
+  <div class="col-xs-12">
     <h1>Business Details</h1>
     <div class="container p-4" *ngIf="_business?.message != null">
       Hi consumer, <br />
@@ -33,7 +33,6 @@
               class="form-control"
               formControlName="businessType"
               id="businessTypeID"
-              placeholder="{{ _business!.businessType }}"
             />
           </div>
         </div>
@@ -45,7 +44,6 @@
               class="form-control"
               id="businessName"
               formControlName="businessName"
-              placeholder="{{ _business!.businessName }}"
             />
           </div>
         </div>
@@ -53,11 +51,10 @@
           <div class="col-4" id="label">Total Employees</div>
           <div class="col">
             <input
-              type="text"
+              type="number"
               class="form-control"
               formControlName="totalEmployees"
               id="totalEmployees"
-              placeholder="{{ _business!.totalEmployees }}"
             />
           </div>
         </div>
@@ -65,11 +62,10 @@
           <div class="col-4" id="label">Annual Turnover</div>
           <div class="col">
             <input
-              type="text"
+              type="number"
               class="form-control"
               id="annualTurnover"
               formControlName="annualTurnover"
-              placeholder="{{ _business!.annualTurnover }}"
             />
           </div>
         </div>
@@ -77,11 +73,10 @@
           <div class="col-4" id="label">Business Value</div>
           <div class="col">
             <input
-              type="text"
+              type="number"
               class="form-control"
               formControlName="businessValue"
               id="businessValue"
-              placeholder="{{ _business!.businessValue }}"
             />
           </div>
         </div>

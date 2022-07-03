@@ -1,4 +1,4 @@
-<div class="row propertyView">
+<div class="row propertyView" style="background-color: white">
   <h1>Property Details</h1>
   <div class="container p-4" *ngIf="_property!.propertyID == null">
     Hi consumer, <br />
@@ -19,7 +19,7 @@
             type="text"
             class="form-control"
             id="propertyID"
-            placeholder="{{ _property!.propertyID }}"
+            formControlName="propertyID"
             readonly
           />
         </div>
@@ -32,7 +32,6 @@
             class="form-control"
             formControlName="propertyType"
             id="propertyType"
-            placeholder="{{ _property!.propertyType }}"
           />
         </div>
       </div>
@@ -44,7 +43,6 @@
             class="form-control"
             formControlName="Address"
             id="Address"
-            placeholder="{{ _property!.address }}"
           />
         </div>
       </div>
@@ -56,7 +54,6 @@
             class="form-control"
             id="propertyArea"
             formControlName="propertyArea"
-            placeholder="{{ _property!.areaInSqFt }}"
           />
         </div>
       </div>
@@ -68,7 +65,6 @@
             class="form-control"
             id="buildingStorey"
             formControlName="buildingStorey"
-            placeholder="{{ _property!.buildingStorey }}"
           />
         </div>
       </div>
@@ -80,7 +76,6 @@
             class="form-control"
             id="propertyValue"
             formControlName="propertyValue"
-            placeholder="{{ _property!.propertyValue }}"
           />
         </div>
       </div>

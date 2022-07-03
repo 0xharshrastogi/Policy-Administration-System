@@ -172,7 +172,7 @@ export class ConsumerService {
         accept: '*/*',
       },
     });
-    if (response.status === HttpStatusCode.Created)
+    if (response.status === HttpStatusCode.Accepted)
       console.log(`${response.status} created`);
     else console.log(`${response.status} not created`);
   }

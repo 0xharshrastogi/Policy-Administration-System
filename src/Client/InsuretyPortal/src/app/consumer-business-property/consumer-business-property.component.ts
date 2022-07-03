@@ -40,11 +40,11 @@ export class ConsumerBusinessPropertyComponent implements OnInit {
     this._property = property;
     this.updatePropertyForm = new FormGroup({
       propertyID: new FormControl(this._property?.propertyID),
-      propertyType: new FormControl(''),
-      Address: new FormControl(''),
-      propertyArea: new FormControl(''),
-      buildingStorey: new FormControl(''),
-      propertyValue: new FormControl(''),
+      propertyType: new FormControl(this._property?.propertyType),
+      Address: new FormControl(this._property?.address),
+      propertyArea: new FormControl(this._property?.areaInSqFt),
+      buildingStorey: new FormControl(this._property?.buildingStorey),
+      propertyValue: new FormControl(this._property?.propertyValue),
     });
   }
   gotoPropertyInput(businessID: string) {
