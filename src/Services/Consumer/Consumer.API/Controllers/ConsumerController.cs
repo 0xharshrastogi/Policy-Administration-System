@@ -20,12 +20,6 @@ public class ConsumerController : ControllerBase
         _repository = repository;
     }
 
-
-    /// <summary>
-    /// Consumer Action methods
-    /// </summary>
-    /// <param name="customerDTO"></param>
-    /// <returns></returns>
     [HttpPost("Customer")]
     public IActionResult Create(CustomerDTO customerDTO)
     {
@@ -57,9 +51,9 @@ public class ConsumerController : ControllerBase
         if (!ModelState.IsValid) return BadRequest();
 
         var updatestatus = _repository.UpdateConsumer(cons);
-        if (updatestatus != null)
-            return Accepted(nameof(Update), new { message = "Consumer details updated" });
-        return NotFound(new { message = "Consumer not found" });
+        return updatestatus != null
+            ? Accepted(nameof(Update), new { message = "Consumer details updated" })
+            : NotFound(new { message = "Consumer not found" });
     }
 
     [HttpDelete("Customer")]
@@ -105,10 +99,9 @@ public class ConsumerController : ControllerBase
             return BadRequest();
 
         var business = _repository.UpdateBusiness(businessDTO);
-        if (business == null)
-            return NotFound(new { message = "no business found" });
-
-        return Accepted(nameof(UpdateBusiness), new { message = "business updated" });
+        return business == null
+            ? NotFound(new { message = "no business found" })
+            : Accepted(nameof(UpdateBusiness), new { message = "business updated" });
     }
 
     [HttpDelete("Business")]
@@ -131,11 +124,6 @@ public class ConsumerController : ControllerBase
         }) : Ok(business);
     }
 
-    /// <summary>
-    /// Property action methods
-    /// </summary>
-    /// <param name="propertyDTO"></param>
-    /// <returns></returns>
     [HttpPost("Property")]
     public IActionResult CreateProperty(PropertyDTO propertyDTO)
     {
@@ -164,12 +152,7 @@ public class ConsumerController : ControllerBase
         if (!ModelState.IsValid) return BadRequest();
 
         var property = _repository.UpdateProperty(propertyDTO);
-        if (property == null)
-        {
-            return NotFound(new { message = "property not found" });
-        }
-
-        return Accepted(new { message = "property Updated" });
+        return property == null ? NotFound(new { message = "property not found" }) : Accepted(new { message = "property Updated" });
     }
 
     [HttpDelete("Property")]
@@ -185,11 +168,14 @@ public class ConsumerController : ControllerBase
         var business = _repository.GetAllBusiness()
            .Include(b => b.Customer)
            .SingleOrDefault(b => b.CustomerID == customerID);
-        Property property = new Property();
+        var property = new Property();
         if (business != null)
         {
-            property = _repository.GetAllProperties().FirstOrDefault(p => p.BusinessID == business.BusinessID);
+            property = _repository
+                .GetAllProperties()
+                .FirstOrDefault(p => p.BusinessID == business.BusinessID);
         }
+
         return property is null || business is null ? NotFound() : Ok(property);
     }
 }

@@ -6,12 +6,16 @@ public class CustomerDTO
 {
     [Required]
     public string CustomerName { get; set; }
+
     [Required]
     public DateTime DateOfBirth { get; set; }
-    [Required]
+
+    [Required, EmailAddress]
     public string Email { get; set; }
+
     [Required, MinLength(10), MaxLength(10)]
     public string PhoneNumber { get; set; }
-    [MinLength(10), MaxLength(10), Required]
+
+    [Required, RegularExpression("[A-Z]{5}[0-9]{4}[A-Z]{1}")]
     public string Pan { get; set; }
 }
