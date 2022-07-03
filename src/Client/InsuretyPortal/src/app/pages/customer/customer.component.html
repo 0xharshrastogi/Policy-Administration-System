@@ -1,6 +1,6 @@
 <div class="container mt-2">
-  <div class="text-right">
-    <button type="button" class="btn btn-success" (click)="onaddcustomer()">
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-light" (click)="onaddcustomer()">
       Add Customer
     </button>
   </div>
@@ -16,12 +16,6 @@
       </tr>
     </thead>
     <tbody>
-      <!--  src\Client\InsuretyPortal\src\app\pages\customer-view\customer-view.component.html <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr-->
       <tr
         class="customer-row"
         *ngFor="let customer of customers.reverse()"

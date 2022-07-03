@@ -3,12 +3,95 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  animation: fade 550ms ease-in-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.login-form .title {
+  font-weight: 800;
+  color: rgb(101, 13, 216);
+  font-size: 1.25rem;
+}
+
+.login-form .h3 {
+  font-weight: 800;
+  font-size: 3rem;
+  color: #222;
+  text-shadow: 0px 0px 2px #18181885;
+  line-height: 0.8;
+}
+
+.login-form .h3 + p {
+  color: #aaa;
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin: 0;
 }
 
 .login-form form {
+  overflow: hidden;
   padding: 1rem;
   border-radius: 0.5rem;
   border: none;
   box-shadow: 0 0 8px 4px #00000026;
   background-color: white;
+}
+
+.custom-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #989898;
+}
+
+.input-control-wrapper {
+  padding: 0.5rem;
+  color: #999;
+}
+
+input.input-control {
+  padding: 0.5rem;
+  outline: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #99999938;
+}
+
+.input-control::placeholder {
+  font-size: 0.7rem;
+  color: #999;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.input-control-wrapper:focus-within {
+  box-shadow: 4px 4px 19px 0px #00000024;
+  color: black;
+  border-radius: 0.5rem;
+  transition: all 350ms;
+}
+
+.input-control:focus {
+  border-color: transparent;
+}
+
+.login-form .btn {
+  background: linear-gradient(45deg, #6414cd, #b70ad7);
+  border: none;
+}
+
+.form-text {
+  font-size: 0.75rem;
+  color: #bbb;
 }

@@ -1,0 +1,15 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  class="btn btn-primary"
+  [ngClass]="{ 'd-flex': loading, 'justify-content-center': loading }"
+>
+  <ng-component *ngIf="!loading; then loading; else notLoading"></ng-component>
+
+  <ng-template #notLoading>{{ value }}</ng-template>
+
+  <ng-template #loading>
+    <span class="me-2">{{ value }}</span>
+    <app-spinner wheelColor="#eee" innerColor="blue"></app-spinner>
+  </ng-template>
+</button>

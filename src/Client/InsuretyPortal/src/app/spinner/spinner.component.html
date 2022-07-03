@@ -1,4 +1,7 @@
-<div class="facespinner">
-  <div class="facespinner__eye"></div>
-  <span *ngIf="true">{{ message }}</span>
-</div>
+<div
+  [ngStyle]="{
+    '--wheelColor': wheelColor ?? 'red',
+    '--rotatingColor': innerColor ?? 'white'
+  }"
+  id="loading"
+></div>
