@@ -58,6 +58,7 @@ public class Test
             var offerItem = controllerObject.GetBusiness(g1);
             ObjectResult result2 = offerItem as ObjectResult;
             Assert.AreEqual(404, result2.StatusCode);
+            Assert.Pass();
         }
         catch (Exception e)
         {
@@ -334,6 +335,54 @@ public class Test
             var offerItem = controllerObject.DeleteBusiness(g1);
             ObjectResult result2 = offerItem as ObjectResult;
             Assert.AreEqual(404, result2.StatusCode);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+    [Test]
+    public void CreateProperty_ValidObjectPassed_ReturnsCreatedResponse()
+    {
+        try
+        {
+            PropertyDTO prop = new PropertyDTO()
+            {
+                BusinessID = new Guid("5851c2c3-0424-4d34-a027-8410db52b572"),
+                PropertyType = "FactoryEquipment",
+                Address = "Noida",
+                Area = 350.00,
+                BuildingStorey = 3,
+                Age = 5,
+                PropertyValue = 8
+            };
+            var obj = consumerController.CreateProperty(prop);
+            ObjectResult result3 = obj as ObjectResult;
+            Assert.AreEqual(200, result3.StatusCode);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+    [Test]
+    public void CreateProperty_InvalidObjectPassed_ReturnsCreatedResponse()
+    {
+        try
+        {
+            PropertyDTO typereq = new PropertyDTO()
+            {
+                BusinessID = new Guid("5851c2c3-0424-4d34-a027-8410db52b572"),
+                Address = "Noida",
+                Area = 350.00,
+                BuildingStorey = 3,
+                Age = 5,
+                PropertyValue = 8
+            };
+            consumerController.ModelState.AddModelError("Type", "Required");
+            var badResponse = consumerController.CreateProperty(typereq);
+            ObjectResult result3 = badResponse as ObjectResult;
+            Assert.AreEqual(404, result3.StatusCode);
         }
         catch (Exception e)
         {

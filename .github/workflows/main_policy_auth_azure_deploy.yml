@@ -9,7 +9,7 @@ on:
       - main
     paths:
       - ".github/workflows/main_policy_auth_azure_deploy.yml"
-      - "src/Services/Authentication/Authentication.API**"
+      - "src/Services/Authentication/Authentication.API/**"
   workflow_dispatch:
 
 env:
