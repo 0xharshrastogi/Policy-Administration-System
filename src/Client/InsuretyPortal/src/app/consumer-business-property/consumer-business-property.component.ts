@@ -1,5 +1,6 @@
 import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { ConsumerService } from 'src/service/consumer-service.service';
 type Property = {
@@ -21,23 +22,42 @@ type Property = {
 export class ConsumerBusinessPropertyComponent implements OnInit {
   @Input() customerID: string;
   @Input() businessID: string;
-  property: Property | null = null;
+  _property: Property | null = null;
 
   private readonly consumerservice: ConsumerService;
   private readonly router: Router;
-
+  updatePropertyForm: FormGroup;
   constructor(_consumerservice: ConsumerService, router: Router) {
     this.consumerservice = _consumerservice;
     this.router = router;
   }
 
   async ngOnInit(): Promise<void> {
-    this.property = await this.consumerservice.fetchPropertyBycustomerrID(
+    const property = await this.consumerservice.fetchPropertyBycustomerrID(
       this.customerID
     );
-    console.log(this.property);
+    console.log(property);
+    this._property = property;
+    this.updatePropertyForm = new FormGroup({
+      propertyID: new FormControl(this._property?.propertyID),
+      propertyType: new FormControl(''),
+      Address: new FormControl(''),
+      propertyArea: new FormControl(''),
+      buildingStorey: new FormControl(''),
+      propertyValue: new FormControl(''),
+    });
   }
   gotoPropertyInput(businessID: string) {
     this.router.navigate([`customer-view/${businessID}/AddProperty`]);
+  }
+  async updateProperty() {
+    if (this.updatePropertyForm.valid) {
+      var response = await this.consumerservice.updateProperty(
+        this.updatePropertyForm.value
+      );
+      alert('property Updated');
+    } else {
+      alert('invalid response');
+    }
   }
 }

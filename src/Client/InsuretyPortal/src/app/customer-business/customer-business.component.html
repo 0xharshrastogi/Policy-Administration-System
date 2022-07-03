@@ -12,7 +12,7 @@
       </button>
     </div>
     <div class="container" *ngIf="_business?.message == null">
-      <form>
+      <form [formGroup]="updateBusinessForma" (ngSubmit)="updateBusiness()">
         <div class="row my-2">
           <div class="col-4" id="label">Business ID</div>
           <div class="col">
@@ -29,10 +29,11 @@
           <div class="col-4" id="label">Business Type</div>
           <div class="col">
             <input
-              type="text"
+              type="number"
               class="form-control"
+              formControlName="businessType"
               id="businessTypeID"
-              value="{{ _business!.businessType }}"
+              placeholder="{{ _business!.businessType }}"
             />
           </div>
         </div>
@@ -43,7 +44,8 @@
               type="text"
               class="form-control"
               id="businessName"
-              value="{{ _business!.businessName }}"
+              formControlName="businessName"
+              placeholder="{{ _business!.businessName }}"
             />
           </div>
         </div>
@@ -53,8 +55,9 @@
             <input
               type="text"
               class="form-control"
+              formControlName="totalEmployees"
               id="totalEmployees"
-              value="{{ _business!.totalEmployees }}"
+              placeholder="{{ _business!.totalEmployees }}"
             />
           </div>
         </div>
@@ -65,18 +68,20 @@
               type="text"
               class="form-control"
               id="annualTurnover"
-              value="{{ _business!.annualTurnover }}"
+              formControlName="annualTurnover"
+              placeholder="{{ _business!.annualTurnover }}"
             />
           </div>
         </div>
         <div class="row my-2">
-          <div class="col-4" id="label">Annual Turnover</div>
+          <div class="col-4" id="label">Business Value</div>
           <div class="col">
             <input
               type="text"
               class="form-control"
+              formControlName="businessValue"
               id="businessValue"
-              value="{{ _business!.businessValue }}"
+              placeholder="{{ _business!.businessValue }}"
             />
           </div>
         </div>

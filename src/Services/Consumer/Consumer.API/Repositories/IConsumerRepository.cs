@@ -1,5 +1,5 @@
 using Consumer.API.Models;
-
+using Consumer.API.DTO;
 namespace Consumer.API.Repositories;
 public interface IConsumerRepository
 {
@@ -23,7 +23,7 @@ public interface IConsumerRepository
 
     IQueryable<Business> GetAllBusiness();
 
-    Business UpdateBusiness(Guid id, Business business);
+    Business UpdateBusiness(UpdateBusinessDTO business);
 
     void DeleteBusiness(Guid id);
 
@@ -33,7 +33,7 @@ public interface IConsumerRepository
 
     Property CreateProperty(Property property);
 
-    Property UpdateProperty(Guid id, Property property);
+    Property UpdateProperty(UpdatePropertyDTO updatepropertydto);
 
     void DeleteProperty(Guid id);
 }
