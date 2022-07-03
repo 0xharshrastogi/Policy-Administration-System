@@ -9,7 +9,6 @@ type customer = {
   pan: string;
 };
 
-var x = '';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
@@ -41,6 +40,7 @@ export class CustomerComponent implements OnInit {
   onClick(id: string) {
     this.router.navigate([`/customer-view/${id}`]);
   }
+
   onaddcustomer() {
     this.router.navigate([`/customerinput`]);
   }

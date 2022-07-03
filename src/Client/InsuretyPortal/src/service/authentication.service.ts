@@ -15,6 +15,10 @@ type SignUpCredential = Credential & { name: string; email: string };
 export class AuthenticationService {
   static isSignedIn: boolean = false;
 
+  static get IsSignedIn() {
+    return AuthenticationService.isSignedIn;
+  }
+
   static BaseAuthUri = environment.serviceUri.auth;
 
   static requestPath = {
