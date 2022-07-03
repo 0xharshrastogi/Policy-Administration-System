@@ -42,10 +42,10 @@ export class PropertyInputComponent implements OnInit {
   }
 
   async createProperty() {
-    console.log('create property method invoked');
     if (this.createPropertyFrom.valid) {
       await this._consumerservice.addProperty(this.createPropertyFrom.value);
+      alert('property created');
+      this._router.navigate(['/customer']);
     }
-    alert('property created');
   }
 }

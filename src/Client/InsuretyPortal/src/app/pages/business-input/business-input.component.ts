@@ -44,8 +44,8 @@ export class BusinessInputComponent implements OnInit {
       var response = await this.cservice.addBusiness(
         this.createBusinessForm.value
       );
-      console.log(response);
-      // this.route.navigate(['/customer']);
+      alert('business added');
+      this.route.navigate(['/customer']);
     } else alert('form is invalid');
 
     console.log(this.createBusinessForm.value);
