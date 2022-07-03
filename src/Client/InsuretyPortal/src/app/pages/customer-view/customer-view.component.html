@@ -1,6 +1,8 @@
-<div class="container customer-container">
+<div class="container my-4 customer-container">
   <div *ngIf="isLoading">Loading</div>
-  <div class="display-6 mt-2">Customer Details</div>
+  <div class="col mt-4">
+    <h1>Customer Details</h1>
+  </div>
   <form
     *ngIf="!isLoading"
     class="mt-2"
@@ -65,10 +67,5 @@
         customerID="{{ customer!.customerID }}"
       ></app-customer-business>
     </div>
-    <!-- <div class="col-6"> -->
-    <!-- <app-consumer-business-property -->
-    <!-- customerID="{{ customer!.customerID }}" -->
-    <!-- ></app-consumer-business-property> -->
-    <!-- </div> -->
   </section>
 </div>

@@ -52,11 +52,11 @@ export class CustomerBusinessComponent implements OnInit {
     this.isLoading = false;
     this.updateBusinessForma = new FormGroup({
       BusinessID: new FormControl(this._business!.businessID),
-      businessName: new FormControl(''),
-      businessType: new FormControl(''),
-      totalEmployees: new FormControl(''),
-      annualTurnover: new FormControl(''),
-      businessValue: new FormControl(''),
+      businessName: new FormControl(this._business?.businessName),
+      businessType: new FormControl(this._business?.businessType),
+      totalEmployees: new FormControl(this._business?.totalEmployees),
+      annualTurnover: new FormControl(this._business?.annualTurnover),
+      businessValue: new FormControl(this._business?.businessValue),
     });
   }
 
