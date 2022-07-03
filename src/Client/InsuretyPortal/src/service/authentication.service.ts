@@ -34,9 +34,7 @@ export class AuthenticationService {
   }
 
   async signup(credential: SignUpCredential) {
-    const uri = 'http://localhost:5090/api/Auth/Agent/Signup';
-
-    const response = await fetch(uri, {
+    const response = await fetch(AuthenticationService.requestPath.SIGNUP, {
       method: 'POST',
       body: JSON.stringify(credential),
       credentials: 'same-origin',
