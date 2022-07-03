@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
 export class AppComponent implements OnInit {
   private readonly authService: AuthenticationService;
 
-  title = 'Insurity';
+  title = 'Insureity';
 
   /**
    *
