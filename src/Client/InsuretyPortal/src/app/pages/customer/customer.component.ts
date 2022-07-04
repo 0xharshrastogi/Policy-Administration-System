@@ -53,7 +53,7 @@ export class CustomerComponent implements OnInit {
   }
 
   onClick(id: string) {
-    this.router.navigate([`/customer-view/${id}`]);
+    this.router.navigate([`/customer/${id}`]);
   }
 
   onaddcustomer() {

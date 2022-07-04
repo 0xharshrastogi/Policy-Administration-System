@@ -34,15 +34,19 @@ const routes: Routes = [
     component: IssuePolicyFormComponent,
   },
   {
-    path: 'customer-view/:id',
+    path: 'customer/:id',
     component: CustomerViewComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'login', component: LoginFormComponent },
-  { path: 'customerinput', component: CustomerInputComponent },
-  { path: 'customer-view/:id/Addbusiness', component: BusinessInputComponent },
   {
-    path: 'customer-view/:id/AddProperty',
+    path: 'login',
+    component: LoginFormComponent,
+    canActivate: [ConditionGuard],
+  },
+  { path: 'customer/create', component: CustomerInputComponent },
+  { path: 'customer/:id/Addbusiness', component: BusinessInputComponent },
+  {
+    path: 'customer/:id/AddProperty',
     component: PropertyInputComponent,
   },
   {

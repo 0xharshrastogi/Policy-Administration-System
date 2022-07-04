@@ -48,7 +48,7 @@ export class ConsumerBusinessPropertyComponent implements OnInit {
     });
   }
   gotoPropertyInput(businessID: string) {
-    this.router.navigate([`customer-view/${businessID}/AddProperty`]);
+    this.router.navigate([`customer/${businessID}/AddProperty`]);
   }
   async updateProperty() {
     if (this.updatePropertyForm.valid) {

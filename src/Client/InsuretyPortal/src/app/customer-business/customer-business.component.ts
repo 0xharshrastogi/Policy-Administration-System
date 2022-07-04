@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConsumerService } from 'src/service/consumer-service.service';
-import { HttpStatusCode } from 'src/utils/HttpStatusCode';
 
 type Business = {
   businessID: string;
@@ -61,13 +60,12 @@ export class CustomerBusinessComponent implements OnInit {
   }
 
   gotobusinessform(customerID: string) {
-    this._router.navigate([`customer-view/${customerID}/Addbusiness`]);
+    this._router.navigate([`customer/${customerID}/Addbusiness`]);
   }
   async updateBusiness() {
+    console.log(this.updateBusinessForma);
     if (this.updateBusinessForma.valid) {
-      var response = await this._cservice.updateBusiness(
-        this.updateBusinessForma.value
-      );
+      await this._cservice.updateBusiness(this.updateBusinessForma.value);
       alert('Business Updated');
     } else {
       alert('invalid response');

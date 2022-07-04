@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +6,12 @@ import { AuthenticationService } from 'src/service/authentication.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  private readonly authService: AuthenticationService;
-
   title = 'Insureity';
 
   /**
    *
    */
-  constructor(authservice: AuthenticationService) {
-    this.authService = authservice;
-  }
+  constructor() {}
 
-  async ngOnInit() {
-    this.authService.validate().then(console.dir).catch(console.dir);
-  }
+  async ngOnInit() {}
 }

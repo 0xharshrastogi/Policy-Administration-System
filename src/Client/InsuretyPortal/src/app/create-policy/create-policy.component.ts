@@ -153,7 +153,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   getBusinessCreateUrl() {
-    return `/customer-view/${this.selectedCustomerId}/Addbusiness`;
+    return `/customer/${this.selectedCustomerId}/Addbusiness`;
   }
 
   async onSubmit() {
