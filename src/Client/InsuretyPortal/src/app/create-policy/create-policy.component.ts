@@ -165,10 +165,6 @@ export class CreatePolicyComponent implements OnInit {
       '687ccaa4-4e7b-4b8a-b93e-e3c96f9d9bf1'
     );
 
-    this.policyCreateForm.controls['policyName'].setValue(
-      `Policy-${new Date().getTime()}`
-    );
-
     type CreatePolicyResponse = {
       description: string;
       policyStatus: string;
